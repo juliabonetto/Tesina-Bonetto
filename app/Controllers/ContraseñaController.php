@@ -29,7 +29,7 @@ class ContraseñaController extends BaseController
         $emailService->setMessage("Hacé clic en el siguiente enlace para restablecer tu contraseña: $link");
         $emailService->send();
     
-        return redirect()->to('/login')->with('mensaje', 'Te enviamos un enlace a tu correo.');
+        return redirect()->to('usuario/login')->with('mensaje', 'Te enviamos un enlace a tu correo.');
     }
     public function restablecer($token)
 {
@@ -37,7 +37,7 @@ class ContraseñaController extends BaseController
     $registro = $resetModel->where('token', $token)->first();
 
     if (!$registro) {
-        return redirect()->to('/login')->with('error', 'Token inválido o expirado.');
+        return redirect()->to('usuario/login')->with('error', 'Token inválido o expirado.');
     }
 
     return view('formRestablecer', ['token' => $token]);
@@ -61,7 +61,7 @@ public function guardarNuevaContrasena()
 
     $resetModel->where('token', $token)->delete();
 
-    return redirect()->to('/login')->with('mensaje', 'Contraseña actualizada correctamente.');
+    return redirect()->to('usuario/login')->with('mensaje', 'Contraseña actualizada correctamente.');
 }
 
 public function recuperar()
