@@ -12,7 +12,7 @@
     }
 
     body {
-      background: linear-gradient(135deg, rgb(228, 246, 255), rgb(89, 153, 255));
+      background: linear-gradient(135deg, rgb(228, 246, 255), rgb(0, 155, 64));
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -53,14 +53,14 @@
     }
 
     input:focus {
-      border-color: #4a90e2;
+      border-color:rgb(0, 95, 16);
       outline: none;
     }
 
     button {
       width: 100%;
       padding: 0.75rem;
-      background-color: rgb(21, 0, 209);
+      background-color: rgb(39, 128, 61);
       color: white;
       border: none;
       border-radius: 8px;
@@ -70,7 +70,7 @@
     }
 
     button:hover {
-      background-color: rgb(93, 159, 216);
+      background-color: rgb(20, 110, 47);
     }
 
     .link-btn {
@@ -125,13 +125,13 @@
     }
 
     .btn-yes {
-      background-color: rgb(21, 0, 209);
+      background-color: rgb(18, 112, 30);
       color: white;
       border: none;
     }
 
     .btn-yes:hover {
-      background-color: rgb(93, 159, 216);
+      background-color: rgb(29, 129, 50);
     }
 
     .btn-no {

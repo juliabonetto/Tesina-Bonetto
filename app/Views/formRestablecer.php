@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Restablecer contraseña | OptiGlass</title>
+  <title>Restablecer contraseña | ecoscam</title>
   <style>
     * {
       margin: 0;
@@ -12,7 +12,7 @@
     }
 
     body {
-      background: linear-gradient(135deg, rgb(228, 246, 255), rgb(89, 153, 255));
+      background: linear-gradient(135deg, rgb(228, 246, 255), rgb(14, 121, 0));
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -52,14 +52,14 @@
     }
 
     input:focus {
-      border-color: #4a90e2;
+      border-color:rgb(14, 114, 35);
       outline: none;
     }
 
     button {
       width: 100%;
       padding: 0.75rem;
-      background-color: rgb(21, 0, 209);
+      background-color: rgb(43, 121, 27);
       color: white;
       border: none;
       border-radius: 8px;
@@ -69,7 +69,7 @@
     }
 
     button:hover {
-      background-color: rgb(93, 159, 216);
+      background-color: rgb(13, 180, 35);
     }
 
     .password-container {
@@ -96,7 +96,7 @@
     .link-btn {
       display: block;
       margin-top: 1rem;
-      color: #4a90e2;
+      color:rgb(0, 83, 38);
       text-decoration: none;
       font-size: 0.9rem;
     }
