@@ -108,6 +108,16 @@
 <body>
   <div class="container">
     <h2>Accede a tu cuenta</h2>
+    <?php if (session()->getFlashdata('success')): ?>
+  <p style="color: green; font-weight: bold; margin-bottom: 1rem;">
+    <?= session()->getFlashdata('success') ?>
+  </p>
+<?php endif; ?>
+
+<?php if (session()->getFlashdata('error')): ?>
+  <p class="error-msg"><?= session()->getFlashdata('error') ?></p>
+<?php endif; ?>
+
 
     <?php if (session()->getFlashdata('error')): ?>
       <p class="error-msg"><?= session()->getFlashdata('error') ?></p>
@@ -144,6 +154,7 @@
         passwordInput.type = "password";
         toggleIcon.textContent = "🚮";
       }
+      
     }
   </script>
 </body>

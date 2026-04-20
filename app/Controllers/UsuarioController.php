@@ -12,7 +12,6 @@ class UsuarioController extends BaseController {
   public function registro() {
     return view('registro');
   }
-
   public function registrar() {
     $rules = [
         'nombre' => 'required',
@@ -57,8 +56,27 @@ class UsuarioController extends BaseController {
         'rol' => $rol
     ];
     $usuarioModel->insert($datos);
-    return redirect()->to('/usuario/login')->with('success', 'Registro exitoso. Ahora podés iniciar sesión.');
-  }
+
+    // Enviar correo de confirmación
+    $emailService = \Config\Services::email();
+    $emailService->setFrom('ecoscam2026@gmail.com', 'EcoScam');
+    $emailService->setTo($emailNormalizado);
+    $emailService->setSubject('Registro exitoso en EcoScam');
+    $emailService->setMessage("
+        Hola {$datos['nombre']} {$datos['apellido']},<br><br>
+        Tu registro en <b>EcoScam</b> se ha completado correctamente.<br>
+        Ya podés iniciar sesión en la plataforma.<br><br>
+        ¡Bienvenido!
+    ");
+
+    if (!$emailService->send()) {
+        log_message('error', $emailService->printDebugger(['headers']));
+    }
+
+    // Mensaje en la página
+    return redirect()->to('/usuario/login')
+                     ->with('success', 'Registro exitoso. Te enviamos un correo de confirmación.');
+}
 
   public function login() {
     return view('login');
