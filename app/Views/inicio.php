@@ -17,7 +17,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 40px;
-      background-color: #ffffffcc;
+      background-color:rgb(240, 255, 242);
       box-shadow: 0 2px 4px rgba(4, 49, 8, 0.3);
       position: sticky;
       top: 0;
