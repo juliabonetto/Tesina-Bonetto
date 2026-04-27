@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Servicios Oftalmológicos</title>
+  <title>EcoScam - Clasificación Inteligente de Residuos</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <style>
     body {
@@ -13,7 +13,7 @@
     }
 
     header {
-      background-color: #2a56b4;
+      background-color: #2a9d8f;
       color: white;
       padding: 20px;
       text-align: center;
@@ -35,7 +35,7 @@
     }
 
     h2 {
-      color: #1976d2;
+      color: #2a9d8f;
       margin-bottom: 10px;
     }
 
@@ -55,7 +55,7 @@
     .volver {
       display: inline-block;
       margin-top: 30px;
-      background-color: #1976d2;
+      background-color: #2a9d8f;
       color: white;
       padding: 10px 20px;
       border-radius: 6px;
@@ -64,70 +64,58 @@
     }
 
     .volver:hover {
-      background-color: #145cb0;
+      background-color: #21867a;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Servicios Oftalmológicos</h1>
+    <h1>EcoScam - Tacho Inteligente</h1>
+    <p>Clasificación automática de residuos con IoT y Visión por Computadora</p>
   </header>
 
   <div class="container">
 
     <section>
-      <p>Ofrecemos atención integral y personalizada para el cuidado de la salud visual. Nuestro equipo profesional brinda diagnósticos precisos, tratamientos efectivos y acompañamiento continuo, adaptado a cada paciente.</p>
+      <p>EcoScam es un sistema innovador que facilita la separación de residuos mediante un tacho inteligente. 
+      Utiliza una cámara y un modelo de visión por computadora para identificar si el desecho es plástico, papel, vidrio u orgánico. 
+      El ESP32 recibe la orden y abre el compartimento correcto, reduciendo errores humanos y promoviendo la sostenibilidad.</p>
     </section>
 
     <section>
-      <h2>👁️ Evaluación Clínica Integral</h2>
+      <h2>♻️ Beneficios Principales</h2>
       <ul>
-        <li>Examen de agudeza visual</li>
-        <li>Medición de presión intraocular</li>
-        <li>Evaluación del fondo de ojo</li>
-        <li>Revisión de motilidad ocular y reflejos pupilares</li>
+        <li>Clasificación automática de residuos (plástico, papel, vidrio, orgánico).</li>
+        <li>Reducción de errores humanos en espacios públicos y privados.</li>
+        <li>Generación de estadísticas sobre tipo y cantidad de residuos recolectados.</li>
+        <li>Gestión inteligente de capacidad: evita mezclar residuos cuando un compartimento está lleno.</li>
+        <li>Valor educativo: fomenta la conciencia ambiental en escuelas y comunidades.</li>
       </ul>
     </section>
 
     <section>
-      <h2>🧪 Estudios Complementarios</h2>
+      <h2>⚙️ Tecnologías Utilizadas</h2>
       <ul>
-        <li>Campimetría computarizada</li>
-        <li>Tomografía de coherencia óptica (OCT)</li>
-        <li>Topografía corneal</li>
-        <li>Retinografía digital</li>
+        <li>ESP32 DevKit V1 como microcontrolador.</li>
+        <li>Cámara OV5640 de 5MP para captura de imágenes.</li>
+        <li>Servomotores para apertura de tapas.</li>
+        <li>Sensores ultrasónicos HC-SR04 para medir capacidad.</li>
+        <li>Servidor en Python con TensorFlow/Keras para clasificación.</li>
+        <li>Base de datos MySQL para registro histórico.</li>
       </ul>
     </section>
 
     <section>
-      <h2>👨‍⚕️ Subespecialidades</h2>
-      <ul>
-        <li>Oftalmología pediátrica</li>
-        <li>Retina y vítreo</li>
-        <li>Córnea y superficie ocular</li>
-        <li>Cirugía refractiva y láser</li>
-        <li>Estrabismo y motilidad ocular</li>
-      </ul>
+      <h2>📊 Estadísticas y Educación</h2>
+      <p>EcoScam no solo clasifica residuos, también genera datos útiles para medir impacto ambiental. 
+      Además, incluye consejos prácticos de reciclaje y sostenibilidad, convirtiéndose en una herramienta educativa.</p>
     </section>
 
     <section>
-      <h2>🔍 Seguimiento y Control</h2>
-      <p>Planes personalizados para enfermedades crónicas y postquirúrgicos, garantizando una evolución segura y controlada.</p>
-    </section>
-
-    <section>
-      <h2>🧑‍💻 Asesoramiento Prequirúrgico</h2>
-      <p>Orientación clara sobre opciones quirúrgicas, riesgos y beneficios, para tomar decisiones informadas.</p>
-    </section>
-
-    <section>
-      <h2>🕶️ Lentes y Ayudas Visuales</h2>
-      <ul>
-        <li>Lentes de contacto convencionales y especiales</li>
-        <li>Anteojos recetados</li>
-        <li>Ayudas ópticas para baja visión</li>
-      </ul>
+      <h2>🛒 Opción de Compra</h2>
+      <p>¿Quieres implementar EcoScam en tu institución o empresa? Haz tu pedido en línea:</p>
+      <a href="#comprar" class="volver">Comprar Ahora</a>
     </section>
 
     <a href="<?= site_url('usuario/principal') ?>" class="volver">← Volver al inicio</a>

@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EcoScam</title>
 <style>
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -134,10 +138,11 @@
   <div class="logo">EcoScam</div>
   <nav>
     <a href="#">Inicio</a>
-    <a href="#">¿Cómo Funciona?</a>
+    <!-- Enlace con ancla -->
+    <a href="#como-funciona">¿Cómo Funciona?</a>
     <a href="#">Estadísticas</a>
     <a href="#">Tienda</a>
-    <a href="mailto:optiglass.clinica@gmail.com">Contacto</a>
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ecoscam2026@gmail.com" target="_blank" rel="noopener noreferrer">Contacto</a>
   </nav>
 </header>
 
@@ -150,7 +155,7 @@
   <div class="buttons">
     <a href="<?= site_url('usuario/login') ?>">Inicio de Sesión</a>
     <a href="<?= site_url('usuario/registro') ?>">Registro</a>
-  </div>
+  </div> 
 </div>
 
 <section>
@@ -162,7 +167,8 @@
   </div>
 </section>
 
-<section>
+<!-- Sección con id para el ancla -->
+<section id="como-funciona">
   <h2>¿Cómo Funciona?</h2>
   <p style="max-width: 700px; margin: 0 auto 40px; color:#003d2e;">
     Desde que mostrás el residuo hasta que sabés dónde tirarlo, así trabaja EcoScam para lograr un reciclaje eficiente.
