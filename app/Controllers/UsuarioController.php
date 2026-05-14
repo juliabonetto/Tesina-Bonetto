@@ -59,12 +59,12 @@ class UsuarioController extends BaseController {
 
     // Enviar correo de confirmación
     $emailService = \Config\Services::email();
-    $emailService->setFrom('ecoscam2026@gmail.com', 'EcoScam');
+    $emailService->setFrom('ecoscam2026@gmail.com', 'EcoS-cam');
     $emailService->setTo($emailNormalizado);
-    $emailService->setSubject('Registro exitoso en EcoScam');
+    $emailService->setSubject('Registro exitoso en Eco-Scam');
     $emailService->setMessage("
         Hola {$datos['nombre']} {$datos['apellido']},<br><br>
-        Tu registro en <b>EcoScam</b> se ha completado correctamente.<br>
+        Tu registro en <b>Eco-Scam</b> se ha completado correctamente.<br>
         Ya podés iniciar sesión en la plataforma.<br><br>
         ¡Bienvenido!
     ");
@@ -99,11 +99,10 @@ class UsuarioController extends BaseController {
 
     if ($usuario && password_verify($contraseña, $usuario['contraseña'])) {
       session()->set('usuario', $usuario);
-  
-      // ⚡️ Si el usuario es médico, guardamos sus datos en sesión
-      if ($usuario['rol'] === 'medico') {
+
+      if ($usuario['rol'] === 'cliente') {
           session()->set([
-              'id_medico' => $usuario['id'],
+              'id_cliente' => $usuario['id'],
               'nombre'    => $usuario['nombre'],
               'apellido'  => $usuario['apellido'],
           ]);
@@ -138,12 +137,12 @@ class UsuarioController extends BaseController {
     return view('/perfil', $data);
   }
 
-  public function doctores() {
+  public function cliente() {
     if (! session()->has('usuario')) {
         return redirect()->to('/usuario/login');
     }
 
-    return view('doctores'); 
+    return view('cliente'); 
   }
 
   public function servicios() {

@@ -1,202 +1,180 @@
+<?php
+// EcoScam - Vista de inicio
+// Ubicación sugerida: app/Views/usuario/inicio.php (o donde tengas tu vista actual)
+$tiposResiduos = [
+  ['nombre' => 'Plástico', 'desc' => 'Botellas y envases plásticos.', 'icon' => '♺'],
+  ['nombre' => 'Papel',    'desc' => 'Periódicos, revistas y hojas.', 'icon' => '📄'],
+  ['nombre' => 'Vidrio',   'desc' => 'Botellas y frascos de vidrio.', 'icon' => '🍾'],
+  ['nombre' => 'Orgánico', 'desc' => 'Restos de comida y residuos compostables.', 'icon' => '🍃'],
+];
+
+
+$pasos = [
+  ['n' => '01', 't' => 'Mostrar residuo',     'd' => 'El usuario presenta el residuo frente a la cámara del tacho.'],
+  ['n' => '02', 't' => 'Captura y análisis',  'd' => 'La cámara toma la imagen y el sistema analiza el material.'],
+  ['n' => '03', 't' => 'Verificación',        'd' => 'Si hay dudas, el sistema consulta el tipo de residuo.'],
+  ['n' => '04', 't' => 'Apertura automática', 'd' => 'Se abre el compartimento correspondiente.'],
+  ['n' => '05', 't' => 'Registro',            'd' => 'Se guarda la información del residuo en la base de datos.'],
+  ['n' => '06', 't' => 'Estadísticas',        'd' => 'Se generan datos en tiempo real del uso del sistema.'],
+  ['n' => '07', 't' => 'Advertencia',         'd' => 'Se detecta si el tacho está lleno y avisa al usuario.'],
+  ['n' => '08', 't' => '¡Listo!',             'd' => 'Proceso de clasificación completado. Tu residuo fue separado correctamente. ♻️'],
+];
+
+
+$consejos = [
+  ['t' => 'Recicla en casa',     'd' => 'Separá tus desechos orgánicos de los reciclables.'],
+  ['t' => 'Sostenibilidad diaria','d' => 'Usá productos reutilizables siempre que puedas.'],
+  ['t' => 'Separación correcta', 'd' => 'Clasificá según el tipo de material.'],
+  ['t' => 'Cero desperdicio',    'd' => 'Reducí al máximo el uso de plásticos.'],
+];
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EcoScam</title>
-<style>
-  html {
-    scroll-behavior: smooth;
-  }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoScam · Reciclaje inteligente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<?= base_url('css/estilos.css') ?>">
 
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #f8fff9;
-    color: #094b2c;
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 40px;
-    background: #ffffffee;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  .logo {
-    font-size: 26px;
-    font-weight: bold;
-    color: #2caa6b;
-  }
-  nav a {
-    margin: 0 12px;
-    text-decoration: none;
-    color: #308959;
-    font-weight: 500;
-    transition: 0.3s;
-  }
-  nav a:hover { color: #119146; }
-
-  .main-content {
-    text-align: center;
-    padding: 100px 20px;
-    background: linear-gradient(135deg, #7cdda4, #95d5b2);
-  }
-  .main-content h1 {
-    font-size: 44px;
-    margin-bottom: 20px;
-    color: #074707;
-  }
-  .main-content p {
-    font-size: 18px;
-    max-width: 700px;
-    margin: 0 auto 40px;
-    color: #003d2e;
-  }
-  .buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  .buttons a {
-    padding: 12px 24px;
-    text-decoration: none;
-    font-size: 16px;
-    border-radius: 6px;
-    background-color: #119146;
-    color: white;
-    transition: 0.3s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  }
-  .buttons a:hover {
-    background-color: #30ad3a;
-    transform: translateY(-2px);
-  }
-
-  section {
-    padding: 70px 20px;
-    text-align: center;
-  }
-  section h2 {
-    font-size: 30px;
-    margin-bottom: 25px;
-    color: #074707;
-  }
-
-  /* Colores personalizados por sección */
-  section:nth-of-type(1) {
-    background: linear-gradient(135deg, #a1e9ab, #b0edb9);
-  }
-  section:nth-of-type(2) {
-    background: linear-gradient(135deg, #b0edb9, #caedcf);
-  }
-  section:nth-of-type(3) {
-    background: linear-gradient(135deg, #caedcf, #ffffff);
-  }
-
-  .cards {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .card {
-    background: #ffffffee;
-    backdrop-filter: blur(6px);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-    width: 250px;
-    transition: 0.3s;
-  }
-  .card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-  }
-  .card h3 { color: #2caa6b; margin-bottom: 10px; }
-  .card p { font-size: 14px; color: #333; }
-
-  footer {
-    background: #2caa6b;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-  }
-</style>
 </head>
 <body>
 
-<header>
-  <div class="logo">EcoScam</div>
-  <nav>
-    <a href="#">Inicio</a>
-    <!-- Enlace con ancla -->
-    <a href="#como-funciona">¿Cómo Funciona?</a>
-    <a href="#">Estadísticas</a>
-    <a href="#">Tienda</a>
+  <!-- NAVBAR -->
+  <header class="nav">
+    <a href="#" class="logo">
+      <span class="logo-mark">◐</span>
+      <span>Eco<strong>S-cam</strong></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#funciona">¿Cómo funciona?</a>
+      <a href="#stats">Estadísticas</a>
+      <a href="#tienda">Tienda</a>
     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ecoscam2026@gmail.com" target="_blank" rel="noopener noreferrer">Contacto</a>
-  </nav>
-</header>
 
-<div class="main-content">
-  <h1>Bienvenido a EcoScam 🌱</h1>
-  <p>
-    El tacho inteligente que clasifica automáticamente los residuos para un reciclaje eficiente y sencillo.
-    Separá plástico, papel y vidrio con tecnología avanzada y ayudá a construir un futuro sostenible.
-  </p>
-  <div class="buttons">
-    <a href="<?= site_url('usuario/login') ?>">Inicio de Sesión</a>
-    <a href="<?= site_url('usuario/registro') ?>">Registro</a>
-  </div> 
+
+
+
+
+      
+    </nav>
+     <a href="<?= site_url('usuario/login') ?>" class="nav-cta">Ingresar →</a>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <span class="eyebrow">— Proyecto de reciclaje inteligente</span>
+        <h1>
+          Tirá el residuo.<br>
+          <em>Nosotros lo</em><br>
+          <span class="hl">clasificamos.</span>
+        </h1>
+        <p class="lead">
+          EcoS-cam es un tacho inteligente que reconoce plástico, papel, vidrio y orgánico
+          con visión por computadora. Reciclar nunca fue tan simple.
+        </p>
+      <div class="hero-actions">
+  <a href="<?= site_url('usuario/login') ?>" class="btn btn-primary">Inicio de sesión</a>
+  <a href="<?= site_url('usuario/registro') ?>" class="btn btn-ghost">Crear cuenta</a>
 </div>
 
-<section>
-  <h2>Tipos de Residuos Reconocidos</h2>
-  <div class="cards">
-    <div class="card"><h3>Plástico</h3><p>Botellas y envases plásticos.</p></div>
-    <div class="card"><h3>Papel</h3><p>Periódicos, revistas y hojas.</p></div>
-    <div class="card"><h3>Vidrio</h3><p>Botellas y frascos de vidrio.</p></div>
-  </div>
-</section>
+        <div class="hero-meta">
+          <div><strong>+4</strong><span>materiales reconocidos</span></div>
+          <div><strong>98%</strong><span>precisión de clasificación</span></div>
+          <div><strong>24/7</strong><span>funcionamiento autónomo</span></div>
+        </div>
+      </div>
 
-<!-- Sección con id para el ancla -->
-<section id="como-funciona">
-  <h2>¿Cómo Funciona?</h2>
-  <p style="max-width: 700px; margin: 0 auto 40px; color:#003d2e;">
-    Desde que mostrás el residuo hasta que sabés dónde tirarlo, así trabaja EcoScam para lograr un reciclaje eficiente.
-  </p>
-  <div class="cards">
-    <div class="card"><h3>01. Mostrar residuo</h3><p>El usuario presenta el residuo frente a la cámara del tacho.</p></div>
-    <div class="card"><h3>02. Captura y análisis</h3><p>La cámara toma la imagen y el sistema analiza el material.</p></div>
-    <div class="card"><h3>03. Verificación</h3><p>Si hay dudas, el sistema consulta el tipo de residuo.</p></div>
-    <div class="card"><h3>04. Apertura automática</h3><p>Se abre el compartimento correspondiente.</p></div>
-    <div class="card"><h3>05. Registro</h3><p>Se guarda la información del residuo en la base de datos.</p></div>
-    <div class="card"><h3>06. Estadísticas</h3><p>Se generan datos en tiempo real del uso del sistema.</p></div>
-    <div class="card"><h3>07. Advertencia de capacidad</h3><p>Se detecta si el tacho está lleno.</p></div>
-  </div>
-</section>
+      <div class="hero-visual">
+        <div class="blob"></div>
+        <div class="card-float card-float-1">
+          <span>♺</span>
+          <p>Plástico detectado</p>
+        </div>
+        <div class="card-float card-float-2">
+          <span>📊</span>
+          <p>Registro guardado</p>
+        </div>
+        <div class="device">
+          <div class="device-screen">
+            <div class="scan-line"></div>
+            <div class="device-label">SCAN · 02</div>
+            <div class="device-title">Analizando<br>material…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section>
-  <h2>Consejos y Educación Ambiental</h2>
-  <div class="cards">
-    <div class="card"><h3>Recicla en Casa</h3><p>Separá tus desechos orgánicos.</p></div>
-    <div class="card"><h3>Sostenibilidad Diaria</h3><p>Usá productos reutilizables.</p></div>
-    <div class="card"><h3>Separación Correcta</h3><p>Clasificá según el tipo de material.</p></div>
-    <div class="card"><h3>Cero Desperdicio</h3><p>Reducí el uso de plásticos.</p></div>
-  </div>
-</section>
+  <!-- TIPOS DE RESIDUOS -->
+  <section class="section section-light">
+    <div class="section-head">
+      <span class="eyebrow">01 · Materiales</span>
+      <h2>Tipos de residuos <em>reconocidos</em></h2>
+    </div>
+    <div class="materials">
+      <?php foreach ($tiposResiduos as $i => $t): ?>
+        <article class="material" style="--i: <?= $i ?>">
+          <div class="material-icon"><?= $t['icon'] ?></div>
+          <h3><?= $t['nombre'] ?></h3>
+          <p><?= $t['desc'] ?></p>
+          <span class="material-num">0<?= $i+1 ?></span>
+        </article>
+      <?php endforeach; ?>
+    </div>
+  </section>
 
-<footer>
-  <p>© 2026 EcoScam - Proyecto de reciclaje inteligente</p>
-</footer>
+  <!-- ¿CÓMO FUNCIONA? -->
+  <section class="section section-dark" id="funciona">
+    <div class="section-head">
+      <span class="eyebrow eyebrow-light">02 · Proceso</span>
+      <h2 class="light">¿Cómo <em>funciona</em>?</h2>
+      <p class="section-sub">Desde que mostrás el residuo hasta que sabés dónde tirarlo, así trabaja EcoS-cam para lograr un reciclaje eficiente.</p>
+    </div>
+    <div class="steps">
+      <?php foreach ($pasos as $p): ?>
+        <article class="step">
+          <span class="step-num"><?= $p['n'] ?></span>
+          <h3><?= $p['t'] ?></h3>
+          <p><?= $p['d'] ?></p>
+        </article>
+      <?php endforeach; ?>
+    </div>
+  </section>
+
+  <!-- CONSEJOS -->
+  <section class="section section-light" id="consejos">
+    <div class="section-head">
+      <span class="eyebrow">03 · Educación ambiental</span>
+      <h2>Consejos para una <em>vida sostenible</em></h2>
+    </div>
+    <div class="tips">
+      <?php foreach ($consejos as $c): ?>
+        <article class="tip">
+          <h3><?= $c['t'] ?></h3>
+          <p><?= $c['d'] ?></p>
+          <span class="tip-arrow">→</span>
+        </article>
+      <?php endforeach; ?>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <h2>Reciclar es el primer paso.<br><em>Empezá hoy.</em></h2>
+      <a href="#registro" class="btn btn-primary">Comprar ahora →</a>
+    </div>
+    <div class="footer-bot">
+      <span>© <?= date('Y') ?> EcoS-cam — Proyecto de reciclaje inteligente</span>
+      <span>Tesina Bonetto - Restivo</span>
+    </div>
+  </footer>
 
 </body>
 </html>
