@@ -2,26 +2,45 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>EcoScam - Clasificación Inteligente de Residuos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <title>EcoScam · Clasificación Inteligente de Residuos</title>
   <style>
+    :root {
+      --bg:        #f4f1ea;
+      --ink:       #14241b;
+      --ink-soft:  #3a4a40;
+      --green:     #1f6b3a;
+      --lime:      #c8f257;
+      --radius:    22px;
+      --serif:     'Fraunces', Georgia, serif;
+      --sans:      'Inter', system-ui, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background-color: #f4f7ff;
-      color: #333;
+      background: var(--bg);
+      font-family: var(--sans);
+      color: var(--ink);
+      line-height: 1.6;
     }
 
     header {
-      background-color: #2a9d8f;
-      color: white;
-      padding: 20px;
+      background: var(--green);
+      color: #fff;
+      padding: 24px;
       text-align: center;
     }
 
-    h1 {
-      margin: 0;
-      font-size: 2rem;
+    header h1 {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.85);
     }
 
     .container {
@@ -35,8 +54,11 @@
     }
 
     h2 {
-      color: #2a9d8f;
-      margin-bottom: 10px;
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--green);
+      margin-bottom: 12px;
     }
 
     ul {
@@ -45,40 +67,43 @@
 
     li {
       margin-bottom: 8px;
+      color: var(--ink-soft);
     }
 
     p {
-      line-height: 1.6;
-      font-size: 1.1rem;
+      font-size: 1rem;
+      color: var(--ink-soft);
     }
 
     .volver {
       display: inline-block;
       margin-top: 30px;
-      background-color: #2a9d8f;
-      color: white;
+      background: var(--green);
+      color: #fff;
       padding: 10px 20px;
-      border-radius: 6px;
+      border-radius: var(--radius);
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
     }
 
     .volver:hover {
-      background-color: #21867a;
+      background: var(--ink);
+      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>EcoScam - Tacho Inteligente</h1>
+    <h1>EcoS-cam · Tacho Inteligente</h1>
     <p>Clasificación automática de residuos con IoT y Visión por Computadora</p>
   </header>
 
   <div class="container">
 
     <section>
-      <p>EcoScam es un sistema innovador que facilita la separación de residuos mediante un tacho inteligente. 
+      <p>EcoS-cam es un sistema innovador que facilita la separación de residuos mediante un tacho inteligente. 
       Utiliza una cámara y un modelo de visión por computadora para identificar si el desecho es plástico, papel, vidrio u orgánico. 
       El ESP32 recibe la orden y abre el compartimento correcto, reduciendo errores humanos y promoviendo la sostenibilidad.</p>
     </section>
@@ -108,15 +133,10 @@
 
     <section>
       <h2>📊 Estadísticas y Educación</h2>
-      <p>EcoScam no solo clasifica residuos, también genera datos útiles para medir impacto ambiental. 
+      <p>EcoS-cam no solo clasifica residuos, también genera datos útiles para medir impacto ambiental. 
       Además, incluye consejos prácticos de reciclaje y sostenibilidad, convirtiéndose en una herramienta educativa.</p>
     </section>
 
-    <section>
-      <h2>🛒 Opción de Compra</h2>
-      <p>¿Quieres implementar EcoScam en tu institución o empresa? Haz tu pedido en línea:</p>
-      <a href="#comprar" class="volver">Comprar Ahora</a>
-    </section>
 
     <a href="<?= site_url('usuario/principal') ?>" class="volver">← Volver al inicio</a>
 

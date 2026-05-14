@@ -131,10 +131,10 @@
 
       if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        toggleIcon.textContent = "🤓";
+        toggleIcon.textContent = "v";
       } else {
         passwordInput.type = "password";
-        toggleIcon.textContent = "😎";
+        toggleIcon.textContent = "V";
       }
     }
   </script>

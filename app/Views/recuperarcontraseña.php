@@ -2,17 +2,25 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Recuperar contraseña</title>
+  <title>Recuperar contraseña | EcoScam</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
+    :root {
+      --bg:        #f4f1ea;
+      --ink:       #14241b;
+      --ink-soft:  #3a4a40;
+      --green:     #1f6b3a;
+      --lime:      #c8f257;
+      --radius:    22px;
+      --serif:     'Fraunces', Georgia, serif;
+      --sans:      'Inter', system-ui, sans-serif;
     }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      background: linear-gradient(135deg, rgb(228, 246, 255), rgb(0, 155, 64));
+      background: var(--bg);
+      font-family: var(--sans);
+      color: var(--ink);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -20,92 +28,95 @@
     }
 
     .container {
-      background-color: white;
+      background: #fff;
       padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 30px rgba(20,36,27,0.15);
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       text-align: center;
       position: relative;
     }
 
     h2 {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 600;
       margin-bottom: 1.5rem;
-      color: #333;
+      color: var(--green);
     }
 
     label {
       display: block;
       text-align: left;
       margin-bottom: 0.5rem;
-      color: #555;
+      color: var(--ink-soft);
       font-size: 0.9rem;
+      font-weight: 500;
     }
 
     input {
       width: 100%;
       padding: 0.75rem;
       margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      border: 1px solid rgba(20,36,27,0.2);
+      border-radius: 12px;
       transition: border-color 0.3s;
+      font-size: 15px;
     }
 
     input:focus {
-      border-color:rgb(0, 95, 16);
+      border-color: var(--green);
       outline: none;
     }
 
     button {
       width: 100%;
       padding: 0.75rem;
-      background-color: rgb(39, 128, 61);
-      color: white;
+      background: var(--green);
+      color: #fff;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s;
+      font-weight: 600;
+      font-family: var(--sans);
+      transition: background 0.3s, transform 0.2s;
     }
 
     button:hover {
-      background-color: rgb(20, 110, 47);
+      background: var(--ink);
+      transform: translateY(-2px);
     }
 
     .link-btn {
       display: block;
       margin-top: 1rem;
-      color: #4a90e2;
+      color: var(--green);
       text-decoration: none;
       font-size: 0.9rem;
+      transition: color 0.3s;
     }
 
-    .link-btn:hover {
-      text-decoration: underline;
-    }
+    .link-btn:hover { color: var(--ink); text-decoration: underline; }
 
-    /* 🔹 Modal de confirmación */
+    /* Modal de confirmación */
     .confirm-box {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      inset: 0;
       background: rgba(255,255,255,0.95);
       display: none;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      border-radius: 12px;
+      border-radius: var(--radius);
       padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(20,36,27,0.2);
     }
 
     .confirm-box p {
       margin-bottom: 1rem;
       font-size: 1rem;
-      color: #333;
+      color: var(--ink);
     }
 
     .confirm-btns {
@@ -118,31 +129,28 @@
     .confirm-btns button {
       width: 45%;
       padding: 0.6rem;
-      border-radius: 8px;
-      font-weight: bold;
+      border-radius: 12px;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background 0.3s;
+      font-family: var(--sans);
     }
 
     .btn-yes {
-      background-color: rgb(18, 112, 30);
-      color: white;
+      background: var(--green);
+      color: #fff;
       border: none;
     }
 
-    .btn-yes:hover {
-      background-color: rgb(29, 129, 50);
-    }
+    .btn-yes:hover { background: var(--ink); }
 
     .btn-no {
-      background-color: #ddd;
-      color: #333;
+      background: #ddd;
+      color: var(--ink);
       border: none;
     }
 
-    .btn-no:hover {
-      background-color: #ccc;
-    }
+    .btn-no:hover { background: #ccc; }
   </style>
 </head>
 <body>
@@ -155,7 +163,7 @@
       <button type="submit">Enviar enlace</button>
     </form>
 
-    <!--Confirmación -->
+    <!-- Confirmación -->
     <div id="confirmBox" class="confirm-box">
       <p id="confirmText"></p>
       <div class="confirm-btns">
@@ -176,7 +184,7 @@
     const confirmNo = document.getElementById('confirmNo');
 
     form.addEventListener('submit', function(e) {
-      e.preventDefault(); // Evita enviar el formulario
+      e.preventDefault();
       const email = emailInput.value.trim();
       if (email === '') return;
 
@@ -186,12 +194,12 @@
 
     confirmYes.addEventListener('click', function() {
       confirmBox.style.display = 'none';
-      form.submit(); // Envía el formulario
+      form.submit();
     });
 
     confirmNo.addEventListener('click', function() {
       confirmBox.style.display = 'none';
-      emailInput.focus(); // Permite editar el correo
+      emailInput.focus();
     });
   </script>
 </body>

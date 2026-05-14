@@ -1,0 +1,402 @@
+/* =========================================================
+   DASHBOARD ECO SCAM
+========================================================= */
+
+:root {
+    --green-dark: #1f4d2b;
+    --green: #2f7a3f;
+    --green-light: #4ea25c;
+    --green-soft: #e8f4ea;
+
+    --bg: #f7faf7;
+    --card: #ffffff;
+    --text: #1c2620;
+    --muted: #647069;
+    --border: #dfe8e1;
+
+    --shadow:
+        0 4px 14px rgba(20, 40, 25, 0.08);
+
+    --radius: 18px;
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    line-height: 1.5;
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    width: 100%;
+
+    background: rgba(255,255,255,0.85);
+
+    backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid var(--border);
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-inner {
+    max-width: 1300px;
+
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 18px 28px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    text-decoration: none;
+    color: var(--green-dark);
+
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.brand-mark {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        var(--green),
+        var(--green-light)
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    gap: 22px;
+}
+
+.nav-links a {
+    text-decoration: none;
+
+    color: var(--muted);
+
+    font-weight: 500;
+
+    transition: .2s;
+}
+
+.nav-links a:hover,
+.nav-links .active {
+    color: var(--green-dark);
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.container {
+    width: 100%;
+    max-width: 1300px;
+
+    margin: auto;
+
+    padding: 40px 24px;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.welcome-block {
+    background:
+        linear-gradient(
+            135deg,
+            #e6f5e8,
+            #f7fcf8
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    padding: 50px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 40px;
+}
+
+.welcome-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+.user-name {
+    color: var(--green);
+}
+
+.welcome-text p {
+    color: var(--muted);
+    max-width: 650px;
+}
+
+.hero-badge {
+    background: white;
+
+    border: 1px solid var(--border);
+
+    padding: 16px 22px;
+
+    border-radius: 16px;
+
+    font-weight: 600;
+
+    color: var(--green-dark);
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.cards-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 22px;
+
+    margin-bottom: 40px;
+}
+
+.card {
+    background: var(--card);
+
+    border-radius: var(--radius);
+
+    padding: 28px;
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow);
+
+    transition: .25s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    color: var(--green-dark);
+}
+
+.card p {
+    color: var(--muted);
+    font-size: .95rem;
+}
+
+/* =========================================================
+   HISTORIAL
+========================================================= */
+
+.history-section {
+    background: white;
+
+    border-radius: var(--radius);
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow);
+
+    padding: 28px;
+}
+
+.history-section h2 {
+    margin-bottom: 24px;
+    color: var(--green-dark);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #f1f6f2;
+}
+
+th,
+td {
+    padding: 16px;
+    text-align: left;
+}
+
+th {
+    color: var(--green-dark);
+}
+
+tbody tr {
+    border-top: 1px solid var(--border);
+}
+
+tbody tr:hover {
+    background: #f9fcfa;
+}
+
+/* =========================================================
+   TAGS
+========================================================= */
+
+.tag {
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 999px;
+
+    font-size: .85rem;
+    font-weight: 600;
+}
+
+.tag-plastic {
+    background: #dff5e3;
+    color: #216332;
+}
+
+.tag-paper {
+    background: #eef4ff;
+    color: #2b4c9c;
+}
+
+.tag-organic {
+    background: #fff0db;
+    color: #915d18;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    background: var(--green);
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 12px 18px;
+
+    border-radius: 14px;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.btn:hover {
+    background: var(--green-dark);
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    margin-top: 50px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: .92rem;
+
+    padding-bottom: 30px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .welcome-block {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-inner {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .welcome-text h1 {
+        font-size: 2rem;
+    }
+
+    .container {
+        padding: 25px 16px;
+    }
+
+    .welcome-block {
+        padding: 30px;
+    }
+}

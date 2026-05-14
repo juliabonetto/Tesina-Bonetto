@@ -4,15 +4,23 @@
   <meta charset="UTF-8">
   <title>Registrarse | EcoScam</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
+    :root {
+      --bg:        #f4f1ea;
+      --ink:       #14241b;
+      --ink-soft:  #3a4a40;
+      --green:     #1f6b3a;
+      --lime:      #c8f257;
+      --radius:    22px;
+      --serif:     'Fraunces', Georgia, serif;
+      --sans:      'Inter', system-ui, sans-serif;
     }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      background: linear-gradient(135deg, rgb(208, 252, 230), rgb(82, 190, 124));
+      background: var(--bg);
+      font-family: var(--sans);
+      color: var(--ink);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -20,61 +28,66 @@
     }
 
     .container {
-      background-color: white;
+      background: #fff;
       padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 30px rgba(20,36,27,0.15);
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       text-align: center;
     }
 
     h2 {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 600;
       margin-bottom: 1.5rem;
-      color: #333;
+      color: var(--green);
     }
 
     input {
       width: 100%;
       padding: 0.75rem;
       margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      border: 1px solid rgba(20,36,27,0.2);
+      border-radius: 12px;
       transition: border-color 0.3s;
+      font-size: 15px;
     }
 
     input:focus {
-      border-color: rgb(25, 110, 39);
+      border-color: var(--green);
       outline: none;
     }
 
     button {
       width: 100%;
       padding: 0.75rem;
-      background-color: rgb(0, 172, 57);
-      color: white;
+      background: var(--green);
+      color: #fff;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s;
+      font-weight: 600;
+      font-family: var(--sans);
+      transition: background 0.3s, transform 0.2s;
     }
 
     button:hover {
-      background-color: rgb(26, 114, 40);
+      background: var(--ink);
+      transform: translateY(-2px);
     }
 
     .link-btn {
       display: block;
       margin-top: 1rem;
-      color: rgb(14, 190, 117);
+      color: var(--green);
       text-decoration: none;
       font-size: 0.9rem;
+      transition: color 0.3s;
     }
 
-    .link-btn:hover {
-      text-decoration: underline;
-    }
+    .link-btn:hover { color: var(--ink); text-decoration: underline; }
 
     .error-msg {
       color: red;
@@ -89,7 +102,7 @@
     }
 
     .password-container input {
-      padding-right: 40px; 
+      padding-right: 40px;
     }
 
     .toggle-password {
@@ -99,7 +112,7 @@
       transform: translateY(-50%);
       cursor: pointer;
       font-size: 18px;
-      color: #555;
+      color: var(--ink-soft);
       user-select: none;
     }
   </style>
@@ -107,16 +120,12 @@
 <body>
   <div class="container">
     <h2>Crear cuenta</h2>
+
     <?php if (session()->getFlashdata('success')): ?>
-  <p style="color: green; font-weight: bold; margin-bottom: 1rem;">
-    <?= session()->getFlashdata('success') ?>
-  </p>
-<?php endif; ?>
-
-<?php if (session()->getFlashdata('error')): ?>
-  <p class="error-msg"><?= session()->getFlashdata('error') ?></p>
-<?php endif; ?>
-
+      <p style="color: var(--green); font-weight: bold; margin-bottom: 1rem;">
+        <?= session()->getFlashdata('success') ?>
+      </p>
+    <?php endif; ?>
 
     <?php if (session()->getFlashdata('error')): ?>
       <p class="error-msg"><?= session()->getFlashdata('error') ?></p>
@@ -127,14 +136,14 @@
       <input type="text" name="nombre" placeholder="Nombre" value="<?= old('nombre') ?>" required>
       <input type="text" name="apellido" placeholder="Apellido" value="<?= old('apellido') ?>" required>
       <input type="text" name="dni" placeholder="DNI" value="<?= old('dni') ?>" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-      
+
       <input type="email" id="email" name="email" placeholder="Correo electrónico" value="<?= old('email') ?>" required>
       <input type="email" id="confirmEmail" name="confirmEmail" placeholder="Confirmar correo electrónico" required>
-      <p id="emailError" class="error-msg" style="display:none;">Los gmails no coinciden</p>
+      <p id="emailError" class="error-msg" style="display:none;">Los correos no coinciden</p>
 
       <div class="password-container">
         <input type="password" id="password" name="contraseña" placeholder="Contraseña" required>
-        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        <span class="toggle-password" onclick="togglePassword()">🌱</span>
       </div>
 
       <button type="submit">Registrarse</button>
@@ -151,10 +160,10 @@
 
       if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        toggleIcon.textContent = "👓"; 
+        toggleIcon.textContent = "👁️";
       } else {
         passwordInput.type = "password";
-        toggleIcon.textContent = "👁️"; 
+        toggleIcon.textContent = "🌱";
       }
     }
 
@@ -173,4 +182,3 @@
   </script>
 </body>
 </html>
-

@@ -4,15 +4,23 @@
   <meta charset="UTF-8">
   <title>Iniciar sesión | EcoScam</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
+    :root {
+      --bg:        #f4f1ea;
+      --ink:       #14241b;
+      --ink-soft:  #3a4a40;
+      --green:     #1f6b3a;
+      --lime:      #c8f257;
+      --radius:    22px;
+      --serif:     'Fraunces', Georgia, serif;
+      --sans:      'Inter', system-ui, sans-serif;
     }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      background: linear-gradient(135deg, rgb(208, 252, 230), rgb(82, 190, 124));
+      background: var(--bg);
+      font-family: var(--sans);
+      color: var(--ink);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -20,61 +28,66 @@
     }
 
     .container {
-      background-color: white;
+      background: #fff;
       padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 30px rgba(20,36,27,0.15);
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       text-align: center;
     }
 
     h2 {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 600;
       margin-bottom: 1.5rem;
-      color: #333;
+      color: var(--green);
     }
 
     input {
       width: 100%;
       padding: 0.75rem;
       margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      border: 1px solid rgba(20,36,27,0.2);
+      border-radius: 12px;
       transition: border-color 0.3s;
+      font-size: 15px;
     }
 
     input:focus {
-      border-color:rgb(0, 175, 15);
+      border-color: var(--green);
       outline: none;
     }
 
     button {
       width: 100%;
       padding: 0.75rem;
-      background-color: rgb(60, 167, 101);
-      color: white;
+      background: var(--green);
+      color: #fff;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s;
+      font-weight: 600;
+      font-family: var(--sans);
+      transition: background 0.3s, transform 0.2s;
     }
 
     button:hover {
-      background-color: rgb(51, 129, 74);
+      background: var(--ink);
+      transform: translateY(-2px);
     }
 
     .link-btn {
       display: block;
       margin-top: 1rem;
-      color:rgb(43, 161, 59);
+      color: var(--green);
       text-decoration: none;
       font-size: 0.9rem;
+      transition: color 0.3s;
     }
 
-    .link-btn:hover {
-      text-decoration: underline;
-    }
+    .link-btn:hover { color: var(--ink); text-decoration: underline; }
 
     .error-msg {
       color: red;
@@ -82,7 +95,6 @@
       font-size: 0.9rem;
     }
 
-    /* 🔹 Estilo para el campo con ojito */
     .password-container {
       position: relative;
       width: 100%;
@@ -90,7 +102,7 @@
     }
 
     .password-container input {
-      padding-right: 40px; /* espacio para el ojito */
+      padding-right: 40px;
     }
 
     .toggle-password {
@@ -100,7 +112,7 @@
       transform: translateY(-50%);
       cursor: pointer;
       font-size: 18px;
-      color: #555;
+      color: var(--ink-soft);
       user-select: none;
     }
   </style>
@@ -108,16 +120,12 @@
 <body>
   <div class="container">
     <h2>Accede a tu cuenta</h2>
+
     <?php if (session()->getFlashdata('success')): ?>
-  <p style="color: green; font-weight: bold; margin-bottom: 1rem;">
-    <?= session()->getFlashdata('success') ?>
-  </p>
-<?php endif; ?>
-
-<?php if (session()->getFlashdata('error')): ?>
-  <p class="error-msg"><?= session()->getFlashdata('error') ?></p>
-<?php endif; ?>
-
+      <p style="color: var(--green); font-weight: bold; margin-bottom: 1rem;">
+        <?= session()->getFlashdata('success') ?>
+      </p>
+    <?php endif; ?>
 
     <?php if (session()->getFlashdata('error')): ?>
       <p class="error-msg"><?= session()->getFlashdata('error') ?></p>
@@ -127,7 +135,6 @@
       <?= csrf_field() ?>
       <input type="email" name="email" placeholder="Correo electrónico" value="<?= old('email') ?>" required>
 
-      <!-- contraseña con ojito -->
       <div class="password-container">
         <input type="password" id="password" name="contraseña" placeholder="Contraseña" required>
         <span class="toggle-password" onclick="togglePassword()">🌱</span>
@@ -137,9 +144,8 @@
     </form>
 
     <a href="<?= site_url('usuario/registro') ?>" class="link-btn">¿Todavía no tenés cuenta? Registrarme</a>
-        <a href="<?= site_url('usuario/recuperar') ?>"  class="link-btn" > ¿Olvidaste tu contraseña? </a>  
-  <a href="<?= site_url('usuario/inicio') ?>" class="link-btn" style="margin-top: 0.5rem;">← Volver al inicio</a>
-
+    <a href="<?= site_url('usuario/recuperar') ?>" class="link-btn">¿Olvidaste tu contraseña?</a>
+    <a href="<?= site_url('usuario/inicio') ?>" class="link-btn" style="margin-top: 0.5rem;">← Volver al inicio</a>
   </div>
 
   <script>
@@ -149,12 +155,11 @@
 
       if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        toggleIcon.textContent = "🗑️"; // cambia el icono
+        toggleIcon.textContent = "👁️";
       } else {
         passwordInput.type = "password";
-        toggleIcon.textContent = "🚮";
+        toggleIcon.textContent = "🌱";
       }
-      
     }
   </script>
 </body>
