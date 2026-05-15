@@ -6,14 +6,11 @@ use CodeIgniter\Router\RouteCollection;
 
 // UsuarioController (registro, login, perfil, etc.)
 $routes->get('/usuario/inicio', 'UsuarioController::inicio');
-
-
 $routes->get('/usuario/login', 'UsuarioController::login');
 $routes->post('/usuario/iniciarSesion', 'UsuarioController::iniciarSesion');
 $routes->get('/usuario/principal', 'UsuarioController::principal');
 $routes->get('/usuario/cerrarSesion', 'UsuarioController::cerrarSesion');
 $routes->get('/usuario/perfil', 'UsuarioController::perfil');
-$routes->get('/usuario/doctores', 'UsuarioController::doctores');
 $routes->get('/usuario/servicios', 'UsuarioController::servicios');
 $routes->get('/usuario/politica_privacidad', 'UsuarioController::politica_privacidad');
 $routes->get('/usuario/cambiarPass', 'UsuarioController::cambiarPass');

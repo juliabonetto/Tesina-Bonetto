@@ -1,6 +1,5 @@
 <?php
-// EcoScam - Vista de inicio
-// Ubicación sugerida: app/Views/usuario/inicio.php (o donde tengas tu vista actual)
+
 $tiposResiduos = [
   ['nombre' => 'Plástico', 'desc' => 'Botellas y envases plásticos.', 'icon' => '♺'],
   ['nombre' => 'Papel',    'desc' => 'Periódicos, revistas y hojas.', 'icon' => '📄'],
@@ -54,12 +53,6 @@ $consejos = [
       <a href="#stats">Estadísticas</a>
       <a href="#tienda">Tienda</a>
     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ecoscam2026@gmail.com" target="_blank" rel="noopener noreferrer">Contacto</a>
-
-
-
-
-
-      
     </nav>
      <a href="<?= site_url('usuario/login') ?>" class="nav-cta">Ingresar →</a>
   </header>

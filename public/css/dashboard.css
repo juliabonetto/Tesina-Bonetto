@@ -151,9 +151,10 @@ body {
    MENU DESPLEGABLE
 ========================================================= */
 
-.menu {
+.menu{
     position: relative;
     margin-left: auto;
+
 }
 
 .menu-button {
@@ -190,29 +191,27 @@ body {
     transform: translateY(-2px);
 }
 
-.menu-content {
-
+.menu-content{
     position: absolute;
 
-    top: 58px;
+    top: 100%;           
     left: 0;
 
+
+
     width: 270px;
-
     background: white;
-
     border: 1px solid var(--border);
-
     border-radius: 18px;
-
-    box-shadow:
-        0 12px 25px rgba(0,0,0,.10);
+    box-shadow: 0 12px 25px rgba(0,0,0,.10);
 
     overflow: hidden;
-
     display: none;
-
     z-index: 9999;
+}
+
+.menu:hover .menu-content{
+    display:block;
 }
 
 .menu-content a {
@@ -386,6 +385,9 @@ body {
 
     padding: 28px;
 }
+
+
+
 
 .history-section h2 {
 

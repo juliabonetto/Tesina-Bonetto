@@ -90,14 +90,18 @@
             <a href="<?= site_url('usuario/politica_privacidad') ?>">
                 📄 Políticas de privacidad
             </a>
-
+<a href="<?= site_url('usuario/cerrarSesion') ?>">🔒 Cerrar sesión</a>
         </div>
 
     </div>
 
 </div>
 
-        </div>
+     
+
+          
+
+     
 
     </header>
 

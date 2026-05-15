@@ -12,7 +12,10 @@ class UsuarioController extends BaseController {
   public function registro() {
     return view('registro');
   }
-  public function registrar() {
+
+ 
+
+  public function   registrar() {
     $rules = [
         'nombre' => 'required',
         'apellido' => 'required',
@@ -31,7 +34,7 @@ class UsuarioController extends BaseController {
     $emailIngresado = $this->request->getPost('email');
     $confirmEmail = $this->request->getPost('confirmEmail');
 
-    // Validación de coincidencia de correos
+    // Validación de coincidencia 
     if (strtolower(trim($emailIngresado)) !== strtolower(trim($confirmEmail))) {
         return redirect()->back()->withInput()->with('error', 'Los gmails no coinciden');
     }
@@ -45,17 +48,21 @@ class UsuarioController extends BaseController {
     }
 
     $emailNormalizado = strtolower(trim($emailIngresado));
-    $rol = 'paciente';
+    $rol = 'cliente';
 
-    $datos = [
-        'nombre' => $this->request->getPost('nombre'),
-        'apellido' => $this->request->getPost('apellido'),
-        'dni' => $dniIngresado,
-        'email' => $emailNormalizado,
-        'contraseña' => password_hash($this->request->getPost('contraseña'), PASSWORD_DEFAULT),
-        'rol' => $rol
-    ];
-    $usuarioModel->insert($datos);
+
+
+               $datos = [
+               'nombre' => $this->request->getPost('nombre'),
+                'apellido' => $this->request->getPost('apellido'),
+               'dni' => $dniIngresado,
+               'email' => $emailNormalizado,
+                'contraseña' => password_hash($this->request->getPost('contraseña'), PASSWORD_DEFAULT),
+                 'rol' => $rol
+         ];
+           $usuarioModel->insert($datos);
+
+
 
     // Enviar correo de confirmación
     $emailService = \Config\Services::email();
