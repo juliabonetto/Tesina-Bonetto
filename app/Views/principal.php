@@ -1,45 +1,109 @@
+<!-- principal.php -->
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>EcoScan principal</title>
-<link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
+
+    <link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
 
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- =========================================================
+         NAVBAR
+    ========================================================== -->
 
     <header class="navbar">
 
         <div class="nav-inner">
 
+           
+            <!-- LOGO -->
             <a href="#" class="brand">
-                <span class="brand-mark">♻</span>
-                <span>EcoScan</span>
+
+                <span class="brand-mark">
+                    ♻
+                </span>
+
+                <span>
+                    EcoS-cam
+                </span>
+
             </a>
 
+            <!-- LINKS -->
             <nav class="nav-links">
-                <a href="#" class="active">Resumen</a>
-                <a href="#">Mis Tachos</a>
-                <a href="#">Estadísticas</a>
-                <a href="#">Educación</a>
-                <a href="#">Tienda</a>
+
+                <a href="#" class="active">
+                    Resumen
+                </a>
+
+                <a href="#">
+                    Mis Tachos
+                </a>
+
+                <a href="#">
+                    Estadísticas
+                </a>
+
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ecoscam2026@gmail.com" target="_blank" rel="noopener noreferrer">
+                    Contacto
+                </a>
+
+
+
+
+
+                
+                <a href="#">
+                    Tienda
+                </a>
+
             </nav>
 
-            <a href="<?= base_url('/usuario/perfil') ?>" class="btn">
-                Mi Cuenta
+            <!-- MENU DERECHA -->
+    <div class="menu">
+
+        <button class="menu-button">
+            ☰ Menú
+        </button>
+
+        <div class="menu-content">
+
+            <a href="<?= site_url('usuario/perfil') ?>">
+                👤 Perfil
             </a>
+
+
+
+            <a href="<?= site_url('usuario/servicios') ?>">
+                🛠️ Servicios
+            </a>
+
+            <a href="<?= site_url('usuario/politica_privacidad') ?>">
+                📄 Políticas de privacidad
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
         </div>
 
     </header>
 
-    <!-- MAIN -->
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
 
     <main class="container">
 
@@ -50,10 +114,15 @@
             <div class="welcome-text">
 
                 <h1>
-                    ¡Bienvenido,
+
+                    ¡Bienvenid@,
+
                     <span class="user-name">
                         <?= esc($usuario['nombre']) ?>
-                    </span>!
+                    </span>
+
+                    !
+
                 </h1>
 
                 <p>
@@ -95,72 +164,81 @@
 
         </section>
 
-        <!-- HISTORIAL -->
+ <!-- HISTORIAL -->
 
-        <section class="history-section">
+<section class="history-section">
 
-            <h2>Últimos movimientos</h2>
+    <h2>
+        Últimos movimientos
+    </h2>
 
-            <div class="table-wrapper">
+    <div class="table-wrapper">
 
-                <table>
+        <table>
 
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Tipo</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
+            <thead>
 
-                    <tbody>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Tipo</th>
+                </tr>
 
-                        <tr>
-                            <td>28/05/2026</td>
-                            <td>08:20</td>
-                            <td>
-                                <span class="tag tag-plastic">
-                                    Plástico
-                                </span>
-                            </td>
-                            <td>Reciclado</td>
-                        </tr>
+            </thead>
 
-                        <tr>
-                            <td>27/05/2026</td>
-                            <td>17:45</td>
-                            <td>
-                                <span class="tag tag-paper">
-                                    Papel
-                                </span>
-                            </td>
-                            <td>Procesado</td>
-                        </tr>
+            <tbody>
 
-                        <tr>
-                            <td>26/05/2026</td>
-                            <td>14:10</td>
-                            <td>
-                                <span class="tag tag-organic">
-                                    Orgánico
-                                </span>
-                            </td>
-                            <td>Compostado</td>
-                        </tr>
+                <tr>
 
-                    </tbody>
+                    <td>28/05/2026</td>
+                    <td>08:20</td>
 
-                </table>
+                    <td>
+                        <span class="tag tag-plastic">
+                            Plástico
+                        </span>
+                    </td>
 
-            </div>
+                </tr>
 
-        </section>
+                <tr>
+
+                    <td>27/05/2026</td>
+                    <td>17:45</td>
+
+                    <td>
+                        <span class="tag tag-paper">
+                            Papel
+                        </span>
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>26/05/2026</td>
+                    <td>14:10</td>
+
+                    <td>
+                        <span class="tag tag-organic">
+                            Orgánico
+                        </span>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
 
         <!-- FOOTER -->
 
         <footer class="footer">
-            EcoScan © 2026 - Todos los derechos reservados
+            EcoS-cam © 2026 - Todos los derechos reservados
         </footer>
 
     </main>

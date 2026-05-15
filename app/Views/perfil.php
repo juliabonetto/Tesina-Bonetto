@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Perfil de Usuario | EcoScam</title>
+  <title>Perfil de Usuario | EcoS-cam</title>
   <style>
     :root {
       --bg:        #f4f1ea;
@@ -152,15 +152,8 @@
 <body>
 
 <header>
-  <span>EcoScam · Perfil</span>
-  <div class="menu">
-    <button class="menu-button">Menú</button>
-    <div class="menu-content">
-      <a href="<?= site_url('usuario/principal') ?>">Inicio</a>
-      <a href="<?= site_url('usuario/cambiarPass') ?>">Cambiar contraseña</a>
-      <a href="<?= site_url('usuario/logout') ?>">Cerrar sesión</a>
-    </div>
-  </div>
+  <span>EcoS-cam · Perfil</span>
+
 </header>
 
 <div class="perfil-container">
@@ -169,7 +162,7 @@
   <div class="perfil-info">
     <p><strong>Email:</strong> <?= esc($usuario['email']) ?></p>
     <p><strong>Nombre:</strong> <?= esc($usuario['nombre'] ?? 'No especificado') ?></p>
-    <p><strong>Rol:</strong> <?= esc($usuario['rol']) ?></p>
+
   </div>
 
   <div class="botones-acciones">
