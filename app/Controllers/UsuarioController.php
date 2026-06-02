@@ -1,8 +1,7 @@
 <?php
 namespace App\Controllers;
-
 use App\Models\UsuarioModel;
-
+use App\Models\EstadisticaModel;
 class UsuarioController extends BaseController {
 
   public function inicio() {
@@ -13,7 +12,6 @@ class UsuarioController extends BaseController {
     return view('registro');
   }
 
- 
 
   public function   registrar() {
     $rules = [
@@ -225,5 +223,38 @@ class UsuarioController extends BaseController {
 
       return redirect()->to('/usuario/perfil')->with('success', 'Contraseña actualizada con éxito.');
   }
+    // Estadisticas
+public function estadistica()
+{
+
+    if (!session()->has('usuario')) {
+        return redirect()->to('/usuario/login');
+    }
+
+    $model = new EstadisticaModel();
+
+    $residuos = $model->residuosPorTipo();
+
+    $labels = [];
+    $datos = [];
+
+    foreach ($residuos as $r) {
+        $labels[] = ucfirst($r['residuo']);
+        $datos[] = $r['cantidad'];
+    }
+
+    $data = [
+        'usuario'  => session()->get('usuario'),
+        'total'    => $model->totalClasificaciones(),
+        'promedio' => $model->promedioConfianza(),
+        'hoy'      => $model->clasificacionesHoy(),
+        'ultimos'  => $model->ultimosRegistros(),
+        'labels'   => json_encode($labels),
+        'datos'    => json_encode($datos)
+    ];
+
+    return view('estadistica', $data);
+}
+
 }
 ?>

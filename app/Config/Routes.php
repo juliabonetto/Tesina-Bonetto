@@ -33,3 +33,7 @@ $routes->get('/usuario/registro', 'UsuarioController::registro');
 
 // Procesar el formulario de registro
 $routes->post('/usuario/registrar', 'UsuarioController::registrar');
+
+
+//estadisticas
+$routes->get('usuario/estadistica', 'UsuarioController::estadistica');

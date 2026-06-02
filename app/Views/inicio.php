@@ -41,7 +41,7 @@ $consejos = [
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- BOTONES -->
   <header class="nav">
     <a href="#" class="logo">
       <span class="logo-mark">◐</span>

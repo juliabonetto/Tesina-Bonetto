@@ -16,16 +16,11 @@
 
 <body>
 
-    <!-- =========================================================
-         NAVBAR
-    ========================================================== -->
-
     <header class="navbar">
 
         <div class="nav-inner">
 
            
-            <!-- LOGO -->
             <a href="#" class="brand">
 
                 <span class="brand-mark">
@@ -38,7 +33,6 @@
 
             </a>
 
-            <!-- LINKS -->
             <nav class="nav-links">
 
                 <a href="#" class="active">
@@ -49,26 +43,20 @@
                     Mis Tachos
                 </a>
 
-                <a href="#">
-                    Estadísticas
-                </a>
+                <a href="<?= site_url('usuario/estadistica') ?>">
+    Estadísticas
+</a>
 
     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ecoscam2026@gmail.com" target="_blank" rel="noopener noreferrer">
                     Contacto
                 </a>
 
-
-
-
-
-                
                 <a href="#">
                     Tienda
                 </a>
 
             </nav>
 
-            <!-- MENU DERECHA -->
     <div class="menu">
 
         <button class="menu-button">
@@ -80,8 +68,6 @@
             <a href="<?= site_url('usuario/perfil') ?>">
                 👤 Perfil
             </a>
-
-
 
             <a href="<?= site_url('usuario/servicios') ?>">
                 🛠️ Servicios
@@ -97,21 +83,9 @@
 
 </div>
 
-     
-
-          
-
-     
-
     </header>
 
-    <!-- =========================================================
-         MAIN
-    ========================================================== -->
-
     <main class="container">
-
-        <!-- HERO -->
 
         <section class="welcome-block">
 
@@ -142,7 +116,6 @@
 
         </section>
 
-        <!-- CARDS -->
 
         <section class="cards-grid">
 
@@ -168,7 +141,6 @@
 
         </section>
 
- <!-- HISTORIAL -->
 
 <section class="history-section">
 
@@ -195,7 +167,7 @@
                 <tr>
 
                     <td>28/05/2026</td>
-                    <td>08:20</td>
+                    <td>09:50</td>
 
                     <td>
                         <span class="tag tag-plastic">
@@ -238,8 +210,6 @@
     </div>
 
 </section>
-
-        <!-- FOOTER -->
 
         <footer class="footer">
             EcoS-cam © 2026 - Todos los derechos reservados
