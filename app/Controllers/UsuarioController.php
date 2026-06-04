@@ -2,6 +2,7 @@
 namespace App\Controllers;
 use App\Models\UsuarioModel;
 use App\Models\EstadisticaModel;
+use App\Models\ClasificacionModel;
 class UsuarioController extends BaseController {
 
   public function inicio() {
@@ -119,15 +120,25 @@ class UsuarioController extends BaseController {
   }
 }
 
-  public function principal() {
+public function principal()
+{
     if (!session()->has('usuario')) {
-      return redirect()->to('/usuario/login');
+        return redirect()->to('/usuario/login');
     }
 
     $usuario = session()->get('usuario');
-    return view('principal', ['usuario' => $usuario]);
-  }
 
+    $clasificacionModel = new ClasificacionModel();
+
+    $data = [
+        'usuario' => $usuario,
+        'residuosHoy' => $clasificacionModel->obtenerResiduosHoy(),
+        'impactoAmbiental' => $clasificacionModel->obtenerImpactoAmbiental(),
+        'nivelEco' => $clasificacionModel->obtenerNivelEcologico()
+    ];
+
+    return view('principal', $data);
+}
   public function cerrarSesion() {
     session()->destroy();
     return redirect()->to('/usuario/login');
@@ -254,6 +265,26 @@ public function estadistica()
     ];
 
     return view('estadistica', $data);
+}
+
+public function logro()
+{
+    if (!session()->has('usuario')) {
+        return redirect()->to('/usuario/login');
+    }
+
+    $usuario = session()->get('usuario');
+
+    $clasificacionModel = new ClasificacionModel();
+
+    $data = [
+        'usuario' => $usuario,
+        'residuosHoy' => $clasificacionModel->obtenerResiduosHoy(),
+        'impactoAmbiental' => $clasificacionModel->obtenerImpactoAmbiental(),
+        'nivelEco' => $clasificacionModel->obtenerNivelEcologico()
+    ];
+
+    return view('logro', $data);
 }
 
 }

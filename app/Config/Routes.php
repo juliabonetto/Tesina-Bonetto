@@ -37,3 +37,12 @@ $routes->post('/usuario/registrar', 'UsuarioController::registrar');
 
 //estadisticas
 $routes->get('usuario/estadistica', 'UsuarioController::estadistica');
+
+//pago
+$routes->get('/comprar/(:num)', 'PagosController::comprar/$1');
+
+$routes->get('/pagos/exito', 'PagosController::exito');
+$routes->get('/pagos/error', 'PagosController::error');
+$routes->get('/pagos/pendiente', 'PagosController::pendiente');
+
+$routes->post('/pagos/webhook', 'Webhook::mercadoPago');

@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>EcoScam · Clasificación Inteligente de Residuos</title>
+  <title>EcoS-cam · Clasificación Inteligente de Residuos</title>
   <style>
     :root {
-      --bg:        #f4f1ea;
+      --bg:rgb(243, 255, 244);
       --ink:       #14241b;
       --ink-soft:  #3a4a40;
       --green:     #1f6b3a;
@@ -40,7 +40,7 @@
 
     header p {
       font-size: 16px;
-      color: rgba(255,255,255,0.85);
+      color: rgba(255, 255, 255, 0.85);
     }
 
     .container {
@@ -109,7 +109,7 @@
     </section>
 
     <section>
-      <h2>♻️ Beneficios Principales</h2>
+      <h2>-> Beneficios Principales</h2>
       <ul>
         <li>Clasificación automática de residuos (plástico, papel, vidrio, orgánico).</li>
         <li>Reducción de errores humanos en espacios públicos y privados.</li>
@@ -120,7 +120,7 @@
     </section>
 
     <section>
-      <h2>⚙️ Tecnologías Utilizadas</h2>
+      <h2>-> Tecnologías Utilizadas</h2>
       <ul>
         <li>ESP32 DevKit V1 como microcontrolador.</li>
         <li>Cámara OV5640 de 5MP para captura de imágenes.</li>
@@ -132,7 +132,7 @@
     </section>
 
     <section>
-      <h2>📊 Estadísticas y Educación</h2>
+      <h2>-> Estadísticas y Educación</h2>
       <p>EcoS-cam no solo clasifica residuos, también genera datos útiles para medir impacto ambiental. 
       Además, incluye consejos prácticos de reciclaje y sostenibilidad, convirtiéndose en una herramienta educativa.</p>
     </section>

@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>EcoScan principal</title>
+    <title>EcoS-cam principal</title>
 
     <link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
 
@@ -51,7 +51,7 @@
                     Contacto
                 </a>
 
-                <a href="#">
+                <a href="<?= site_url('usuario/comprar') ?>">
                     Tienda
                 </a>
 
@@ -115,97 +115,71 @@
             </div>
 
         </section>
-
-
         <section class="cards-grid">
 
-            <div class="card">
-                <h3>♻ Residuos reciclados</h3>
-                <p>120kg reciclados este mes.</p>
-            </div>
+<div class="card">
+    <h3>♻ Residuos reciclados</h3>
+    <p><?= $residuosHoy ?> residuos reciclados hoy.</p>
+</div>
 
-            <div class="card">
-                <h3>🌍 Impacto ambiental</h3>
-                <p>Reducción estimada de CO₂: 35%.</p>
-            </div>
+<div class="card">
+    <h3>🌍 Impacto ambiental</h3>
+    <p>Reducción estimada de CO₂: <?= $impactoAmbiental ?>%</p>
+</div>
 
-            <div class="card">
-                <h3>📊 Estadísticas</h3>
-                <p>Consultá tu progreso semanal y mensual.</p>
-            </div>
+<div class="card">
+    <h3>🏆 Nivel ecológico</h3>
+    <p><?= $nivelEco ?></p>
+</div>
 
-            <div class="card">
-                <h3>🏆 Nivel ecológico</h3>
-                <p>Usuario Eco Avanzado.</p>
-            </div>
-
-        </section>
-
+</section>
 
 <section class="history-section">
 
-    <h2>
-        Últimos movimientos
-    </h2>
+    <h2>🌱 Compartí tu impacto</h2>
 
-    <div class="table-wrapper">
+    <div id="tarjeta-logro" class="tarjeta-logro">
 
-        <table>
+        <div class="logo-logro">♻</div>
 
-            <thead>
+        <h3>EcoS-cam</h3>
 
-                <tr>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Tipo</th>
-                </tr>
+        <p class="frase-logro">
+            Hoy ayudé al planeta reciclando
+        </p>
 
-            </thead>
+        <div class="numero-logro">
+            <?= $residuosHoy ?>
+        </div>
 
-            <tbody>
+        <p class="detalle-logro">
+            residuos correctamente clasificados
+        </p>
 
-                <tr>
+        <p class="detalle-logro">
+            🌍 Reducción estimada de CO₂:
+            <?= $impactoAmbiental ?>%
+        </p>
 
-                    <td>28/05/2026</td>
-                    <td>09:50</td>
+        <p class="nivel-logro">
+            🏆 <?= $nivelEco ?>
+        </p>
 
-                    <td>
-                        <span class="tag tag-plastic">
-                            Plástico
-                        </span>
-                    </td>
+        <p class="usuario-logro">
+            <?= esc($usuario['nombre']) ?>
+        </p>
 
-                </tr>
+    </div>
 
-                <tr>
+    <div class="acciones-logro">
 
-                    <td>27/05/2026</td>
-                    <td>17:45</td>
+        <button onclick="descargarTarjeta()">
+            📸 Descargar imagen
+        </button>
 
-                    <td>
-                        <span class="tag tag-paper">
-                            Papel
-                        </span>
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td>26/05/2026</td>
-                    <td>14:10</td>
-
-                    <td>
-                        <span class="tag tag-organic">
-                            Orgánico
-                        </span>
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
+        <button onclick="copiarTexto()">
+            📋 Copiar texto
+        </button>
 
     </div>
 
@@ -216,7 +190,37 @@
         </footer>
 
     </main>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
+<script>
+
+function descargarTarjeta()
+{
+    html2canvas(document.getElementById('tarjeta-logro'))
+    .then(canvas => {
+
+        const enlace = document.createElement('a');
+
+        enlace.download = 'ecoscam-logro.png';
+
+        enlace.href = canvas.toDataURL();
+
+        enlace.click();
+
+    });
+}
+
+function copiarTexto()
+{
+    const texto =
+    "Hoy reciclé <?= $residuosHoy ?> residuos usando EcoS-cam ♻. Mi impacto ambiental estimado es de <?= $impactoAmbiental ?>% y actualmente soy <?= $nivelEco ?>.";
+
+    navigator.clipboard.writeText(texto);
+
+    alert('Texto copiado');
+}
+
+</script>
 </body>
 
 </html>

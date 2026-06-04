@@ -534,4 +534,64 @@ tbody tr:hover {
     .menu-content {
         width: 230px;
     }
+
+    .tarjeta-logro{
+
+        max-width:700px;
+        margin:auto;
+    
+        padding:40px;
+    
+        border-radius:25px;
+    
+        background:linear-gradient(
+            135deg,
+            #11998e,
+            #38ef7d
+        );
+    
+        color:white;
+    
+        text-align:center;
+    
+        box-shadow:0 15px 35px rgba(0,0,0,.15);
+    }
+    
+    .logo-logro{
+        font-size:60px;
+    }
+    
+    .numero-logro{
+        font-size:80px;
+        font-weight:bold;
+    }
+    
+    .detalle-logro{
+        font-size:22px;
+    }
+    
+    .nivel-logro{
+        font-size:28px;
+        font-weight:bold;
+    }
+    
+    .acciones-logro{
+    
+        margin-top:20px;
+    
+        display:flex;
+        justify-content:center;
+        gap:15px;
+    }
+    
+    .acciones-logro button{
+    
+        border:none;
+    
+        padding:12px 25px;
+    
+        border-radius:10px;
+    
+        cursor:pointer;
+    }
 }
