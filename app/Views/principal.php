@@ -134,52 +134,60 @@
 
 </section>
 
-<section class="history-section">
 
-    <h2>🌱 Compartí tu impacto</h2>
 
-    <div id="tarjeta-logro" class="tarjeta-logro">
 
-        <div class="logo-logro">♻</div>
 
-        <h3>EcoS-cam</h3>
+<section class="cards-grid">
 
-        <p class="frase-logro">
-            Hoy ayudé al planeta reciclando
-        </p>
+    <div class="card">
 
-        <div class="numero-logro">
-            <?= $residuosHoy ?>
+        <h2>🌱 Compartí tu impacto</h2>
+
+        <div id="tarjeta-logro" class="tarjeta-logro">
+
+            <h3>♻ EcoS-cam</h3>
+
+            <p>Hoy ayudé al planeta reciclando</p>
+
+            <div class="numero-logro">
+                <?= $residuosHoy ?>
+            </div>
+
+            <p>residuos correctamente clasificados</p>
+
+            <p>
+                🌍 Reducción estimada de CO₂:
+                <?= $impactoAmbiental ?>%
+            </p>
+
+            <p>
+                🏆 <?= $nivelEco ?>
+            </p>
+
+            <p>
+                <?= esc($usuario['nombre']) ?>
+            </p>
+            <div class="acciones-logro">
+
+<button onclick="descargarTarjeta()">
+    📥 Descargar imagen
+</button>
+
+<button onclick="copiarTexto()">
+    📋 Copiar texto
+</button>
+
+</div>
         </div>
-
-        <p class="detalle-logro">
-            residuos correctamente clasificados
-        </p>
-
-        <p class="detalle-logro">
-            🌍 Reducción estimada de CO₂:
-            <?= $impactoAmbiental ?>%
-        </p>
-
-        <p class="nivel-logro">
-            🏆 <?= $nivelEco ?>
-        </p>
-
-        <p class="usuario-logro">
-            <?= esc($usuario['nombre']) ?>
-        </p>
 
     </div>
 
-    <div class="acciones-logro">
+    <div class="card">
 
-        <button onclick="descargarTarjeta()">
-            📸 Descargar imagen
-        </button>
+        <h2>📊 Estadísticas</h2>
 
-        <button onclick="copiarTexto()">
-            📋 Copiar texto
-        </button>
+        <canvas id="graficoResiduos"></canvas>
 
     </div>
 
@@ -191,7 +199,7 @@
 
     </main>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
 function descargarTarjeta()
@@ -218,6 +226,59 @@ function copiarTexto()
     navigator.clipboard.writeText(texto);
 
     alert('Texto copiado');
+}
+
+
+</script>
+<script>
+
+const canvas = document.getElementById('graficoResiduos');
+
+if(canvas)
+{
+    new Chart(canvas, {
+
+        type: 'bar',
+
+        data: {
+
+            labels: <?= $labels ?>,
+
+            datasets: [{
+
+                label: 'Residuos',
+
+                data: <?= $datos ?>,
+
+                backgroundColor: [
+                    '#4CAF50',
+                    '#2196F3',
+                    '#FF9800',
+                    '#9C27B0',
+                    '#607D8B'
+                ]
+            }]
+        },
+
+        options: {
+
+            responsive: true,
+
+            plugins: {
+
+                legend: {
+                    display: false
+                }
+            },
+
+            scales: {
+
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 }
 
 </script>

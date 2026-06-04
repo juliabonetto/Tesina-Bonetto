@@ -129,12 +129,28 @@ public function principal()
     $usuario = session()->get('usuario');
 
     $clasificacionModel = new ClasificacionModel();
+    $estadisticaModel = new EstadisticaModel();
+
+    // Datos para gráfico
+    $residuos = $estadisticaModel->residuosPorTipo();
+
+    $labels = [];
+    $datos = [];
+
+    foreach ($residuos as $r) {
+        $labels[] = ucfirst($r['residuo']);
+        $datos[] = $r['cantidad'];
+    }
 
     $data = [
         'usuario' => $usuario,
         'residuosHoy' => $clasificacionModel->obtenerResiduosHoy(),
         'impactoAmbiental' => $clasificacionModel->obtenerImpactoAmbiental(),
-        'nivelEco' => $clasificacionModel->obtenerNivelEcologico()
+        'nivelEco' => $clasificacionModel->obtenerNivelEcologico(),
+
+        // gráfico
+        'labels' => json_encode($labels),
+        'datos' => json_encode($datos)
     ];
 
     return view('principal', $data);
