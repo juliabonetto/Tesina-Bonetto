@@ -104,7 +104,10 @@ class UsuarioController extends BaseController {
     $usuario = $usuarioModel->where('email', $email)->first();
 
     if ($usuario && password_verify($contraseña, $usuario['contraseña'])) {
-      session()->set('usuario', $usuario);
+        session()->set([
+            'usuario' => $usuario,
+            'id' => $usuario['id']
+        ]);
 
       if ($usuario['rol'] === 'cliente') {
           session()->set([
@@ -132,7 +135,18 @@ public function principal()
     $estadisticaModel = new EstadisticaModel();
 
     // Datos para gráfico
-    $residuos = $estadisticaModel->residuosPorTipo();
+    $dispositivo_id =
+    session()->get('dispositivo_actual');
+
+if(!$dispositivo_id)
+{
+    return redirect()->to('/mis-tachos');
+}
+
+$residuos =
+    $estadisticaModel->residuosPorTipo(
+        $dispositivo_id
+    );
 
     $labels = [];
     $datos = [];
@@ -260,7 +274,18 @@ public function estadistica()
 
     $model = new EstadisticaModel();
 
-    $residuos = $model->residuosPorTipo();
+    $dispositivo_id =
+    session()->get('dispositivo_actual');
+
+if(!$dispositivo_id)
+{
+    return redirect()->to('/mis-tachos');
+}
+
+$residuos =
+    $model->residuosPorTipo(
+        $dispositivo_id
+    );
 
     $labels = [];
     $datos = [];
@@ -272,10 +297,10 @@ public function estadistica()
 
     $data = [
         'usuario'  => session()->get('usuario'),
-        'total'    => $model->totalClasificaciones(),
-        'promedio' => $model->promedioConfianza(),
-        'hoy'      => $model->clasificacionesHoy(),
-        'ultimos'  => $model->ultimosRegistros(),
+        'total'    => $model->totalClasificaciones($dispositivo_id),
+        'promedio' => $model->promedioConfianza($dispositivo_id),
+        'hoy'      => $model->clasificacionesHoy($dispositivo_id),
+        'ultimos'  => $model->ultimosRegistros($dispositivo_id),
         'labels'   => json_encode($labels),
         'datos'    => json_encode($datos)
     ];

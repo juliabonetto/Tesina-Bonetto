@@ -39,9 +39,9 @@
                     Resumen
                 </a>
 
-                <a href="#">
-                    Mis Tachos
-                </a>
+                <a href="<?= base_url('mis-tachos') ?>">
+    Mis Tachos
+</a>
 
                 <a href="<?= site_url('usuario/estadistica') ?>">
     Estadísticas

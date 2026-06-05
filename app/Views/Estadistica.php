@@ -237,7 +237,13 @@ tr:nth-child(even){
             ← Volver
         </a>
 
-        <h1>Estadísticas EcoS-cam</h1>
+        <h1>
+    Estadísticas EcoS-cam
+</h1>
+
+<h3 style="text-align:center;">
+    <?= esc($tacho->nombre) ?>
+</h3>
 
     </div>
 

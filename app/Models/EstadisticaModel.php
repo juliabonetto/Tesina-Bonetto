@@ -4,49 +4,58 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class EstadisticaModel extends Model
+class EstadisticaModel extends Model 
 {
     protected $table = 'clasificaciones';
     protected $primaryKey = 'id';
 
-    public function totalClasificaciones()
+    public function totalClasificaciones($dispositivo_id)
     {
-        return $this->countAll();
+        return $this
+            ->where(
+                'dispositivo_id',
+                $dispositivo_id
+            )
+            ->countAllResults();
     }
 
-    public function residuosPorTipo()
+    public function residuosPorTipo($dispositivo_id)
     {
         return $this->db->query("
             SELECT residuo, COUNT(*) cantidad
             FROM clasificaciones
+            WHERE dispositivo_id = ?
             GROUP BY residuo
-        ")->getResultArray();
+        ", [$dispositivo_id])->getResultArray();
     }
 
-    public function promedioConfianza()
-    {
-        return $this->db->query("
-            SELECT AVG(confianza) promedio
-            FROM clasificaciones
-        ")->getRowArray();
-    }
+public function promedioConfianza($dispositivo_id)
+{
+    return $this->db->query("
+        SELECT AVG(confianza) promedio
+        FROM clasificaciones
+        WHERE dispositivo_id = ?
+    ", [$dispositivo_id])->getRowArray();
+}
 
-    public function clasificacionesHoy()
-    {
-        return $this->db->query("
-            SELECT COUNT(*) cantidad
-            FROM clasificaciones
-            WHERE DATE(fecha_hora)=CURDATE()
-        ")->getRowArray();
-    }
+public function clasificacionesHoy($dispositivo_id)
+{
+    return $this->db->query("
+        SELECT COUNT(*) cantidad
+        FROM clasificaciones
+        WHERE DATE(fecha_hora)=CURDATE()
+        AND dispositivo_id = ?
+    ", [$dispositivo_id])->getRowArray();
+}
 
-    public function ultimosRegistros()
-    {
-        return $this->db->query("
-            SELECT *
-            FROM clasificaciones
-            ORDER BY fecha_hora DESC
-            LIMIT 20
-        ")->getResultArray();
-    }
+public function ultimosRegistros($dispositivo_id)
+{
+    return $this->db->query("
+        SELECT *
+        FROM clasificaciones
+        WHERE dispositivo_id = ?
+        ORDER BY fecha_hora DESC
+        LIMIT 20
+    ", [$dispositivo_id])->getResultArray();
+}
 }

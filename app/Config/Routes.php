@@ -46,3 +46,25 @@ $routes->get('/pagos/error', 'PagosController::error');
 $routes->get('/pagos/pendiente', 'PagosController::pendiente');
 
 $routes->post('/pagos/webhook', 'Webhook::mercadoPago');
+
+//tachos
+$routes->get(
+    'mis-tachos','TachosController::index');
+
+$routes->get(  'registrar-tacho',  'TachosController::registrar');
+
+$routes->post( 'guardar-tacho','TachosController::guardar');
+
+$routes->get('seleccionar-tacho/(:num)','TachosController::seleccionar/$1');
+$routes->get('unirse-tacho', 'TachosController::unirse');
+$routes->post('procesar-union', 'TachosController::procesarUnion');
+
+$routes->get(
+    'unirse-tacho',
+    'TachosController::unirse'
+);
+
+$routes->post(
+    'procesar-union',
+    'TachosController::procesarUnion'
+);
