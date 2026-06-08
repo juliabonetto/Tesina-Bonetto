@@ -140,7 +140,7 @@ public function principal()
 
 if(!$dispositivo_id)
 {
-    return redirect()->to('/mis-tachos');
+    return redirect()->to('/usuario/principal');
 }
 
 $residuos =

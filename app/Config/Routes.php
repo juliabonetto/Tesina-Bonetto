@@ -49,7 +49,7 @@ $routes->post('/pagos/webhook', 'Webhook::mercadoPago');
 
 //tachos
 $routes->get(
-    'mis-tachos','TachosController::index');
+    'mis-tachos','TachosController::mistachos');
 
 $routes->get(  'registrar-tacho',  'TachosController::registrar');
 
