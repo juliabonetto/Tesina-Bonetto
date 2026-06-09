@@ -55,8 +55,8 @@ class TachosController extends BaseController
     public function seleccionar($id)
     {
         session()->set('dispositivo_actual', $id);
-
-        return redirect()->to('/estadistica');
+    
+        return redirect()->to('/usuario/principal');
     }
 
     public function unirse()

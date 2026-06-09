@@ -51,9 +51,9 @@
                     Contacto
                 </a>
 
-                <a href="<?= site_url('usuario/comprar') ?>">
-                    Tienda
-                </a>
+                <a href="<?= base_url('pagos/checkout') ?>" class="btn-premium">
+    Obtener EcoScam Premium
+</a>
 
             </nav>
 
@@ -135,7 +135,26 @@
 </section>
 
 
+<?php if(isset($tachoSeleccionado)): ?>
 
+<div class="card">
+    <h3>
+        EcoScam seleccionado:
+        <?= esc($tachoSeleccionado['nombre']) ?>
+    </h3>
+</div>
+
+<?php else: ?>
+
+<div class="card">
+    <h3>Ningún EcoScam seleccionado</h3>
+
+    <p>
+        Registrá un EcoScam o uníte mediante código para comenzar.
+    </p>
+</div>
+
+<?php endif; ?>
 
 
 <section class="cards-grid">

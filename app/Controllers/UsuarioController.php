@@ -132,39 +132,69 @@ public function principal()
     $usuario = session()->get('usuario');
 
     $clasificacionModel = new ClasificacionModel();
-    $estadisticaModel = new EstadisticaModel();
+    $estadisticaModel   = new EstadisticaModel();
+    $dispositivoModel   = new \App\Models\DispositivoModel();
 
-    // Datos para gráfico
-    $dispositivo_id =
-    session()->get('dispositivo_actual');
+    $dispositivo_id = session()->get('dispositivo_actual');
 
-if(!$dispositivo_id)
-{
-    return redirect()->to('/usuario/principal');
-}
+    $tachoSeleccionado = null;
 
-$residuos =
-    $estadisticaModel->residuosPorTipo(
-        $dispositivo_id
-    );
+    if ($dispositivo_id) {
+        $tachoSeleccionado =
+            $dispositivoModel->find($dispositivo_id);
+    }
+
+    // NO hay EcoScam seleccionado
+    if (!$dispositivo_id)
+    {
+        $data = [
+            'usuario' => $usuario,
+
+            'residuosHoy' => 0,
+            'impactoAmbiental' => 0,
+            'nivelEco' => 'Sin datos',
+
+            'tachoSeleccionado' => $tachoSeleccionado,
+
+            'labels' => json_encode([]),
+            'datos'  => json_encode([])
+        ];
+
+        return view('principal', $data);
+    }
+
+    // Hay EcoScam seleccionado
+
+    $residuos =
+        $estadisticaModel->residuosPorTipo(
+            $dispositivo_id
+        );
 
     $labels = [];
     $datos = [];
 
-    foreach ($residuos as $r) {
+    foreach ($residuos as $r)
+    {
         $labels[] = ucfirst($r['residuo']);
-        $datos[] = $r['cantidad'];
+        $datos[]  = $r['cantidad'];
     }
 
     $data = [
         'usuario' => $usuario,
-        'residuosHoy' => $clasificacionModel->obtenerResiduosHoy(),
-        'impactoAmbiental' => $clasificacionModel->obtenerImpactoAmbiental(),
-        'nivelEco' => $clasificacionModel->obtenerNivelEcologico(),
 
-        // gráfico
+        'residuosHoy' =>
+            $clasificacionModel->obtenerResiduosHoy($dispositivo_id),
+
+        'impactoAmbiental' =>
+            $clasificacionModel->obtenerImpactoAmbiental($dispositivo_id),
+
+        'nivelEco' =>
+            $clasificacionModel->obtenerNivelEcologico($dispositivo_id),
+
+        'tachoSeleccionado' => $tachoSeleccionado,
+
         'labels' => json_encode($labels),
-        'datos' => json_encode($datos)
+        'datos'  => json_encode($datos)
     ];
 
     return view('principal', $data);

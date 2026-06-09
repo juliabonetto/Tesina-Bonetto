@@ -38,33 +38,17 @@ $routes->post('/usuario/registrar', 'UsuarioController::registrar');
 //estadisticas
 $routes->get('usuario/estadistica', 'UsuarioController::estadistica');
 
-//pago
-$routes->get('/comprar/(:num)', 'PagosController::comprar/$1');
-
-$routes->get('/pagos/exito', 'PagosController::exito');
-$routes->get('/pagos/error', 'PagosController::error');
-$routes->get('/pagos/pendiente', 'PagosController::pendiente');
-
-$routes->post('/pagos/webhook', 'Webhook::mercadoPago');
-
 //tachos
-$routes->get(
-    'mis-tachos','TachosController::mistachos');
-
+$routes->get('mis-tachos','TachosController::mistachos');
 $routes->get(  'registrar-tacho',  'TachosController::registrar');
-
 $routes->post( 'guardar-tacho','TachosController::guardar');
-
 $routes->get('seleccionar-tacho/(:num)','TachosController::seleccionar/$1');
 $routes->get('unirse-tacho', 'TachosController::unirse');
 $routes->post('procesar-union', 'TachosController::procesarUnion');
 
-$routes->get(
-    'unirse-tacho',
-    'TachosController::unirse'
-);
+//pago
 
-$routes->post(
-    'procesar-union',
-    'TachosController::procesarUnion'
-);
+$routes->get('pagos/exito', 'PagosController::exito');
+$routes->get('pagos/error', 'PagosController::error');
+$routes->get('pagos/pendiente', 'PagosController::pendiente');
+$routes->get('pagos/checkout', 'PagosController::checkout');
