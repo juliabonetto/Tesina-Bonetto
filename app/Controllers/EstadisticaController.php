@@ -6,56 +6,48 @@ use App\Models\EstadisticaModel;
 
 class EstadisticaController extends BaseController
 {
-    public function index()
+ 
+    public function show($id)
     {
         $model = new EstadisticaModel();
 
-        $dispositivo_id = session()->get('dispositivo_actual');
 
-        if (!$dispositivo_id)
-        {
-            return redirect()->to('/mis-tachos');
+        // Verificar que el usuario tenga acceso a este dispositivo
+        $db = \Config\Database::connect();
+        $existe = $db->table('usuario_dispositivo')
+            ->where('usuario_id', session()->get('id'))
+            ->where('dispositivo_id', $id)
+            ->get()
+            ->getRow();
+
+
+        if (!$existe) {
+            return redirect()->to('/mis-tachos')->with('error', 'No tienes acceso a este Eco-Tacho.');
         }
 
-        $residuos = $model->residuosPorTipo($dispositivo_id);
 
-        $labels = [];
-        $datos = [];
+        // Obtener datos del tacho (nombre, tipo, etc.)
+        $tacho = $db->table('dispositivos')->where('id', $id)->get()->getRow();
 
-        foreach ($residuos as $r)
-        {
-            $labels[] = $r['residuo'];
-            $datos[] = $r['cantidad'];
-        }
 
-        $data = [
+        // Calcular estadísticas
+        $residuos = $model->residuosPorTipo($id);
+        $labels = array_column($residuos, 'residuo');
+        $datos = array_column($residuos, 'cantidad');
+        $total = $model->totalClasificaciones($id);
+        $promedio = $model->promedioConfianza($id);
+        $hoy = $model->clasificacionesHoy($id);
+        $ultimos = $model->ultimosRegistros($id);
 
-            'total' =>
-                $model->totalClasificaciones(
-                    $dispositivo_id
-                ),
 
-            'promedio' =>
-                $model->promedioConfianza(
-                    $dispositivo_id
-                ),
-
-            'hoy' =>
-                $model->clasificacionesHoy(
-                    $dispositivo_id
-                ),
-
-            'ultimos' =>
-                $model->ultimosRegistros(
-                    $dispositivo_id
-                ),
-
+        return view('estadistica', [
+            'tacho' => $tacho,
+            'total' => $total,
+            'hoy' => $hoy,
+            'promedio' => $promedio,
+            'ultimos' => $ultimos,
             'labels' => json_encode($labels),
-
             'datos' => json_encode($datos)
-
-        ];
-
-        return view('estadistica', $data);
+        ]);
     }
 }

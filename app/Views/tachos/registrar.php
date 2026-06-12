@@ -1,48 +1,32 @@
-<h1>Registrar EcoScam</h1>
+<h1>Registrar mi Eco-Tacho</h1>
 
-<form action="<?= base_url('guardar-tacho') ?>" method="post">
 
-    <label>Nombre</label>
-    <input type="text" name="nombre" required>
-
-    <br><br>
-
-    <label>Tipo</label>
-
-    <select name="tipo">
-
-        <option value="residencial">
-            Residencial
-        </option>
-
-        <option value="institucional">
-            Institucional
-        </option>
-
-        <option value="empresarial">
-            Empresarial
-        </option>
-
-        <option value="municipal">
-            Municipal
-        </option>
-
-    </select>
-
-    <br><br>
-
-    <label>Ubicación</label>
-    <input type="text" name="ubicacion">
-
-    <br><br>
-
-    <label>Código de activación</label>
-    <input type="text" name="codigo">
-
-    <br><br>
-
-    <button type="submit">
-        Registrar
-    </button>
-
-</form>
+<?php if (!isset($dispositivo)): ?>
+    <!-- Primer paso: ingresar código -->
+    <form action="<?= base_url('buscar-tacho-por-codigo') ?>" method="post">
+        <label>Código de activación (el que te mostró la ESP32)</label>
+        <input type="text" name="codigo" required>
+        <button type="submit">Buscar</button>
+    </form>
+<?php else: ?>
+    <!-- Segundo paso: completar datos -->
+    <form action="<?= base_url('asignar-tacho') ?>" method="post">
+        <input type="hidden" name="dispositivo_id" value="<?= $dispositivo->id ?>">
+       
+        <label>Nombre del tacho (ya registrado)</label>
+        <input type="text" value="<?= esc($dispositivo->nombre) ?>" disabled>
+       
+        <label>Tipo</label>
+        <select name="tipo">
+            <option value="residencial">Residencial</option>
+            <option value="institucional">Institucional</option>
+            <option value="empresarial">Empresarial</option>
+            <option value="municipal">Municipal</option>
+        </select>
+       
+        <label>Ubicación</label>
+        <input type="text" name="ubicacion">
+       
+        <button type="submit">Asignar como propietario</button>
+    </form>
+<?php endif; ?>

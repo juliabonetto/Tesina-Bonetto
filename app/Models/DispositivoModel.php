@@ -15,6 +15,7 @@ class DispositivoModel extends Model
         'tipo',
         'ubicacion',
         'codigo_activacion',
+        'propietario_id',
         'token'
     ];
 }
