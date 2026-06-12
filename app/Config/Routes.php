@@ -63,3 +63,12 @@ $routes->post('procesar-union', 'TachosController::procesarUnion');
 $routes->post('buscar-tacho-por-codigo', 'TachosController::buscarPorCodigo');
 $routes->post('asignar-tacho', 'TachosController::asignarPropietario');
 $routes->get('estadisticas-tacho/(:num)', 'EstadisticaController::show/$1');
+
+
+$routes->get('mis-tachos', 'TachosController::mistachos');
+$routes->get('registrar-tacho', 'TachosController::registrar');
+$routes->post('buscar-tacho-por-codigo', 'TachosController::buscarPorCodigo');
+$routes->post('asignar-tacho', 'TachosController::asignarPropietario');
+$routes->get('unirse-tacho', 'TachosController::unirse');
+$routes->post('procesar-union', 'TachosController::procesarUnion');
+$routes->get('seleccionar-tacho/(:num)', 'TachosController::seleccionar/$1');
