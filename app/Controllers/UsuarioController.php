@@ -47,7 +47,7 @@ class UsuarioController extends BaseController {
     }
 
     $emailNormalizado = strtolower(trim($emailIngresado));
-    $rol = 'cliente';
+    $rol = 'usuario';
 
 
 
@@ -109,9 +109,9 @@ class UsuarioController extends BaseController {
             'id' => $usuario['id']
         ]);
 
-      if ($usuario['rol'] === 'cliente') {
+      if ($usuario['rol'] === 'usuario') {
           session()->set([
-              'id_cliente' => $usuario['id'],
+              'id' => $usuario['id'],
               'nombre'    => $usuario['nombre'],
               'apellido'  => $usuario['apellido'],
           ]);
@@ -357,6 +357,5 @@ public function logro()
 
     return view('logro', $data);
 }
-
 }
 ?>

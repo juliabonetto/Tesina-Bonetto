@@ -161,8 +161,9 @@
   <h2>Mi Perfil</h2>
   <div class="perfil-info">
     <p><strong>Email:</strong> <?= esc($usuario['email']) ?></p>
-    <p><strong>Nombre:</strong> <?= esc($usuario['nombre'] ?? 'No especificado') ?></p>
-
+    <p><strong>Nombre:</strong> <?= esc($usuario['nombre']) ?></p>
+    <p><strong>Apellido:</strong> <?= esc($usuario['apellido']) ?></p>
+    <p><strong>Rol:</strong> <?= esc($usuario['rol']) ?></p>
   </div>
 
   <div class="botones-acciones">

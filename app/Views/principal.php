@@ -1,5 +1,3 @@
-<!-- principal.php -->
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -35,24 +33,17 @@
 
             <nav class="nav-links">
 
-                <a href="#" class="active">
-                    Resumen
-                </a>
-
                 <a href="<?= base_url('mis-tachos') ?>">
     Mis Tachos
 </a>
 
-                <a href="<?= site_url('usuario/estadistica') ?>">
-    Estadísticas
-</a>
 
     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ecoscam2026@gmail.com" target="_blank" rel="noopener noreferrer">
                     Contacto
                 </a>
 
                 <a href="<?= base_url('pagos/checkout') ?>" class="btn-premium">
-    Obtener EcoScam Premium
+    Obtener EcoS-cam 
 </a>
 
             </nav>
