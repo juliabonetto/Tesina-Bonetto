@@ -147,6 +147,25 @@
       margin: 0;
       flex: 1;
     }
+    .form-group{
+  margin-bottom:18px;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:600;
+  color:var(--ink-soft);
+}
+
+.form-group input,
+.form-group select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:1rem;
+}
   </style>
 </head>
 <body>
@@ -160,9 +179,26 @@
   <a href="<?= site_url('usuario/principal') ?>" class="volver">← Volver</a>
   <h2>Mi Perfil</h2>
   <div class="perfil-info">
+  <input type="hidden" name="id"
+           value="<?= esc($usuario['id']) ?>">
+
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text"
+             name="nombre"
+             value="<?= esc($usuario['nombre']) ?>"
+             required>
+    </div>
+
+    <div class="form-group">
+      <label>Apellido</label>
+      <input type="text"
+             name="apellido"
+             value="<?= esc($usuario['apellido']) ?>"
+             required>
+    </div>
+
     <p><strong>Email:</strong> <?= esc($usuario['email']) ?></p>
-    <p><strong>Nombre:</strong> <?= esc($usuario['nombre']) ?></p>
-    <p><strong>Apellido:</strong> <?= esc($usuario['apellido']) ?></p>
     <p><strong>Rol:</strong> <?= esc($usuario['rol']) ?></p>
   </div>
 

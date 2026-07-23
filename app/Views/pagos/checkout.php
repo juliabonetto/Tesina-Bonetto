@@ -285,12 +285,12 @@
 
         <div class="fila">
             <span>Precio</span>
-            <span>$200.000 ARS</span>
+            <span>$420.000 ARS</span>
         </div>
 
         <div class="fila total">
             <span>Total</span>
-            <span>$200.000 ARS</span>
+            <span>$420.000 ARS</span>
         </div>
 
         <div class="security-box">

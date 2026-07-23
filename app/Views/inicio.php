@@ -50,8 +50,9 @@ $consejos = [
     <nav class="nav-links">
       <a href="#inicio">Inicio</a>
       <a href="#funciona">¿Cómo funciona?</a>
-      <a href="#stats">Estadísticas</a>
-      <a href="#tienda">Tienda</a>
+      <a href="<?= base_url('pagos/checkout') ?>" class="btn-premium">
+    Obtener EcoS-cam 
+</a>
     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ecoscam2026@gmail.com" target="_blank" rel="noopener noreferrer">Contacto</a>
     </nav>
      <a href="<?= site_url('usuario/login') ?>" class="nav-cta">Ingresar →</a>
