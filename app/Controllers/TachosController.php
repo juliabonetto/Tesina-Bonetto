@@ -26,45 +26,47 @@ class TachosController extends BaseController
         }
         
         $db = \Config\Database::connect();
-
+    
         $tachos = $db->table('usuario_dispositivo ud')
             ->select('d.*, ud.rol')
             ->join('dispositivos d', 'd.id = ud.dispositivo_id')
             ->where('ud.usuario_id', $usuario_id)
             ->get()
             ->getResult();
-
+    
+        // 🔥 Asignar rol por defecto si es NULL
+        foreach ($tachos as $tacho) {
+            if (is_null($tacho->rol)) {
+                $tacho->rol = ($tacho->propietario_id == $usuario_id) ? 'propietario' : 'lector';
+            }
+        }
+    
         return view('tachos/mistachos', ['tachos' => $tachos]);
     }
-
     // ========== GUARDAR (CREAR NUEVO TACHO MANUAL) ==========
     public function guardar()
     {
         $usuario_id = session()->get('id');
-        if (!$usuario_id) {
-            return redirect()->to('/login')->with('error', 'Debes iniciar sesión primero.');
-        }
-
+        // ... validación ...
+    
         $dispositivoModel = new DispositivoModel();
-
         $id = $dispositivoModel->insert([
             'nombre' => $this->request->getPost('nombre'),
             'tipo' => $this->request->getPost('tipo'),
             'ubicacion' => $this->request->getPost('ubicacion'),
-            'codigo_activacion' => $this->request->getPost('codigo')
+            'codigo_activacion' => $this->request->getPost('codigo'),
+            'propietario_id' => $usuario_id   // ← agregar esta línea
         ]);
-
+    
         $usuarioDispositivo = new UsuarioDispositivoModel();
-
         $usuarioDispositivo->insert([
             'usuario_id' => $usuario_id,
             'dispositivo_id' => $id,
             'rol' => 'propietario'
         ]);
-
+    
         return redirect()->to('/mis-tachos');
     }
-
     // ========== SELECCIONAR TACHO ==========
     public function seleccionar($id)
     {
@@ -90,43 +92,46 @@ class TachosController extends BaseController
     
     // ========== PROCESAR UNIÓN A TACHO ==========
     public function procesarUnion()
-    {
-        $usuario_id = session()->get('id');
-        if (!$usuario_id) {
-            return redirect()->to('/login')->with('error', 'Debes iniciar sesión primero.');
-        }
-        
-        $codigo = $this->request->getPost('codigo');
-        $db = \Config\Database::connect();
-
-        $dispositivo = $db->table('dispositivos')
-            ->where('codigo_activacion', $codigo)
-            ->get()
-            ->getRow();
-
-        if (!$dispositivo) {
-            return redirect()->back()->with('error', 'Código inválido.');
-        }
-
-        // Verificar si el usuario ya tiene relación con este dispositivo
-        $existe = $db->table('usuario_dispositivo')
-            ->where('usuario_id', $usuario_id)
-            ->where('dispositivo_id', $dispositivo->id)
-            ->get()
-            ->getRow();
-
-        if ($existe) {
-            return redirect()->back()->with('error', 'Ya estás vinculado a este Eco-Tacho.');
-        }
-
-        $db->table('usuario_dispositivo')->insert([
-            'usuario_id' => $usuario_id,
-            'dispositivo_id' => $dispositivo->id,
-            'rol' => 'lector'
-        ]);
-
-        return redirect()->to('/mis-tachos')->with('mensaje', 'Ahora puedes ver las estadísticas de este Eco-Tacho.');
+{
+    $usuario_id = session()->get('id');
+    if (!$usuario_id) {
+        return redirect()->to('/login')->with('error', 'Debes iniciar sesión primero.');
     }
+    
+    $codigo = $this->request->getPost('codigo');
+    $db = \Config\Database::connect();
+
+    $dispositivo = $db->table('dispositivos')
+        ->where('codigo_activacion', $codigo)
+        ->get()
+        ->getRow();
+
+    if (!$dispositivo) {
+        return redirect()->back()->with('error', 'Código inválido.');
+    }
+
+    // Verificar si el usuario ya tiene relación
+    $existe = $db->table('usuario_dispositivo')
+        ->where('usuario_id', $usuario_id)
+        ->where('dispositivo_id', $dispositivo->id)
+        ->get()
+        ->getRow();
+
+    if ($existe) {
+        return redirect()->back()->with('error', 'Ya estás vinculado a este Eco-Tacho.');
+    }
+
+    // 🔥 Determinar el rol según propietario_id
+    $rol = ($dispositivo->propietario_id == $usuario_id) ? 'propietario' : 'lector';
+
+    $db->table('usuario_dispositivo')->insert([
+        'usuario_id' => $usuario_id,
+        'dispositivo_id' => $dispositivo->id,
+        'rol' => $rol
+    ]);
+
+    return redirect()->to('/mis-tachos')->with('mensaje', 'Ahora puedes ver las estadísticas de este Eco-Tacho.');
+}
 
     // ========== REGISTRAR (PRIMER PASO - FORMULARIO) ==========
     public function registrar()

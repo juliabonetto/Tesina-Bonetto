@@ -336,6 +336,11 @@ body{
                 <?= esc($tacho->ubicacion) ?>
             </p>
 
+            <p>
+               <strong>Tu rol:</strong>
+              <?= esc($tacho->rol ?? 'Sin rol') ?>
+            </p>
+
             <a
                 href="<?= base_url('estadisticas-tacho/'.$tacho->id) ?>"
                 class="btn-estadisticas"
