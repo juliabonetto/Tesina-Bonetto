@@ -24,7 +24,6 @@
 /* =========================================================
    RESET
 ========================================================= */
-
 * {
     margin: 0;
     padding: 0;
@@ -527,112 +526,214 @@ tbody tr:hover {
     color: var(--green-dark);
 }
 
+
 /* =========================================================
    TARJETA LOGRO
 ========================================================= */
 
 .tarjeta-logro {
-
-    text-align: center;
+  width: 360px;
+  border-radius: 24px;
+  padding: 32px;
+  color: #fff;
+  background: linear-gradient(
+    155deg,
+    #1f4d2b 0%,
+    #2f7a3f 55%,
+    #4ea25c 100%
+  );
+  box-shadow: 0 30px 60px -25px rgba(15, 50, 35, 0.55);
+  font-family: 'Inter', system-ui, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 40px auto;
 }
 
-.logo-logro {
-
-    font-size: 50px;
-
-    margin-bottom: 10px;
+/* hojas decorativas */
+.leaf-top {
+  position: absolute;
+  top: -24px;
+  right: -24px;
+  width: 160px;
+  height: 160px;
+  opacity: 0.1;
 }
 
-.numero-logro {
-
-    font-size: 70px;
-
-    font-weight: bold;
-
-    color: var(--green);
-
-    margin: 10px 0;
+.leaf-bottom {
+  position: absolute;
+  bottom: -40px;
+  left: -32px;
+  width: 140px;
+  height: 140px;
+  opacity: 0.1;
+  transform: rotate(45deg);
 }
 
-.detalle-logro {
-
-    color: var(--muted);
-
-    margin-bottom: 8px;
+/* header */
+.impact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.nivel-logro {
-
-    font-size: 1.1rem;
-
-    font-weight: bold;
-
-    color: var(--green-dark);
-
-    margin-top: 10px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.usuario-logro {
-
-    margin-top: 10px;
-
-    color: var(--muted);
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
 }
 
-/* =========================================================
-   BOTONES LOGRO
-========================================================= */
+.fecha {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  opacity: 0.7;
+}
 
+/* título */
+.impact-label {
+  margin-top: 32px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  opacity: 0.7;
+  font-size: 12px;
+}
+
+.impact-name {
+  margin-top: 4px;
+  font-size: 28px;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+}
+
+/* número gigante */
+.impact-number {
+  margin-top: 24px;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.big-number {
+  font-size: 72px;
+  font-weight: 300;
+  line-height: 1;
+  font-family: 'Instrument Serif', Georgia, serif;
+}
+
+.number-text {
+  margin-bottom: 8px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* stats */
+.impact-info {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.info-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.info-box span {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+.info-box strong {
+  margin-top: 4px;
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* footer */
+.impact-footer {
+  margin-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 12px;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+/* acciones */
 .acciones-logro {
-
-    display: flex;
-
-    justify-content: center;
-
-    gap: 12px;
-
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .acciones-logro button {
-
-    background: linear-gradient(
-        135deg,
-        var(--green),
-        var(--green-light)
-    );
-
-    color: white;
-
-    border: none;
-
-    padding: 12px 18px;
-
-    border-radius: 12px;
-
-    cursor: pointer;
-
-    font-weight: 600;
-
-    transition: .25s;
+  background: #2f8d5b;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .acciones-logro button:hover {
-
-    transform: translateY(-2px);
-
-    background: var(--green-dark);
+  background: #1f6d43;
+  transform: translateY(-2px);
 }
 
 /* =========================================================
-   GRAFICO
+   LAYOUT TARJETA + ESTADÍSTICAS
 ========================================================= */
 
+.dashboard-extra {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+/* Contenedor de tarjeta + botones */
+.tarjeta-contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Panel de estadísticas */
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #graficoResiduos {
-
-    width: 100% !important;
-
-    height: 350px !important;
+  width: 100% !important;
+  height: 350px !important;
+  display: block;
 }
 
 /* =========================================================
@@ -701,4 +802,3 @@ tbody tr:hover {
     }
     
     }
-    

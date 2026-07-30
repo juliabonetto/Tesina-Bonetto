@@ -148,58 +148,124 @@
 <?php endif; ?>
 
 
-<section class="cards-grid">
+<div class="card card-tacho">
 
-    <div class="card">
+    <div class="tacho-info">
 
-        <h2>🌱 Compartí tu impacto</h2>
+        <div>
 
-        <div id="tarjeta-logro" class="tarjeta-logro">
+            <?php if($tachoSeleccionado): ?>
 
-            <h3>♻ EcoS-cam</h3>
+                <h3>
+                    🗑 <?= esc($tachoSeleccionado['nombre']) ?>
+                </h3>
 
-            <p>Hoy ayudé al planeta reciclando</p>
+                <p>
+                    Mostrando estadísticas de este Eco-Tacho
+                </p>
 
-            <div class="numero-logro">
-                <?= $residuosHoy ?>
-            </div>
+            <?php else: ?>
 
-            <p>residuos correctamente clasificados</p>
+                <h3>
+                    Ningún Eco-Tacho seleccionado
+                </h3>
 
-            <p>
-                🌍 Reducción estimada de CO₂:
-                <?= $impactoAmbiental ?>%
-            </p>
+            <?php endif; ?>
 
-            <p>
-                🏆 <?= $nivelEco ?>
-            </p>
-
-            <p>
-                <?= esc($usuario['nombre']) ?>
-            </p>
-            <div class="acciones-logro">
-
-<button onclick="descargarTarjeta()">
-    📥 Descargar imagen
-</button>
-
-<button onclick="copiarTexto()">
-    📋 Copiar texto
-</button>
-
-</div>
         </div>
 
+<?php if (isset($tachos) && count($tachos) > 1): ?>
+
+<button
+    class="btn-cambiar"
+    onclick="abrirModal()">
+
+    📊 Cambiar estadísticas
+
+</button>
+
+<?php endif; ?>
+
     </div>
 
-    <div class="card">
+</div>
+ 
+<section class="dashboard-extra">
 
-        <h2>📊 Estadísticas</h2>
+  <!-- TARJETA + BOTONES -->
+  <div class="tarjeta-contenedor">
+    <div id="tarjeta-logro" class="tarjeta-logro">
 
-        <canvas id="graficoResiduos"></canvas>
+      <!-- hojas decorativas -->
+      <div class="leaf leaf-top">
+        <svg viewBox="0 0 120 120" fill="none">
+          <path d="M96 18C58 20 28 48 24 90c30-6 57-28 72-72z"
+                stroke="white" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M38 74c13-10 29-25 48-44"
+                stroke="white" stroke-width="3"
+                stroke-linecap="round"/>
+        </svg>
+      </div>
 
+      <div class="leaf leaf-bottom">
+        <svg viewBox="0 0 120 120" fill="none">
+          <path d="M96 18C58 20 28 48 24 90c30-6 57-28 72-72z"
+                stroke="white" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M38 74c13-10 29-25 48-44"
+                stroke="white" stroke-width="3"
+                stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- header -->
+      <div class="impact-header">
+        <div class="brand">
+          <div class="brand-icon">♻</div>
+          <span>EcoS-cam</span>
+        </div>
+        <div class="fecha"><?= date('d M Y') ?></div>
+      </div>
+
+      <!-- título -->
+      <p class="impact-label">Mi impacto</p>
+      <h2 class="impact-name"><?= esc($usuario['nombre']) ?></h2>
+
+      <!-- número gigante -->
+      <div class="impact-number">
+        <div class="big-number"><?= $residuosHoy ?></div>
+        <div class="number-text">residuos<br>reciclados</div>
+      </div>
+
+      <!-- stats -->
+      <div class="impact-info">
+        
+        <div class="info-box">
+          <span>Nivel</span>
+          <strong>🏆 <?= $nivelEco ?></strong>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div class="impact-footer">
+     
+        <span>Reciclá con inteligencia</span>
+      </div>
     </div>
+
+    <!-- BOTONES -->
+    <div class="acciones-logro">
+      <button onclick="descargarTarjeta()">📥 Descargar</button>
+      <button onclick="copiarTexto()">📋 Copiar</button>
+    </div>
+  </div>
+
+  <!-- ESTADÍSTICAS -->
+  <div class="panel">
+    <h2>📊 Estadísticas</h2>
+    <canvas id="graficoResiduos"></canvas>
+  </div>
 
 </section>
 
@@ -210,35 +276,45 @@
     </main>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
+function descargarTarjeta() {
+  const tarjeta = document.getElementById('tarjeta-logro');
 
-function descargarTarjeta()
-{
-    html2canvas(document.getElementById('tarjeta-logro'))
-    .then(canvas => {
+  if (!tarjeta) {
+    alert('No se encontró la tarjeta.');
+    return;
+  }
 
-        const enlace = document.createElement('a');
-
-        enlace.download = 'ecoscam-logro.png';
-
-        enlace.href = canvas.toDataURL();
-
-        enlace.click();
-
+  // Esperar un pequeño tiempo para asegurar que todo esté renderizado
+  setTimeout(() => {
+    html2canvas(tarjeta, {
+      scale: 2,
+      backgroundColor: null, // mantiene el fondo transparente
+      useCORS: true,
+      logging: true // muestra errores en consola si algo falla
+    }).then(canvas => {
+      const enlace = document.createElement('a');
+      enlace.download = 'ecoscam-logro.png';
+      enlace.href = canvas.toDataURL('image/png');
+      enlace.click();
+    }).catch(error => {
+      console.error('Error al generar la imagen:', error);
+      alert('Hubo un problema al generar la tarjeta. Revisá la consola del navegador.');
     });
+  }, 300);
 }
 
-function copiarTexto()
-{
-    const texto =
+function copiarTexto() {
+  const texto =
     "Hoy reciclé <?= $residuosHoy ?> residuos usando EcoS-cam ♻. Mi impacto ambiental estimado es de <?= $impactoAmbiental ?>% y actualmente soy <?= $nivelEco ?>.";
 
-    navigator.clipboard.writeText(texto);
-
-    alert('Texto copiado');
+  navigator.clipboard.writeText(texto)
+    .then(() => alert('Texto copiado'))
+    .catch(() => alert('No se pudo copiar el texto.'));
 }
-
-
 </script>
 <script>
 
@@ -292,6 +368,113 @@ if(canvas)
 }
 
 </script>
-</body>
+<div id="modalTachos" class="modal">
 
+
+    <div class="modal-contenido">
+
+
+        <span class="cerrar" onclick="cerrarModal()">
+            ×
+        </span>
+
+
+        <h2>
+            Elegí un Eco-Tacho
+        </h2>
+
+
+        <?php if(empty($tachos)): ?>
+
+
+            <p>No tenés Eco-Tachos registrados.</p>
+
+
+        <?php else: ?>
+
+
+            <div class="lista-tachos">
+
+
+                <?php foreach($tachos as $t): ?>
+
+
+                    <div class="tarjeta-tacho">
+
+
+                        <h3>
+                            🗑 <?= esc($t['nombre']) ?>
+                        </h3>
+
+
+                        <p>
+                            <?= esc($t['ubicacion']) ?>
+                        </p>
+
+
+                        <small>
+                            <?= esc($t['tipo']) ?>
+                        </small>
+
+
+                        <br><br>
+
+
+                        <a
+                            class="btn-modal"
+                            href="<?= site_url('tachos/seleccionar/'.$t['id']) ?>">
+
+
+                            Ver estadísticas
+
+
+                        </a>
+
+
+                    </div>
+
+
+                <?php endforeach; ?>
+
+
+            </div>
+
+
+        <?php endif; ?>
+
+
+    </div>
+
+
+</div>
+<script>
+
+function abrirModal()
+{
+    document
+        .getElementById('modalTachos')
+        .style.display='flex';
+}
+
+function cerrarModal()
+{
+    document
+        .getElementById('modalTachos')
+        .style.display='none';
+}
+
+window.onclick=function(e)
+{
+    const modal=document.getElementById('modalTachos');
+
+
+    if(e.target===modal)
+    {
+        modal.style.display='none';
+    }
+}
+
+</script>
+</body>
+</html>
 </html>

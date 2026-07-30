@@ -49,6 +49,23 @@ body{
     line-height:1.5;
 }
 
+.btn-volver {
+    display: inline-block;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--green), var(--green-light));
+    color: white;
+    padding: 14px 22px;
+    border-radius: 14px;
+    font-weight: 600;
+    transition: .25s;
+    box-shadow: var(--shadow);
+    align-self: flex-start;
+}
+
+.btn-volver:hover {
+    transform: translateY(-2px);
+}
+
 .container{
 
     width:100%;
@@ -130,6 +147,33 @@ body{
     margin-bottom:35px;
 
     flex-wrap:wrap;
+}
+
+.btn-accion1{
+    display:inline-block;
+
+    position: absolute;
+    left: 40px;      /* distancia desde el borde izquierdo */
+    top: 40px;       /* ajustá este valor hasta alinearlo con el título */
+
+    text-decoration:none;
+
+    background: linear-gradient(
+        135deg,
+        var(--green),
+        var(--green-light)
+    );
+
+    color:white;
+    padding:14px 22px;
+    border-radius:14px;
+    font-weight:600;
+    transition:.25s;
+    box-shadow:var(--shadow);
+}
+
+.btn-accion1:hover{
+    transform:translateY(-2px);
 }
 
 .btn-accion{
@@ -275,25 +319,28 @@ body{
 
 <div class="container">
 
+    <div style="margin-bottom: 16px;">
+        <a href="<?= site_url('usuario/principal') ?>" class="btn-volver">
+            ← Volver
+        </a>
+    </div>
+
     <div class="welcome-block">
 
-        <div class="welcome-text">
+   
 
+        <div class="welcome-text">
             <h1>
                 Mis <span class="user-name">Eco-Tachos</span>
             </h1>
-
             <p>
                 Administra tus Eco-Tachos, consulta estadísticas
                 y visualiza la información de cada dispositivo.
             </p>
-
         </div>
 
         <div class="hero-badge">
-
             <?= count($tachos) ?> Eco-Tachos registrados
-
         </div>
 
     </div>

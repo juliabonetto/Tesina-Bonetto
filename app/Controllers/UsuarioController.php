@@ -135,51 +135,97 @@ public function principal()
     $estadisticaModel   = new EstadisticaModel();
     $dispositivoModel   = new \App\Models\DispositivoModel();
 
+
+    $db = \Config\Database::connect();
+
+
+    // Obtener todos los Eco-Tachos del usuario
+    $tachos = $db->table('usuario_dispositivo ud')
+        ->select('d.id,d.nombre,d.ubicacion,d.tipo')
+        ->join('dispositivos d', 'd.id = ud.dispositivo_id')
+        ->where('ud.usuario_id', session()->get('id'))
+        ->get()
+        ->getResultArray();
+
     $dispositivo_id = session()->get('dispositivo_actual');
 
+    // ==========================
+    // LÓGICA DE SELECCIÓN
+    // ==========================
+
+    if (count($tachos) == 0) {
+
+        $dispositivo_id = null;
+
+    } elseif (count($tachos) == 1) {
+
+        $dispositivo_id = $tachos[0]['id'];
+
+        session()->set('dispositivo_actual', $dispositivo_id);
+
+    } else {
+
+        // Tiene varios tachos
+
+        if (!$dispositivo_id) {
+
+            $dispositivo_id = $tachos[0]['id'];
+
+            session()->set('dispositivo_actual', $dispositivo_id);
+        }
+    }
+
+    // Obtener información del tacho seleccionado
     $tachoSeleccionado = null;
 
     if ($dispositivo_id) {
-        $tachoSeleccionado =
-            $dispositivoModel->find($dispositivo_id);
+
+        $tachoSeleccionado = $dispositivoModel->find($dispositivo_id);
+
     }
 
-    // NO hay EcoScam seleccionado
-    if (!$dispositivo_id)
-    {
-        $data = [
+    // ==========================
+    // SI NO TIENE TACHOS
+    // ==========================
+
+    if (!$dispositivo_id) {
+
+        return view('principal', [
+
             'usuario' => $usuario,
 
             'residuosHoy' => 0,
             'impactoAmbiental' => 0,
             'nivelEco' => 'Sin datos',
 
-            'tachoSeleccionado' => $tachoSeleccionado,
-
             'labels' => json_encode([]),
-            'datos'  => json_encode([])
-        ];
+            'datos'  => json_encode([]),
 
-        return view('principal', $data);
+            'tachoSeleccionado' => null,
+
+            'tachos' => $tachos
+
+        ]);
     }
 
-    // Hay EcoScam seleccionado
+    // ==========================
+    // ESTADÍSTICAS DEL TACHO
+    // ==========================
 
-    $residuos =
-        $estadisticaModel->residuosPorTipo(
-            $dispositivo_id
-        );
+    $residuos = $estadisticaModel->residuosPorTipo($dispositivo_id);
 
     $labels = [];
-    $datos = [];
+    $datos  = [];
 
-    foreach ($residuos as $r)
-    {
+    foreach ($residuos as $r) {
+
         $labels[] = ucfirst($r['residuo']);
         $datos[]  = $r['cantidad'];
+
     }
 
-    $data = [
+    return view('principal', [
+
         'usuario' => $usuario,
 
         'residuosHoy' =>
@@ -187,17 +233,18 @@ public function principal()
 
         'impactoAmbiental' =>
             $clasificacionModel->obtenerImpactoAmbiental($dispositivo_id),
-
         'nivelEco' =>
             $clasificacionModel->obtenerNivelEcologico($dispositivo_id),
 
+        'labels' => json_encode($labels),
+
+        'datos' => json_encode($datos),
+
         'tachoSeleccionado' => $tachoSeleccionado,
 
-        'labels' => json_encode($labels),
-        'datos'  => json_encode($datos)
-    ];
+        'tachos' => $tachos
 
-    return view('principal', $data);
+    ]);
 }
   public function cerrarSesion() {
     session()->destroy();
