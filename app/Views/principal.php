@@ -194,6 +194,7 @@
 
   <!-- TARJETA + BOTONES -->
   <div class="tarjeta-contenedor">
+  <h2 class="titulo-impacto">🌱 Compartí tu impacto ecológico</h2>
     <div id="tarjeta-logro" class="tarjeta-logro">
 
       <!-- hojas decorativas -->
