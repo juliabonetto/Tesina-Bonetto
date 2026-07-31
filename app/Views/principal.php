@@ -393,7 +393,6 @@ if(canvas)
 
         <?php else: ?>
 
-
             <div class="lista-tachos">
 
 
