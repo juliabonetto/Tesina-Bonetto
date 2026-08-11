@@ -18,3 +18,184 @@ DEBUG - 2026-07-31 12:31:53 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-31 12:31:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-31 12:31:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-31 12:31:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 13:24:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 13:24:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 13:24:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 13:59:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:00:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:00:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:01:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:01:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:01:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:01:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:06:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:06:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:06:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:08:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:08:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:09:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:09:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:09:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:09:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:09:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:10:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:10:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:10:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:12:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:12:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:12:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:12:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:12:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:12:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:12:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:22:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:22:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:24:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:24:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:27:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-31 14:45:16 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: usuario/principal]
+in APPPATH\Controllers\UsuarioController.php on line 412.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Controllers\\UsuarioController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\UsuarioController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\UsuarioController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\UsuarioController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('usuario/principal')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-31 14:46:12 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: usuario/principal]
+in APPPATH\Controllers\UsuarioController.php on line 412.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Controllers\\UsuarioController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\UsuarioController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\UsuarioController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\UsuarioController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('usuario/principal')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-07-31 14:48:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:48:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-31 14:48:21 --> ParseError: syntax error, unexpected token "endforeach", expecting end of file
+[Method: GET, Route: usuario/mostrar]
+in APPPATH\Views\mostrar.php on line 12.
+ 1 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('mostrar', [], true)
+ 3 APPPATH\Controllers\UsuarioController.php(412): view('mostrar', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->mostrar()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-31 14:51:46 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: usuario/mostrar]
+in APPPATH\Views\mostrar.php on line 10.
+ 1 APPPATH\Views\mostrar.php(10): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', 'C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\mostrar.php', 10)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\mostrar.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('mostrar', [], true)
+ 5 APPPATH\Controllers\UsuarioController.php(412): view('mostrar', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->mostrar()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-31 14:52:29 --> ErrorException: Undefined variable $usuario
+[Method: GET, Route: usuario/mostrar]
+in APPPATH\Views\mostrar.php on line 11.
+ 1 APPPATH\Views\mostrar.php(11): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuario', 'C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\mostrar.php', 11)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\mostrar.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('mostrar', [], true)
+ 5 APPPATH\Controllers\UsuarioController.php(412): view('mostrar', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->mostrar()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-07-31 14:53:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:53:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 14:55:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-31 14:56:50 --> ErrorException: Undefined variable $usuario
+[Method: GET, Route: usuario/mostrar]
+in APPPATH\Views\mostrar.php on line 11.
+ 1 APPPATH\Views\mostrar.php(11): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuario', 'C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\mostrar.php', 11)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\mostrar.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('mostrar', [], true)
+ 5 APPPATH\Controllers\UsuarioController.php(412): view('mostrar', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->mostrar()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-31 14:58:07 --> ParseError: syntax error, unexpected token "public", expecting end of file
+[Method: GET, Route: usuario/mostrar]
+in APPPATH\Controllers\UsuarioController.php on line 408.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Controllers\\UsuarioController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\UsuarioController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\UsuarioController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\UsuarioController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('usuario/mostrar')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-31 14:58:13 --> ErrorException: Undefined variable $usuario
+[Method: GET, Route: usuario/mostrar]
+in APPPATH\Views\mostrar.php on line 11.
+ 1 APPPATH\Views\mostrar.php(11): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuario', 'C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\mostrar.php', 11)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\mostrar.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('mostrar', [], true)
+ 5 APPPATH\Controllers\UsuarioController.php(412): view('mostrar', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->mostrar()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-31 14:58:26 --> ErrorException: Undefined array key "nombre"
+[Method: GET, Route: usuario/mostrar]
+in APPPATH\Views\mostrar.php on line 11.
+ 1 APPPATH\Views\mostrar.php(11): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nombre"', 'C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\mostrar.php', 11)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\mostrar.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('mostrar', [], true)
+ 5 APPPATH\Controllers\UsuarioController.php(412): view('mostrar', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->mostrar()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-31 14:58:43 --> ErrorException: Undefined variable $usuario
+[Method: GET, Route: usuario/mostrar]
+in APPPATH\Views\mostrar.php on line 11.
+ 1 APPPATH\Views\mostrar.php(11): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuario', 'C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\mostrar.php', 11)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\mostrar.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('mostrar', [], true)
+ 5 APPPATH\Controllers\UsuarioController.php(412): view('mostrar', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->mostrar()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-07-31 15:01:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 15:02:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-31 15:02:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

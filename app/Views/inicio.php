@@ -78,7 +78,7 @@ $consejos = [
 </div>
 
         <div class="hero-meta">
-          <div><strong>+4</strong><span>materiales reconocidos</span></div>
+          <div><strong>4</strong><span>materiales reconocidos</span></div>
           <div><strong>98%</strong><span>precisión de clasificación</span></div>
           <div><strong>24/7</strong><span>funcionamiento autónomo</span></div>
         </div>

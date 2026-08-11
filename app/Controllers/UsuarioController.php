@@ -281,7 +281,7 @@ public function principal()
         return redirect()->to('/usuario/login');
     }
 
-    return view('politica_privacidad_view');
+    return view('politica_privacidad');
   }
 
   // Mostrar formulario para cambiar contraseña (usuario logueado)
@@ -404,5 +404,13 @@ public function logro()
 
     return view('logro', $data);
 }
+
+public function mostrar(){
+
+    $usuarioModel= new usuarioModel();
+    $data['usuarios'] = $usuarioModel->findAll();
+    return view('mostrar', $data);
+}
+
 }
 ?>

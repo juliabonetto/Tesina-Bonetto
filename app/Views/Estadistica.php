@@ -12,14 +12,25 @@
 <style>
 
 :root{
-    --bg:#f4f1ea;
-    --ink:#14241b;
-    --ink-soft:#3a4a40;
-    --green:#1f6b3a;
-    --lime:#c8f257;
-    --radius:22px;
-    --serif:'Fraunces', Georgia, serif;
-    --sans:'Inter', system-ui, sans-serif;
+    /* ===== PALETA ECO-CAM ===== */
+    --green-dark: #1f4d2b;
+    --green:      #2f7a3f;
+    --green-light:#4ea25c;
+    --green-soft: #e8f4ea;
+    --bg:         #f7faf7;
+    --card:       #ffffff;
+    --text:       #1c2620;
+    --muted:      #647069;
+    --border:     #dfe8e1;
+    --shadow:     0 4px 14px rgba(20, 40, 25, 0.08);
+    --radius:     18px;
+
+    /* Variables antiguas (se mantienen para compatibilidad) */
+    --ink:       var(--text);
+    --ink-soft:  var(--muted);
+    --lime:      #c8f257;   /* no se usa, se conserva */
+    --serif:     'Fraunces', Georgia, serif;
+    --sans:      system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 *{
@@ -31,9 +42,9 @@
 body{
     background:var(--bg);
     font-family:var(--sans);
-    color:var(--ink);
+    color:var(--text);
     min-height:100vh;
-    padding:30px;
+    padding:30px 20px;
 }
 
 .estadisticas-container{
@@ -46,41 +57,49 @@ body{
 ========================== */
 
 .header-card{
-    background:white;
+    background:var(--card);
     border-radius:var(--radius);
     border:2px solid var(--green);
-    box-shadow:0 12px 30px rgba(20,36,27,.15);
-    padding:30px;
-    margin-bottom:25px;
+    box-shadow:var(--shadow);
+    padding:30px 30px 20px 30px;
+    margin-bottom:30px;
     position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.header-card .volver{
+    align-self:flex-start;
+    background:var(--text);
+    color:white;
+    text-decoration:none;
+    padding:10px 18px;
+    border-radius:10px;
+    transition:.3s;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.header-card .volver:hover{
+    background:var(--green);
 }
 
 .header-card h1{
-    text-align:center;
     color:var(--green);
     font-family:var(--serif);
     font-size:2rem;
+    margin-bottom:6px;
 }
 
-.volver{
-    position:absolute;
-    top:20px;
-    left:20px;
-
-    background:var(--ink);
-    color:white;
-
-    text-decoration:none;
-
-    padding:10px 18px;
-
-    border-radius:10px;
-
-    transition:.3s;
-}
-
-.volver:hover{
-    background:var(--green);
+.header-card .nombre-tacho{
+    color:var(--muted);
+    font-size:1.2rem;
+    font-weight:500;
+    background:var(--green-soft);
+    padding:6px 18px;
+    border-radius:30px;
+    display:inline-block;
 }
 
 /* ==========================
@@ -89,28 +108,38 @@ body{
 
 .cards{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
     gap:20px;
-    margin-bottom:25px;
+    margin-bottom:30px;
 }
 
 .card{
-    background:white;
-    border-radius:18px;
+    background:var(--card);
+    border-radius:var(--radius);
     border:2px solid var(--green);
-    padding:25px;
+    padding:25px 15px;
     text-align:center;
-    box-shadow:0 8px 20px rgba(20,36,27,.10);
+    box-shadow:var(--shadow);
+    transition: transform 0.2s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
 }
 
 .card h3{
-    color:var(--ink-soft);
-    margin-bottom:10px;
+    color:var(--muted);
+    margin-bottom:8px;
+    font-weight:500;
+    font-size:1rem;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
 }
 
 .card h2{
-    color:var(--green);
-    font-size:2rem;
+    color:var(--green-dark);
+    font-size:2.2rem;
+    font-weight:700;
 }
 
 /* ==========================
@@ -119,39 +148,53 @@ body{
 
 .graficos{
     display:grid;
-    grid-template-columns:380px 1fr;
+    grid-template-columns:1fr 1fr;
     gap:25px;
-    margin-bottom:25px;
+    margin-bottom:30px;
 }
 
 .panel{
-    background:white;
+    background:var(--card);
     border-radius:var(--radius);
     border:2px solid var(--green);
     padding:25px;
-    box-shadow:0 8px 20px rgba(20,36,27,.10);
+    box-shadow:var(--shadow);
 }
 
 .panel h2{
-    color:var(--green);
-    margin-bottom:20px;
+    color:var(--green-dark);
+    margin-bottom:18px;
+    font-family:var(--serif);
+    font-size:1.5rem;
+    text-align:center;
 }
 
 .chart-container{
-    width:280px;
+    width:100%;
+    max-width:280px;
     height:280px;
-    margin:auto;
+    margin:0 auto;
 }
 
 .resumen-item{
     display:flex;
     justify-content:space-between;
-    padding:12px;
-    border-bottom:1px solid #eee;
+    padding:10px 0;
+    border-bottom:1px solid var(--border);
+    font-size:1.05rem;
 }
 
 .resumen-item:last-child{
     border-bottom:none;
+}
+
+.resumen-item strong{
+    color:var(--text);
+}
+
+.resumen-item span{
+    color:var(--green-dark);
+    font-weight:600;
 }
 
 /* ==========================
@@ -159,66 +202,85 @@ body{
 ========================== */
 
 .tabla-container{
-    background:white;
+    background:var(--card);
     border-radius:var(--radius);
     border:2px solid var(--green);
     padding:25px;
-    box-shadow:0 8px 20px rgba(20,36,27,.10);
+    box-shadow:var(--shadow);
 }
 
 .tabla-container h2{
-    color:var(--green);
-    margin-bottom:20px;
+    color:var(--green-dark);
+    margin-bottom:18px;
+    font-family:var(--serif);
+    font-size:1.5rem;
+    text-align:center;
 }
 
 .table-scroll{
-    max-height:350px;
+    max-height:380px;
     overflow-y:auto;
+    border-radius:12px;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
+    font-size:0.95rem;
 }
 
 thead{
     position:sticky;
     top:0;
+    z-index:2;
 }
 
 th{
     background:var(--green);
     color:white;
+    padding:14px 12px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.3px;
 }
 
-th,td{
+td{
     padding:12px;
     text-align:center;
+    border-bottom:1px solid var(--border);
 }
 
-tr:nth-child(even){
-    background:#f8f8f8;
+tbody tr:hover{
+    background:var(--green-soft);
 }
 
 /* ==========================
    RESPONSIVE
 ========================== */
 
-@media(max-width:900px){
-
-    .cards{
-        grid-template-columns:1fr;
-    }
-
+@media(max-width:800px){
     .graficos{
         grid-template-columns:1fr;
     }
-
     .chart-container{
-        width:220px;
+        max-width:220px;
         height:220px;
     }
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+}
 
+@media(max-width:500px){
+    .cards{
+        grid-template-columns:1fr;
+    }
+    .header-card h1{
+        font-size:1.6rem;
+    }
+    .header-card .nombre-tacho{
+        font-size:1rem;
+    }
 }
 
 </style>
@@ -229,26 +291,17 @@ tr:nth-child(even){
 
 <div class="estadisticas-container">
 
-    <!-- HEADER -->
-
     <div class="header-card">
 
-        <a href="<?= site_url('usuario/principal') ?>" class="volver">
-            ← Volver
-        </a>
+<a href="<?= site_url('usuario/mis-tachos') ?>" class="volver">
+    ← Volver
+</a>
 
-        <h1>
-    Estadísticas EcoS-cam
-</h1>
+<h1>
+Estadísticas <?= esc($tacho->nombre) ?> </h1>
+</div>
 
-<h3 style="text-align:center;">
-    <?= esc($tacho->nombre) ?>
-</h3>
-
-    </div>
-
-    <!-- TARJETAS -->
-
+    <!-- ===== TARJETAS ===== -->
     <div class="cards">
 
         <div class="card">
@@ -268,8 +321,7 @@ tr:nth-child(even){
 
     </div>
 
-    <!-- GRAFICOS -->
-
+    <!-- ===== GRÁFICOS Y RESUMEN ===== -->
     <div class="graficos">
 
         <div class="panel">
@@ -287,34 +339,21 @@ tr:nth-child(even){
             <h2>Resumen</h2>
 
             <?php
-
             $residuos = json_decode($labels);
             $cantidades = json_decode($datos);
-
             for($i=0; $i<count($residuos); $i++):
-
             ?>
-
                 <div class="resumen-item">
-
-                    <strong>
-                        <?= ucfirst($residuos[$i]) ?>
-                    </strong>
-
-                    <span>
-                        <?= $cantidades[$i] ?>
-                    </span>
-
+                    <strong><?= ucfirst($residuos[$i]) ?></strong>
+                    <span><?= $cantidades[$i] ?></span>
                 </div>
-
             <?php endfor; ?>
 
         </div>
 
     </div>
 
-    <!-- TABLA -->
-
+    <!-- ===== TABLA ===== -->
     <div class="tabla-container">
 
         <h2>Últimas Clasificaciones</h2>
@@ -324,42 +363,23 @@ tr:nth-child(even){
             <table>
 
                 <thead>
-
                     <tr>
                         <th>Fecha</th>
                         <th>Residuo</th>
                         <th>Confianza</th>
                         <th>Tipo</th>
                     </tr>
-
                 </thead>
 
                 <tbody>
-
                 <?php foreach($ultimos as $fila): ?>
-
                     <tr>
-
-                        <td>
-                            <?= $fila['fecha_hora'] ?>
-                        </td>
-
-                        <td>
-                            <?= ucfirst($fila['residuo']) ?>
-                        </td>
-
-                        <td>
-                            <?= round($fila['confianza'] * 100,2) ?>%
-                        </td>
-
-                        <td>
-                            <?= ucfirst($fila['clasificacion']) ?>
-                        </td>
-
+                        <td><?= $fila['fecha_hora'] ?></td>
+                        <td><?= ucfirst($fila['residuo']) ?></td>
+                        <td><?= round($fila['confianza'] * 100,2) ?>%</td>
+                        <td><?= ucfirst($fila['clasificacion']) ?></td>
                     </tr>
-
                 <?php endforeach; ?>
-
                 </tbody>
 
             </table>
@@ -376,18 +396,23 @@ new Chart(
     document.getElementById('grafico'),
     {
         type:'pie',
-
         data:{
             labels: <?= $labels ?>,
-
             datasets:[{
-                data: <?= $datos ?>
+                data: <?= $datos ?>,
+                backgroundColor: [
+                    '#2f7a3f', '#4ea25c', '#8bc34a', '#c8f257', '#aed581'
+                ]
             }]
         },
-
         options:{
             responsive:true,
-            maintainAspectRatio:false
+            maintainAspectRatio:false,
+            plugins:{
+                legend:{
+                    position:'bottom'
+                }
+            }
         }
     }
 );

@@ -214,4 +214,40 @@ class TachosController extends BaseController
 
         return redirect()->to('/mis-tachos')->with('mensaje', 'Eco-Tacho registrado exitosamente.');
     }
+
+    public function eliminar($id)
+    {
+        $usuario_id = session()->get('id');
+        if (!$usuario_id) {
+            return $this->response->setJSON(['success' => false, 'message' => 'No autenticado']);
+        }
+    
+        $db = \Config\Database::connect();
+    
+        // Verificar que el usuario tiene relación con este dispositivo
+        $relacion = $db->table('usuario_dispositivo')
+            ->where('usuario_id', $usuario_id)
+            ->where('dispositivo_id', $id)
+            ->get()
+            ->getRow();
+    
+        if (!$relacion) {
+            return $this->response->setJSON(['success' => false, 'message' => 'No tienes acceso a este tacho']);
+        }
+    
+        // Si es propietario, actualizar propietario_id a NULL en dispositivos
+        if ($relacion->rol === 'propietario') {
+            $db->table('dispositivos')
+                ->where('id', $id)
+                ->update(['propietario_id' => null]);
+        }
+    
+        // Eliminar la relación
+        $db->table('usuario_dispositivo')
+            ->where('usuario_id', $usuario_id)
+            ->where('dispositivo_id', $id)
+            ->delete();
+    
+        return $this->response->setJSON(['success' => true, 'message' => 'Acceso al tacho eliminado']);
+    }
 }

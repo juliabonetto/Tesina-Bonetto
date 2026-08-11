@@ -54,7 +54,7 @@ $routes->get('pagos/pendiente', 'PagosController::pendiente');
 $routes->get('pagos/checkout', 'PagosController::checkout');
 
 //tachos
-$routes->get( 'mis-tachos','TachosController::mistachos');
+$routes->get( 'usuario/mis-tachos','TachosController::mistachos');
 $routes->get(  'registrar-tacho',  'TachosController::registrar');
 $routes->post( 'guardar-tacho','TachosController::guardar');
 $routes->get('seleccionar-tacho/(:num)','TachosController::seleccionar/$1');
@@ -63,8 +63,6 @@ $routes->post('procesar-union', 'TachosController::procesarUnion');
 $routes->post('buscar-tacho-por-codigo', 'TachosController::buscarPorCodigo');
 $routes->post('asignar-tacho', 'TachosController::asignarPropietario');
 $routes->get('estadisticas-tacho/(:num)', 'EstadisticaController::show/$1');
-
-
 $routes->get('mis-tachos', 'TachosController::mistachos');
 $routes->get('registrar-tacho', 'TachosController::registrar');
 $routes->post('buscar-tacho-por-codigo', 'TachosController::buscarPorCodigo');
@@ -73,3 +71,7 @@ $routes->get('unirse-tacho', 'TachosController::unirse');
 $routes->post('procesar-union', 'TachosController::procesarUnion');
 $routes->get('seleccionar-tacho/(:num)', 'TachosController::seleccionar/$1');
 $routes->get('tachos/seleccionar/(:num)','TachosController::seleccionar/$1');
+$routes->post('eliminar-tacho/(:num)', 'TachosController::eliminar/$1');
+
+
+$routes->get('usuario/mostrar', 'UsuarioController::mostrar');

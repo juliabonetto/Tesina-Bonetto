@@ -2,17 +2,28 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Cambiar contraseña | EcoScam</title>
+  <title>Cambiar contraseña | EcoS-cam</title>
   <style>
     :root {
-      --bg:        #f4f1ea;
-      --ink:       #14241b;
-      --ink-soft:  #3a4a40;
-      --green:     #1f6b3a;
-      --lime:      #c8f257;
-      --radius:    22px;
+      /* ===== PALETA ECO-CAM ===== */
+      --green-dark: #1f4d2b;
+      --green:      #2f7a3f;
+      --green-light:#4ea25c;
+      --green-soft: #e8f4ea;
+      --bg:         #f7faf7;
+      --card:       #ffffff;
+      --text:       #1c2620;
+      --muted:      #647069;
+      --border:     #dfe8e1;
+      --shadow:     0 4px 14px rgba(20, 40, 25, 0.08);
+      --radius:     18px;
+
+      /* Variables antiguas (para no romper nada) */
+      --ink:       var(--text);
+      --ink-soft:  var(--muted);
+      --lime:      #c8f257;   /* se mantiene por si se usa */
       --serif:     'Fraunces', Georgia, serif;
-      --sans:      'Inter', system-ui, sans-serif;
+      --sans:      system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,20 +31,21 @@
     body {
       background: var(--bg);
       font-family: var(--sans);
-      color: var(--ink);
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative; /* para el botón volver absoluto */
     }
 
     .card {
       max-width: 480px;
       width: 100%;
-      background: #fff;
+      background: var(--card);
       padding: 2rem;
       border-radius: var(--radius);
-      box-shadow: 0 12px 30px rgba(20,36,27,0.15);
+      box-shadow: var(--shadow);
       border: 2px solid var(--green);
     }
 
@@ -50,7 +62,7 @@
       display: block;
       margin-top: 12px;
       font-weight: 600;
-      color: var(--ink-soft);
+      color: var(--muted);
     }
 
     input {
@@ -58,8 +70,8 @@
       padding: 0.75rem;
       margin-top: 6px;
       border-radius: 12px;
-      border: 1px solid rgba(20,36,27,0.2);
-      background: rgba(244,241,234,0.6);
+      border: 1px solid var(--border);
+      background: var(--bg);
       transition: border-color 0.3s;
       font-size: 15px;
     }
@@ -67,6 +79,7 @@
     input:focus {
       border-color: var(--green);
       outline: none;
+      box-shadow: 0 0 0 3px rgba(47, 122, 63, 0.15);
     }
 
     .btn {
@@ -84,7 +97,7 @@
     }
 
     .btn:hover {
-      background: var(--ink);
+      background: var(--green-dark);
       transform: translateY(-2px);
     }
 
@@ -96,8 +109,8 @@
     }
 
     .ok {
-      background: rgba(232,245,233,1);
-      color: var(--green);
+      background: var(--green-soft);
+      color: var(--green-dark);
       font-weight: 500;
     }
 
@@ -106,11 +119,12 @@
       color: rgba(198,40,40,1);
       font-weight: 500;
     }
+
     .volver {
       position: absolute;
       top: 20px;
       left: 20px;
-      background: var(--ink);
+      background: var(--text);
       color: #fff;
       padding: 8px 16px;
       border-radius: 8px;
@@ -120,7 +134,9 @@
       transition: background 0.3s;
     }
 
-    .volver:hover { background: var(--green); }
+    .volver:hover {
+      background: var(--green);
+    }
   </style>
 </head>
 <body>
@@ -150,4 +166,3 @@
   </div>
 </body>
 </html>
-

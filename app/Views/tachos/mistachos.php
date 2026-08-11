@@ -76,6 +76,26 @@ body{
     padding:40px 24px;
 }
 
+.card {
+    position: relative; /* Necesario para posicionar el botón dentro */
+}
+
+.btn-eliminar {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #b0b0b0;
+    transition: color 0.2s;
+    padding: 4px 8px;
+    line-height: 1;
+}
+.btn-eliminar:hover {
+    color: #d32f2f;
+}
 
 .welcome-block{
 
@@ -368,7 +388,7 @@ body{
         <?php foreach($tachos as $tacho): ?>
 
         <div class="card">
-
+        <button class="btn-eliminar" data-id="<?= $tacho->id ?>" title="Eliminar este Eco-Tacho de mi lista">🗑 </button>
             <h3>
                 <?= esc($tacho->nombre) ?>
             </h3>
@@ -402,6 +422,68 @@ body{
     </div>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const eliminarBtns = document.querySelectorAll('.btn-eliminar');
+
+    eliminarBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const id = this.dataset.id;
+            const card = this.closest('.card');
+
+            if (!confirm('¿Estás seguro de que quieres eliminar este Eco-Tacho de tu lista? Perderás acceso a sus estadísticas.')) {
+                return;
+            }
+
+            const formData = new URLSearchParams();
+            <?php if (function_exists('csrf_token')): ?>
+            formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
+            <?php endif; ?>
+
+            fetch('<?= base_url('eliminar-tacho') ?>/' + id, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: formData.toString()
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Eliminar la tarjeta del DOM
+                    if (card) card.remove();
+
+                    // Actualizar contador
+                    const badge = document.querySelector('.hero-badge');
+                    if (badge) {
+                        let text = badge.textContent;
+                        let num = parseInt(text);
+                        if (!isNaN(num)) {
+                            num--;
+                            badge.textContent = num + ' Eco-Tachos registrados';
+                        }
+                    }
+
+                    // Mensaje si no quedan tachos
+                    const cardsGrid = document.querySelector('.cards-grid');
+                    if (cardsGrid && cardsGrid.children.length === 0) {
+                        cardsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:var(--muted);">No tienes Eco-Tachos en tu lista.</p>';
+                    }
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Ocurrió un error al intentar eliminar el tacho.');
+                console.error(error);
+            });
+        });
+    });
+});
+</script>
 
 </body>
 </html>

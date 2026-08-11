@@ -1,0 +1,23 @@
+DEBUG - 2026-08-04 16:46:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-08-04 16:46:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-08-04 16:46:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-08-04 16:46:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-08-04 16:46:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-08-04 16:46:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-08-04 16:46:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-08-04 16:46:52 --> ErrorException: Undefined array key "DNI"
+[Method: GET, Route: usuario/perfil]
+in APPPATH\Views\perfil.php on line 203.
+ 1 APPPATH\Views\perfil.php(203): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "DNI"', 'C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\perfil.php', 203)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Views\\perfil.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('/perfil', [], true)
+ 5 APPPATH\Controllers\UsuarioController.php(260): view('/perfil', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->perfil()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-08-04 16:47:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-08-04 16:47:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
