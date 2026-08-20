@@ -492,58 +492,93 @@
    /* =========================================================
     LAYOUT TARJETA + ESTADÍSTICAS
    ========================================================= */
-   .dashboard-extra {
+  /* =========================================================
+   LAYOUT TARJETA + ESTADÍSTICAS
+========================================================= */
+
+.dashboard-extra {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 22px;
     align-items: start;
-   }
-   /* Contenedor de tarjeta + botones */
-   .tarjeta-contenedor {
+}
+
+/* =========================
+   IZQUIERDA
+========================= */
+
+.tarjeta-contenedor {
     display: flex;
     flex-direction: column;
     align-items: center;
-   }
-   /* Panel de estadísticas */
-   .panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-   }
-   #graficoResiduos {
-    width: 100% !important;
-    height: 350px !important;
-    display: block;
-   }
-   /* Título arriba de la tarjeta */
-   .titulo-impacto {
+}
+
+/* Título arriba */
+.titulo-impacto {
     font-size: 22px;
     font-weight: 700;
     color: #1f4d2b;
     text-align: center;
-    margin-bottom: 18px;
+
+    margin: 0 0 24px 0;
+
     padding: 10px 20px;
-    background: linear-gradient(90deg, #e8f5e9 0%, #d7f0dc 100%);
+
+    background: linear-gradient(
+        90deg,
+        #e8f5e9 0%,
+        #d7f0dc 100%
+    );
+
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(15, 50, 35, 0.1);
+
+    box-shadow:
+        0 4px 10px rgba(15, 50, 35, 0.1);
+
     letter-spacing: 0.03em;
     display: inline-block;
-    transition: 0.3s ease;
-   }
-   /* Efecto al pasar el mouse */
-   .titulo-impacto:hover {
-    background: linear-gradient(90deg, #d7f0dc 0%, #c8eacb 100%);
-    transform: scale(1.02);
-   }
-   /* Ajuste de separación vertical */
-   .titulo-impacto {
-    margin-top: 40px; /* antes no tenía margen superior */
-    margin-bottom: 24px; /* aumenta el espacio debajo del título */
-   }
-   /* Ajuste del panel de estadísticas */
-   .panel {
-    margin-top: 40px; /* baja el bloque de estadísticas */
-   }
+}
+
+/* Card */
+.tarjeta-logro {
+    margin: 0;
+}
+
+/* Botones */
+.acciones-logro {
+    margin-top: 20px;
+}
+
+
+/* =========================
+   DERECHA
+========================= */
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* Baja el bloque de estadísticas */
+    margin-top: 68px;
+
+    /* mismo espacio visual que la card */
+    min-height: 450px;
+}
+
+/* Título estadísticas */
+.panel h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Gráfico */
+#graficoResiduos {
+    width: 100% !important;
+    height: 450px !important;
+    display: block;
+}
+
    /* =========================================================
     RESPONSIVE
    ========================================================= */

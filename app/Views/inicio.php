@@ -162,7 +162,7 @@ $consejos = [
   <footer class="footer">
     <div class="footer-top">
       <h2>Reciclar es el primer paso.<br><em>Empezá hoy.</em></h2>
-      <a href="#registro" class="btn btn-primary">Comprar ahora →</a>
+      <a href="<?= base_url('pagos/checkout') ?>" zclass="btn btn-primary">Comprar ahora →</a>
     </div>
     <div class="footer-bot">
       <span>© <?= date('Y') ?> EcoS-cam — Proyecto de reciclaje inteligente</span>
