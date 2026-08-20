@@ -21,13 +21,10 @@
            
             <a href="#" class="brand">
 
-                <span class="brand-mark">
-                    ♻
-                </span>
-
-                <span>
-                    EcoS-cam
-                </span>
+               <img src="<?= base_url('img/Captura_de_pantalla_2026-04-24_090557-removebg-preview.png') ?>" 
+         alt="Logo EcoS-cam" 
+         class="brand-logo">
+ <span>  EcoS-cam</span>
 
             </a>
 
@@ -223,7 +220,9 @@
       <!-- header -->
       <div class="impact-header">
         <div class="brand">
-          <div class="brand-icon">♻</div>
+          <img src="<?= base_url('img/Captura_de_pantalla_2026-04-24_090557-removebg-preview.png') ?>" 
+               alt="Logo EcoS-cam" 
+               class="brand-logo">
           <span>EcoS-cam</span>
         </div>
         <div class="fecha"><?= date('d M Y') ?></div>

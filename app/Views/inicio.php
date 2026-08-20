@@ -42,10 +42,11 @@ $consejos = [
 <body>
 
   <!-- BOTONES -->
-  <header class="nav">
+    <header class="nav">
     <a href="#" class="logo">
-      <span class="logo-mark">◐</span>
-      <span>Eco<strong>S-cam</strong></span>
+        <img src="<?= base_url('img/Captura_de_pantalla_2026-04-24_090557-removebg-preview.png') ?>" 
+             alt="Logo EcoS-cam" 
+             class="logo-img"><span>Eco<strong>S-cam</strong></span>
     </a>
     <nav class="nav-links">
       <a href="#inicio">Inicio</a>
