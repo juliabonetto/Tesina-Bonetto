@@ -1,0 +1,102 @@
+DEBUG - 2026-09-12 21:32:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-12 21:32:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-12 21:32:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-09-12 21:57:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-09-12 21:57:15 --> Unknown column 'd.habilitado' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT `d`.`id`, `d`.`nombre`, `d`.`ubicacion`, `d`.`tipo`, `d`.`codigo_activacion`, `d`.`habilitado`, `ud`.`rol`
+FROM `usuario_dispositivo` `ud`
+JOIN `dispositivos` `d` ON `d`.`id` = `ud`.`dispositivo_id`
+WHERE `ud`.`usuario_id` = 8
+ORDER BY `d`.`id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `d`.`id`, `d`.`nombre`, `d`.`ubicacion`, `d`.`tipo`, `d`.`codigo_activacion`, `d`.`habilitado`, `ud`.`rol`
+FROM `usuario_dispositivo` `ud`
+JOIN `dispositivos` `d` ON `d`.`id` = `ud`.`dispositivo_id`
+WHERE `ud`.`usuario_id` = 8
+ORDER BY `d`.`id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `d`.`id`, `d`.`nombre`, `d`.`ubicacion`, `d`.`tipo`, `d`.`codigo_activacion`, `d`.`habilitado`, `ud`.`rol`
+FROM `usuario_dispositivo` `ud`
+JOIN `dispositivos` `d` ON `d`.`id` = `ud`.`dispositivo_id`
+WHERE `ud`.`usuario_id` = 8
+ORDER BY `d`.`id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `d`.`id`, `d`.`nombre`, `d`.`ubicacion`, `d`.`tipo`, `d`.`codigo_activacion`, `d`.`habilitado`, `ud`.`rol`
+FROM `usuario_dispositivo` `ud`
+JOIN `dispositivos` `d` ON `d`.`id` = `ud`.`dispositivo_id`
+WHERE `ud`.`usuario_id` = :ud.usuario_id:
+ORDER BY `d`.`id` ASC', [...], false)
+ 5 APPPATH\Controllers\UsuarioController.php(178): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->principal()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-09-12 21:57:15 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'd.habilitado' in 'field list'
+[Method: GET, Route: usuario/principal]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `d`.`id`, `d`.`nombre`, `d`.`ubicacion`, `d`.`tipo`, `d`.`codigo_activacion`, `d`.`habilitado`, `ud`.`rol`
+FROM `usuario_dispositivo` `ud`
+JOIN `dispositivos` `d` ON `d`.`id` = `ud`.`dispositivo_id`
+WHERE `ud`.`usuario_id` = :ud.usuario_id:
+ORDER BY `d`.`id` ASC', [...], false)
+ 2 APPPATH\Controllers\UsuarioController.php(178): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->principal()
+ 4 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-09-12 21:57:15 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'd.habilitado' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `d`.`id`, `d`.`nombre`, `d`.`ubicacion`, `d`.`tipo`, `d`.`codigo_activacion`, `d`.`habilitado`, `ud`.`rol`
+FROM `usuario_dispositivo` `ud`
+JOIN `dispositivos` `d` ON `d`.`id` = `ud`.`dispositivo_id`
+WHERE `ud`.`usuario_id` = 8
+ORDER BY `d`.`id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `d`.`id`, `d`.`nombre`, `d`.`ubicacion`, `d`.`tipo`, `d`.`codigo_activacion`, `d`.`habilitado`, `ud`.`rol`
+FROM `usuario_dispositivo` `ud`
+JOIN `dispositivos` `d` ON `d`.`id` = `ud`.`dispositivo_id`
+WHERE `ud`.`usuario_id` = 8
+ORDER BY `d`.`id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `d`.`id`, `d`.`nombre`, `d`.`ubicacion`, `d`.`tipo`, `d`.`codigo_activacion`, `d`.`habilitado`, `ud`.`rol`
+FROM `usuario_dispositivo` `ud`
+JOIN `dispositivos` `d` ON `d`.`id` = `ud`.`dispositivo_id`
+WHERE `ud`.`usuario_id` = :ud.usuario_id:
+ORDER BY `d`.`id` ASC', [...], false)
+ 4 APPPATH\Controllers\UsuarioController.php(178): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->principal()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 7 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-09-12 21:57:15 --> [Caused by] mysqli_sql_exception: Unknown column 'd.habilitado' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT `d`.`id`, `d`.`nombre`, `d`.`ubicacion`, `d`.`tipo`, `d`.`codigo_activacion`, `d`.`habilitado`, `ud`.`rol`
+FROM `usuario_dispositivo` `ud`
+JOIN `dispositivos` `d` ON `d`.`id` = `ud`.`dispositivo_id`
+WHERE `ud`.`usuario_id` = 8
+ORDER BY `d`.`id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `d`.`id`, `d`.`nombre`, `d`.`ubicacion`, `d`.`tipo`, `d`.`codigo_activacion`, `d`.`habilitado`, `ud`.`rol`
+FROM `usuario_dispositivo` `ud`
+JOIN `dispositivos` `d` ON `d`.`id` = `ud`.`dispositivo_id`
+WHERE `ud`.`usuario_id` = 8
+ORDER BY `d`.`id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `d`.`id`, `d`.`nombre`, `d`.`ubicacion`, `d`.`tipo`, `d`.`codigo_activacion`, `d`.`habilitado`, `ud`.`rol`
+FROM `usuario_dispositivo` `ud`
+JOIN `dispositivos` `d` ON `d`.`id` = `ud`.`dispositivo_id`
+WHERE `ud`.`usuario_id` = 8
+ORDER BY `d`.`id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `d`.`id`, `d`.`nombre`, `d`.`ubicacion`, `d`.`tipo`, `d`.`codigo_activacion`, `d`.`habilitado`, `ud`.`rol`
+FROM `usuario_dispositivo` `ud`
+JOIN `dispositivos` `d` ON `d`.`id` = `ud`.`dispositivo_id`
+WHERE `ud`.`usuario_id` = :ud.usuario_id:
+ORDER BY `d`.`id` ASC', [...], false)
+ 5 APPPATH\Controllers\UsuarioController.php(178): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->principal()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-09-12 22:03:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

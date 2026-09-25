@@ -4,74 +4,223 @@ use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
 
-// UsuarioController (registro, login, perfil, etc.)
-$routes->get('/usuario/inicio', 'UsuarioController::inicio');
-$routes->get('/usuario/login', 'UsuarioController::login');
-$routes->post('/usuario/iniciarSesion', 'UsuarioController::iniciarSesion');
-$routes->get('/usuario/principal', 'UsuarioController::principal');
-$routes->get('/usuario/cerrarSesion', 'UsuarioController::cerrarSesion');
-$routes->get('/usuario/perfil', 'UsuarioController::perfil');
-$routes->get('/usuario/servicios', 'UsuarioController::servicios');
-$routes->get('/usuario/politica_privacidad', 'UsuarioController::politica_privacidad');
-$routes->get('/usuario/cambiarPass', 'UsuarioController::cambiarPass');
-$routes->post('/usuario/actualizarPass', 'UsuarioController::actualizarPass');
 
-// ContraseñaController (recuperación de contraseña)
-$routes->get('/usuario/recuperar', 'ContraseñaController::recuperar');
-$routes->post('/usuario/enviarRecuperacion', 'ContraseñaController::enviarRecuperacion');
-$routes->get('/usuario/restablecer/(:any)', 'ContraseñaController::restablecer/$1');
-$routes->post('/usuario/guardarNuevaContrasena', 'ContraseñaController::guardarNuevaContrasena');
-
-// Prueba de correo
-$routes->get('/usuario/probarCorreo', 'ContraseñaController::probarCorreo');
-
+/*
+|--------------------------------------------------------------------------
+| INICIO
+|--------------------------------------------------------------------------
+*/
 
 $routes->get('/', 'UsuarioController::inicio');
 
-// Mostrar formulario de registro
-$routes->get('/usuario/registro', 'UsuarioController::registro');
 
-// Procesar el formulario de registro
+/*
+|--------------------------------------------------------------------------
+| USUARIO
+|--------------------------------------------------------------------------
+*/
+
+$routes->get('/usuario/inicio', 'UsuarioController::inicio');
+
+$routes->get('/usuario/login', 'UsuarioController::login');
+$routes->post('/usuario/iniciarSesion', 'UsuarioController::iniciarSesion');
+
+$routes->get('/usuario/registro', 'UsuarioController::registro');
 $routes->post('/usuario/registrar', 'UsuarioController::registrar');
 
+$routes->get('/usuario/principal', 'UsuarioController::principal');
 
-//estadisticas
-$routes->get('usuario/estadistica', 'UsuarioController::estadistica');
+$routes->get('/usuario/cerrarSesion', 'UsuarioController::cerrarSesion');
 
-//tachos
-$routes->get('mis-tachos','TachosController::mistachos');
-$routes->get(  'registrar-tacho',  'TachosController::registrar');
-$routes->post( 'guardar-tacho','TachosController::guardar');
-$routes->get('seleccionar-tacho/(:num)','TachosController::seleccionar/$1');
-$routes->get('unirse-tacho', 'TachosController::unirse');
-$routes->post('procesar-union', 'TachosController::procesarUnion');
+$routes->get('/usuario/perfil', 'UsuarioController::perfil');
 
-//pago
+$routes->get('/usuario/servicios', 'UsuarioController::servicios');
 
-$routes->get('pagos/exito', 'PagosController::exito');
-$routes->get('pagos/error', 'PagosController::error');
-$routes->get('pagos/pendiente', 'PagosController::pendiente');
-$routes->get('pagos/checkout', 'PagosController::checkout');
+$routes->get('/usuario/politica_privacidad', 'UsuarioController::politica_privacidad');
 
-//tachos
-$routes->get( 'usuario/mis-tachos','TachosController::mistachos');
-$routes->get(  'registrar-tacho',  'TachosController::registrar');
-$routes->post( 'guardar-tacho','TachosController::guardar');
-$routes->get('seleccionar-tacho/(:num)','TachosController::seleccionar/$1');
-$routes->get('unirse-tacho', 'TachosController::unirse');
-$routes->post('procesar-union', 'TachosController::procesarUnion');
-$routes->post('buscar-tacho-por-codigo', 'TachosController::buscarPorCodigo');
-$routes->post('asignar-tacho', 'TachosController::asignarPropietario');
-$routes->get('estadisticas-tacho/(:num)', 'EstadisticaController::show/$1');
-$routes->get('mis-tachos', 'TachosController::mistachos');
-$routes->get('registrar-tacho', 'TachosController::registrar');
-$routes->post('buscar-tacho-por-codigo', 'TachosController::buscarPorCodigo');
-$routes->post('asignar-tacho', 'TachosController::asignarPropietario');
-$routes->get('unirse-tacho', 'TachosController::unirse');
-$routes->post('procesar-union', 'TachosController::procesarUnion');
-$routes->get('seleccionar-tacho/(:num)', 'TachosController::seleccionar/$1');
-$routes->get('tachos/seleccionar/(:num)','TachosController::seleccionar/$1');
-$routes->post('eliminar-tacho/(:num)', 'TachosController::eliminar/$1');
+$routes->get('/usuario/cambiarPass', 'UsuarioController::cambiarPass');
+$routes->post('/usuario/actualizarPass', 'UsuarioController::actualizarPass');
+
+$routes->get('/usuario/estadistica', 'UsuarioController::estadistica');
+
+$routes->get('/usuario/mostrar', 'UsuarioController::mostrar');
+
+$routes->get('/usuario/seleccionarDispositivo', 'UsuarioController::seleccionarDispositivo');
+$routes->post('/usuario/cambiarDispositivo', 'UsuarioController::cambiarDispositivo');
 
 
-$routes->get('usuario/mostrar', 'UsuarioController::mostrar');
+/*
+|--------------------------------------------------------------------------
+| RECUPERACIÓN DE CONTRASEÑA
+|--------------------------------------------------------------------------
+*/
+
+$routes->get('/usuario/recuperar', 'ContraseñaController::recuperar');
+
+$routes->post('/usuario/enviarRecuperacion','ContraseñaController::enviarRecuperacion');
+
+$routes->get('/usuario/restablecer/(:any)','ContraseñaController::restablecer/$1');
+
+$routes->post(   '/usuario/guardarNuevaContrasena',   'ContraseñaController::guardarNuevaContrasena');
+
+$routes->get('/usuario/probarCorreo','ContraseñaController::probarCorreo');
+
+
+/*
+|--------------------------------------------------------------------------
+| ECO-TACHOS
+|--------------------------------------------------------------------------
+*/
+
+/* Lista de tachos */
+
+$routes->get('/mis-tachos',    'TachosController::mistachos');
+
+$routes->get(    '/usuario/mis-tachos','TachosController::mistachos');
+
+
+/* Registrar Eco-Tacho */
+
+$routes->get(    '/registrar-tacho','TachosController::registrar');
+
+$routes->post('/guardar-tacho','TachosController::guardar');
+
+
+/* Seleccionar Eco-Tacho */
+
+$routes->get(
+    '/seleccionar-tacho/(:num)',
+    'TachosController::seleccionar/$1'
+);
+
+$routes->get(
+    '/tachos/seleccionar/(:num)',
+    'TachosController::seleccionar/$1'
+);
+
+
+/* Unirse a Eco-Tacho */
+
+$routes->get(
+    '/unirse-tacho',
+    'TachosController::unirse'
+);
+
+$routes->post(
+    '/procesar-union',
+    'TachosController::procesarUnion'
+);
+
+
+/* Buscar Eco-Tacho por código */
+
+$routes->post(
+    '/buscar-tacho-por-codigo',
+    'TachosController::buscarPorCodigo'
+);
+
+
+/* Asignar propietario */
+
+$routes->post(
+    '/asignar-tacho',
+    'TachosController::asignarPropietario'
+);
+
+
+/* Eliminar Eco-Tacho */
+
+$routes->post(
+    '/eliminar-tacho/(:num)',
+    'TachosController::eliminar/$1'
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| ESTADÍSTICAS
+|--------------------------------------------------------------------------
+*/
+
+$routes->get(
+    '/estadisticas-tacho/(:num)',
+    'EstadisticaController::show/$1'
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| CONTROL DE LOS TACHOS
+|--------------------------------------------------------------------------
+|
+| Estas rutas serán utilizadas por la página web.
+|
+| Abrir / cerrar:
+|   papel
+|   plastico_vidrio
+|   organico
+|
+| El Controller verificará que el usuario sea propietario.
+|
+|--------------------------------------------------------------------------
+*/
+
+$routes->post(
+    '/tacho/control',
+    'TachosController::control'
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| ESTADO DEL TACHO
+|--------------------------------------------------------------------------
+|
+| Consulta:
+|   - alerta de papel
+|   - distancia del papel
+|
+|--------------------------------------------------------------------------
+*/
+
+$routes->get(
+    '/tacho/estado',
+    'TachosController::estado'
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| CAMBIAR BOLSA
+|--------------------------------------------------------------------------
+|
+| Solamente propietario.
+| Limpia:
+|   alerta_papel
+|   distancia_papel
+|
+|--------------------------------------------------------------------------
+*/
+
+$routes->post(
+    '/tacho/cambiar-bolsa',
+    'TachosController::cambiarBolsa'
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| PAGOS
+|--------------------------------------------------------------------------
+*/
+
+$routes->get(
+    '/pagos/exito',
+    'PagosController::exito'
+);
+
+$routes->get(   '/pagos/error',   'PagosController::error');
+
+$routes->get(   '/pagos/pendiente',   'PagosController::pendiente');
+
+$routes->get('/pagos/checkout','PagosController::checkout');

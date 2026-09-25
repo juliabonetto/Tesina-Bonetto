@@ -4,58 +4,64 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class EstadisticaModel extends Model 
+class EstadisticaModel extends Model
 {
     protected $table = 'clasificaciones';
     protected $primaryKey = 'id';
+    protected $returnType = 'array';
 
-    public function totalClasificaciones($dispositivo_id)
+    public function totalClasificaciones(int $dispositivoId): int
     {
-        return $this
-            ->where(
-                'dispositivo_id',
-                $dispositivo_id
-            )
-            ->countAllResults();
+        return (int) $this->where('dispositivo_id', $dispositivoId)->countAllResults();
     }
 
-    public function residuosPorTipo($dispositivo_id)
+    public function residuosPorTipo(int $dispositivoId): array
     {
-        return $this->db->query("
-            SELECT residuo, COUNT(*) cantidad
-            FROM clasificaciones
-            WHERE dispositivo_id = ?
-            GROUP BY residuo
-        ", [$dispositivo_id])->getResultArray();
+        return $this->db->query(
+            "SELECT residuo, COUNT(*) AS cantidad
+             FROM clasificaciones
+             WHERE dispositivo_id = ?
+             GROUP BY residuo
+             ORDER BY cantidad DESC",
+            [$dispositivoId]
+        )->getResultArray();
     }
 
-public function promedioConfianza($dispositivo_id)
-{
-    return $this->db->query("
-        SELECT AVG(confianza) promedio
-        FROM clasificaciones
-        WHERE dispositivo_id = ?
-    ", [$dispositivo_id])->getRowArray();
-}
+    public function promedioConfianza(int $dispositivoId): array
+    {
+        $row = $this->db->query(
+            "SELECT COALESCE(AVG(confianza), 0) AS promedio
+             FROM clasificaciones
+             WHERE dispositivo_id = ?",
+            [$dispositivoId]
+        )->getRowArray();
 
-public function clasificacionesHoy($dispositivo_id)
-{
-    return $this->db->query("
-        SELECT COUNT(*) cantidad
-        FROM clasificaciones
-        WHERE DATE(fecha_hora)=CURDATE()
-        AND dispositivo_id = ?
-    ", [$dispositivo_id])->getRowArray();
-}
+        return $row ?: ['promedio' => 0];
+    }
 
-public function ultimosRegistros($dispositivo_id)
-{
-    return $this->db->query("
-        SELECT *
-        FROM clasificaciones
-        WHERE dispositivo_id = ?
-        ORDER BY fecha_hora DESC
-        LIMIT 20
-    ", [$dispositivo_id])->getResultArray();
-}
+    public function clasificacionesHoy(int $dispositivoId): array
+    {
+        $row = $this->db->query(
+            "SELECT COUNT(*) AS cantidad
+             FROM clasificaciones
+             WHERE DATE(fecha_hora) = CURDATE()
+               AND dispositivo_id = ?",
+            [$dispositivoId]
+        )->getRowArray();
+
+        return $row ?: ['cantidad' => 0];
+    }
+
+    public function ultimosRegistros(int $dispositivoId): array
+    {
+        return $this->db->query(
+            "SELECT id, fecha_hora, residuo, confianza, clasificacion,
+                    categoria_final, seleccion_manual, imagen, dispositivo_id
+             FROM clasificaciones
+             WHERE dispositivo_id = ?
+             ORDER BY fecha_hora DESC, id DESC
+             LIMIT 20",
+            [$dispositivoId]
+        )->getResultArray();
+    }
 }
