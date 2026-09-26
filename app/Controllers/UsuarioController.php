@@ -194,6 +194,15 @@ class UsuarioController extends BaseController
 
         $tachoSeleccionado = $dispositivoId ? $dispositivoModel->find($dispositivoId) : null;
 
+        $alertaTacho = null;
+        if ($dispositivoId) {
+            $alertaTacho = $db->table('dispositivos')
+                ->select('id,nombre,alerta_papel,distancia_papel')
+                ->where('id', $dispositivoId)
+                ->get()
+                ->getFirstRow('array');
+        }
+
         if (!$dispositivoId || !$tachoSeleccionado) {
             return view('principal', [
                 'usuario' => $usuario,
@@ -203,7 +212,8 @@ class UsuarioController extends BaseController
                 'labels' => json_encode([]),
                 'datos' => json_encode([]),
                 'tachoSeleccionado' => null,
-                'tachos' => $tachos
+                'tachos' => $tachos,
+                'alertaTacho' => $alertaTacho
             ]);
         }
 
@@ -223,7 +233,8 @@ class UsuarioController extends BaseController
             'labels' => json_encode($labels, JSON_UNESCAPED_UNICODE),
             'datos' => json_encode($datos),
             'tachoSeleccionado' => $tachoSeleccionado,
-            'tachos' => $tachos
+            'tachos' => $tachos,
+            'alertaTacho' => $alertaTacho
         ]);
     }
 

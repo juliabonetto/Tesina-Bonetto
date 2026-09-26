@@ -4,7 +4,6 @@ use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
 
-
 /*
 |--------------------------------------------------------------------------
 | INICIO
@@ -12,7 +11,6 @@ use CodeIgniter\Router\RouteCollection;
 */
 
 $routes->get('/', 'UsuarioController::inicio');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +46,6 @@ $routes->get('/usuario/mostrar', 'UsuarioController::mostrar');
 $routes->get('/usuario/seleccionarDispositivo', 'UsuarioController::seleccionarDispositivo');
 $routes->post('/usuario/cambiarDispositivo', 'UsuarioController::cambiarDispositivo');
 
-
 /*
 |--------------------------------------------------------------------------
 | RECUPERACIÓN DE CONTRASEÑA
@@ -57,14 +54,25 @@ $routes->post('/usuario/cambiarDispositivo', 'UsuarioController::cambiarDisposit
 
 $routes->get('/usuario/recuperar', 'ContraseñaController::recuperar');
 
-$routes->post('/usuario/enviarRecuperacion','ContraseñaController::enviarRecuperacion');
+$routes->post(
+    '/usuario/enviarRecuperacion',
+    'ContraseñaController::enviarRecuperacion'
+);
 
-$routes->get('/usuario/restablecer/(:any)','ContraseñaController::restablecer/$1');
+$routes->get(
+    '/usuario/restablecer/(:any)',
+    'ContraseñaController::restablecer/$1'
+);
 
-$routes->post(   '/usuario/guardarNuevaContrasena',   'ContraseñaController::guardarNuevaContrasena');
+$routes->post(
+    '/usuario/guardarNuevaContrasena',
+    'ContraseñaController::guardarNuevaContrasena'
+);
 
-$routes->get('/usuario/probarCorreo','ContraseñaController::probarCorreo');
-
+$routes->get(
+    '/usuario/probarCorreo',
+    'ContraseñaController::probarCorreo'
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -74,17 +82,27 @@ $routes->get('/usuario/probarCorreo','ContraseñaController::probarCorreo');
 
 /* Lista de tachos */
 
-$routes->get('/mis-tachos',    'TachosController::mistachos');
+$routes->get(
+    '/mis-tachos',
+    'TachosController::mistachos'
+);
 
-$routes->get(    '/usuario/mis-tachos','TachosController::mistachos');
-
+$routes->get(
+    '/usuario/mis-tachos',
+    'TachosController::mistachos'
+);
 
 /* Registrar Eco-Tacho */
 
-$routes->get(    '/registrar-tacho','TachosController::registrar');
+$routes->get(
+    '/registrar-tacho',
+    'TachosController::registrar'
+);
 
-$routes->post('/guardar-tacho','TachosController::guardar');
-
+$routes->post(
+    '/guardar-tacho',
+    'TachosController::guardar'
+);
 
 /* Seleccionar Eco-Tacho */
 
@@ -98,7 +116,6 @@ $routes->get(
     'TachosController::seleccionar/$1'
 );
 
-
 /* Unirse a Eco-Tacho */
 
 $routes->get(
@@ -111,14 +128,12 @@ $routes->post(
     'TachosController::procesarUnion'
 );
 
-
 /* Buscar Eco-Tacho por código */
 
 $routes->post(
     '/buscar-tacho-por-codigo',
     'TachosController::buscarPorCodigo'
 );
-
 
 /* Asignar propietario */
 
@@ -127,14 +142,12 @@ $routes->post(
     'TachosController::asignarPropietario'
 );
 
-
 /* Eliminar Eco-Tacho */
 
 $routes->post(
     '/eliminar-tacho/(:num)',
     'TachosController::eliminar/$1'
 );
-
 
 /*
 |--------------------------------------------------------------------------
@@ -147,20 +160,45 @@ $routes->get(
     'EstadisticaController::show/$1'
 );
 
+/*
+|--------------------------------------------------------------------------
+| GESTIÓN DEL ECO-TACHO
+|--------------------------------------------------------------------------
+*/
+
+/* Página para propietario y administrador */
+
+$routes->get(
+    '/gestionar-tacho/(:num)',
+    'TachosController::gestionar/$1'
+);
+
+/* Página de usuarios: solamente propietario */
+
+$routes->get(
+    '/usuarios-tacho/(:num)',
+    'TachosController::usuarios/$1'
+);
+
+/* Cambiar rol de usuario */
+
+$routes->post(
+    '/usuarios-tacho/cambiar-rol',
+    'TachosController::cambiarRol'
+);
 
 /*
 |--------------------------------------------------------------------------
 | CONTROL DE LOS TACHOS
 |--------------------------------------------------------------------------
 |
-| Estas rutas serán utilizadas por la página web.
+| Permite abrir/cerrar:
+|   - plástico / vidrio
+|   - orgánico
+|   - papel
 |
-| Abrir / cerrar:
-|   papel
-|   plastico_vidrio
-|   organico
-|
-| El Controller verificará que el usuario sea propietario.
+| El Controller verifica que el usuario sea
+| propietario o administrador.
 |
 |--------------------------------------------------------------------------
 */
@@ -170,15 +208,14 @@ $routes->post(
     'TachosController::control'
 );
 
-
 /*
 |--------------------------------------------------------------------------
 | ESTADO DEL TACHO
 |--------------------------------------------------------------------------
 |
 | Consulta:
-|   - alerta de papel
-|   - distancia del papel
+|   - alerta de llenado
+|   - distancia
 |
 |--------------------------------------------------------------------------
 */
@@ -188,16 +225,13 @@ $routes->get(
     'TachosController::estado'
 );
 
-
 /*
 |--------------------------------------------------------------------------
 | CAMBIAR BOLSA
 |--------------------------------------------------------------------------
 |
-| Solamente propietario.
-| Limpia:
-|   alerta_papel
-|   distancia_papel
+| El propietario o administrador confirma que
+| la bolsa fue cambiada.
 |
 |--------------------------------------------------------------------------
 */
@@ -206,7 +240,6 @@ $routes->post(
     '/tacho/cambiar-bolsa',
     'TachosController::cambiarBolsa'
 );
-
 
 /*
 |--------------------------------------------------------------------------
@@ -219,8 +252,17 @@ $routes->get(
     'PagosController::exito'
 );
 
-$routes->get(   '/pagos/error',   'PagosController::error');
+$routes->get(
+    '/pagos/error',
+    'PagosController::error'
+);
 
-$routes->get(   '/pagos/pendiente',   'PagosController::pendiente');
+$routes->get(
+    '/pagos/pendiente',
+    'PagosController::pendiente'
+);
 
-$routes->get('/pagos/checkout','PagosController::checkout');
+$routes->get(
+    '/pagos/checkout',
+    'PagosController::checkout'
+);

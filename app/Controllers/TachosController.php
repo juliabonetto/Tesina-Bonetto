@@ -7,38 +7,31 @@ use App\Models\UsuarioDispositivoModel;
 
 class TachosController extends BaseController
 {
+    private const SERVER_URL = 'http://192.168.1.150:8000';
+    private const SIMULACION_URL = 'http://192.168.1.150:8080';
+
     /*
     |--------------------------------------------------------------------------
-    | URL DEL SERVIDOR FASTAPI
+    | USUARIO
     |--------------------------------------------------------------------------
-    |
-    | Si server.py está ejecutándose en la misma PC que CodeIgniter,
-    | también podrías usar:
-    |
-    | http://127.0.0.1:8000
-    |
-    | Pero dejamos la IP que ya estás utilizando en tu proyecto.
-    |
     */
-
-    private const SERVER_URL = 'http://192.168.1.150:8000';
-
-private const SIMULACION_URL = 'http://192.168.1.150:8080';
-    // ============================================================
-    // USUARIO ACTUAL
-    // ============================================================
 
     private function requireUser(): ?int
     {
-        $id = session()->get('id');
+        $usuarioId = session()->get('id');
 
-        return $id ? (int) $id : null;
+        if (!$usuarioId) {
+            return null;
+        }
+
+        return (int) $usuarioId;
     }
 
-
-    // ============================================================
-    // VERIFICAR ACCESO
-    // ============================================================
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESO A UN ECO-TACHO
+    |--------------------------------------------------------------------------
+    */
 
     private function acceso(int $dispositivoId, int $usuarioId): ?object
     {
@@ -51,69 +44,95 @@ private const SIMULACION_URL = 'http://192.168.1.150:8080';
             ->getFirstRow();
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | OBTENER ROL REAL
+    |--------------------------------------------------------------------------
+    */
 
-    // ============================================================
-    // HABILITAR DISPOSITIVO EN FASTAPI
-    // ============================================================
+    private function obtenerRol(int $dispositivoId, int $usuarioId, ?object $acceso = null): string
+    {
+        if (!$acceso) {
+            $acceso = $this->acceso($dispositivoId, $usuarioId);
+        }
+
+        if (!$acceso) {
+            return '';
+        }
+
+        if (!empty($acceso->rol)) {
+            return strtolower((string) $acceso->rol);
+        }
+
+        $db = \Config\Database::connect();
+
+        $tacho = $db->table('dispositivos')
+            ->where('id', $dispositivoId)
+            ->get()
+            ->getFirstRow();
+
+        if ($tacho && (int) $tacho->propietario_id === $usuarioId) {
+            return 'propietario';
+        }
+
+        return 'lector';
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | ¿PUEDE GESTIONAR?
+    |--------------------------------------------------------------------------
+    */
+
+    private function puedeGestionar(int $dispositivoId, int $usuarioId): bool
+    {
+        $rol = $this->obtenerRol($dispositivoId, $usuarioId);
+
+        return in_array(
+            $rol,
+            ['propietario', 'administrador'],
+            true
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | ¿ES PROPIETARIO?
+    |--------------------------------------------------------------------------
+    */
+
+    private function esPropietario(int $dispositivoId, int $usuarioId): bool
+    {
+        return $this->obtenerRol($dispositivoId, $usuarioId) === 'propietario';
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | HABILITAR DISPOSITIVO EN FASTAPI
+    |--------------------------------------------------------------------------
+    */
 
     private function habilitarDispositivo(string $codigo): bool
     {
-        $codigo = strtoupper(trim($codigo));
-
-        if ($codigo === '') {
-            return false;
-        }
-
         try {
-
             $client = \Config\Services::curlrequest([
-                'timeout' => 10,
-                'connect_timeout' => 5,
+                'timeout' => 5,
                 'http_errors' => false
             ]);
 
-            $respuesta = $client->post(
+            $response = $client->post(
                 self::SERVER_URL . '/habilitar-dispositivo',
                 [
-                    'headers' => [
-                        'Content-Type' => 'application/json'
-                    ],
                     'json' => [
                         'codigo' => $codigo
                     ]
                 ]
             );
 
-            $status = $respuesta->getStatusCode();
-
-            $body = (string) $respuesta->getBody();
-
-            log_message(
-                'info',
-                'Habilitar dispositivo. Código: ' . $codigo .
-                ' | HTTP: ' . $status .
-                ' | Respuesta: ' . $body
-            );
-
-            if ($status < 200 || $status >= 300) {
-                return false;
-            }
-
-            $data = json_decode($body, true);
-
-            if (!is_array($data)) {
-                return false;
-            }
-
-            return (
-                isset($data['status']) &&
-                $data['status'] === 'ok' &&
-                isset($data['habilitado']) &&
-                $data['habilitado'] === true
-            );
+            return $response->getStatusCode() >= 200
+                && $response->getStatusCode() < 300;
 
         } catch (\Throwable $e) {
-
             log_message(
                 'error',
                 'Error habilitando dispositivo: ' . $e->getMessage()
@@ -123,10 +142,11 @@ private const SIMULACION_URL = 'http://192.168.1.150:8080';
         }
     }
 
-
-    // ============================================================
-    // MIS TACHOS
-    // ============================================================
+    /*
+    |--------------------------------------------------------------------------
+    | LISTA DE ECO-TACHOS
+    |--------------------------------------------------------------------------
+    */
 
     public function mistachos()
     {
@@ -154,30 +174,53 @@ private const SIMULACION_URL = 'http://192.168.1.150:8080';
         foreach ($tachos as $tacho) {
 
             if (
-                $tacho->rol === null ||
-                $tacho->rol === ''
+                empty($tacho->rol)
+                && isset($tacho->propietario_id)
+                && (int) $tacho->propietario_id === $usuarioId
             ) {
-
-                $tacho->rol =
-                    ((int) $tacho->propietario_id === $usuarioId)
-                    ? 'propietario'
-                    : 'lector';
+                $tacho->rol = 'propietario';
             }
+
+            if (empty($tacho->rol)) {
+                $tacho->rol = 'lector';
+            }
+
+            $tacho->rol = strtolower($tacho->rol);
         }
 
-return view(
-    'tachos/mistachos',
-    [
-        'tachos' => $tachos,
-        'simulacionUrl' => self::SIMULACION_URL
-    ]
-);
+        return view(
+            'tachos/mistachos',
+            [
+                'tachos' => $tachos,
+                'simulacionUrl' => self::SIMULACION_URL
+            ]
+        );
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | REGISTRAR ECO-TACHO
+    |--------------------------------------------------------------------------
+    */
 
-    // ============================================================
-    // GUARDAR / REGISTRAR TACHO
-    // ============================================================
+    public function registrar()
+    {
+        $usuarioId = $this->requireUser();
+
+        if (!$usuarioId) {
+            return redirect()
+                ->to('/usuario/login')
+                ->with('error', 'Debes iniciar sesión primero.');
+        }
+
+        return view('tachos/registrar');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | GUARDAR ECO-TACHO
+    |--------------------------------------------------------------------------
+    */
 
     public function guardar()
     {
@@ -189,153 +232,104 @@ return view(
                 ->with('error', 'Debes iniciar sesión primero.');
         }
 
-        $nombre = trim(
-            (string) $this->request->getPost('nombre')
-        );
+        $nombre = trim((string) $this->request->getPost('nombre'));
+        $tipo = trim((string) $this->request->getPost('tipo'));
+        $ubicacion = trim((string) $this->request->getPost('ubicacion'));
+        $codigo = trim((string) $this->request->getPost('codigo_activacion'));
 
-        $tipo = trim(
-            (string) $this->request->getPost('tipo')
-        );
+        $tiposPermitidos = [
+            'residencial',
+            'institucional',
+            'empresarial',
+            'municipal'
+        ];
 
-        $ubicacion = trim(
-            (string) $this->request->getPost('ubicacion')
-        );
-
-        $codigo = strtoupper(
-            trim(
-                (string) $this->request->getPost('codigo')
-            )
-        );
-
-
-        // ========================================================
-        // VALIDACIONES
-        // ========================================================
-
-        if (
-            $nombre === '' ||
-            !in_array(
-                $tipo,
-                [
-                    'residencial',
-                    'institucional',
-                    'empresarial',
-                    'municipal'
-                ],
-                true
-            )
-        ) {
-
+        if ($nombre === '') {
             return redirect()
                 ->back()
                 ->withInput()
-                ->with('error', 'Datos inválidos.');
+                ->with('error', 'Debes ingresar un nombre para el Eco-Tacho.');
         }
 
+        if (!in_array($tipo, $tiposPermitidos, true)) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'El tipo de Eco-Tacho no es válido.');
+        }
 
         if ($codigo === '') {
-
             return redirect()
                 ->back()
                 ->withInput()
-                ->with(
-                    'error',
-                    'Debés ingresar el código de activación del Eco-Tacho.'
-                );
+                ->with('error', 'Debes ingresar el código de activación.');
         }
-
 
         $db = \Config\Database::connect();
 
-
-        // ========================================================
-        // BUSCAR DISPOSITIVO
-        // ========================================================
-
-        $dispositivo = $db->table('dispositivos')
-            ->where(
-                'codigo_activacion',
-                $codigo
-            )
+        $tacho = $db->table('dispositivos')
+            ->where('codigo_activacion', $codigo)
             ->get()
             ->getFirstRow();
 
+        if (!$tacho) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'No se encontró un Eco-Tacho con ese código.');
+        }
 
-        if (!$dispositivo) {
-
+        if (
+            !empty($tacho->propietario_id)
+            && (int) $tacho->propietario_id !== $usuarioId
+        ) {
             return redirect()
                 ->back()
                 ->withInput()
                 ->with(
                     'error',
-                    'El código no existe. Primero configurá el Eco-Tacho con la ESP32.'
+                    'Este Eco-Tacho ya tiene un propietario.'
                 );
         }
-
-
-        // ========================================================
-        // VERIFICAR PROPIETARIO
-        // ========================================================
-
-        if ($dispositivo->propietario_id !== null) {
-
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with(
-                    'error',
-                    'Este Eco-Tacho ya tiene propietario.'
-                );
-        }
-
-
-        // ========================================================
-        // REGISTRAR PROPIETARIO
-        // ========================================================
 
         $db->transStart();
 
         $db->table('dispositivos')
-            ->where('id', $dispositivo->id)
-            ->update(
-                [
-                    'nombre' =>
-                        $nombre,
+            ->where('id', $tacho->id)
+            ->update([
+                'nombre' => $nombre,
+                'tipo' => $tipo,
+                'ubicacion' => $ubicacion,
+                'propietario_id' => $usuarioId
+            ]);
 
-                    'tipo' =>
-                        $tipo,
+        $relacion = $db->table('usuario_dispositivo')
+            ->where('usuario_id', $usuarioId)
+            ->where('dispositivo_id', $tacho->id)
+            ->get()
+            ->getFirstRow();
 
-                    'ubicacion' =>
-                        $ubicacion !== ''
-                            ? $ubicacion
-                            : null,
+        if ($relacion) {
 
-                    'propietario_id' =>
-                        $usuarioId
-                ]
-            );
+            $db->table('usuario_dispositivo')
+                ->where('id', $relacion->id)
+                ->update([
+                    'rol' => 'propietario'
+                ]);
 
+        } else {
 
-        $db->table('usuario_dispositivo')
-            ->insert(
-                [
-                    'usuario_id' =>
-                        $usuarioId,
-
-                    'dispositivo_id' =>
-                        $dispositivo->id,
-
-                    'rol' =>
-                        'propietario'
-                ]
-            );
-
+            $db->table('usuario_dispositivo')
+                ->insert([
+                    'usuario_id' => $usuarioId,
+                    'dispositivo_id' => $tacho->id,
+                    'rol' => 'propietario'
+                ]);
+        }
 
         $db->transComplete();
 
-
         if (!$db->transStatus()) {
-
             return redirect()
                 ->back()
                 ->withInput()
@@ -345,60 +339,38 @@ return view(
                 );
         }
 
+        $habilitado = $this->habilitarDispositivo($codigo);
 
-        // ========================================================
-        // HABILITAR DISPOSITIVO
-        // ========================================================
+        $db->table('dispositivos')
+            ->where('id', $tacho->id)
+            ->update([
+                'habilitado' => $habilitado ? 1 : 0
+            ]);
 
-        $habilitado = $this->habilitarDispositivo(
-            $codigo
-        );
-
+        session()->set('dispositivo_actual', (int) $tacho->id);
 
         if (!$habilitado) {
-
-            // Si FastAPI no respondió correctamente,
-            // dejamos el dispositivo deshabilitado.
-
-            $db->table('dispositivos')
-                ->where('id', $dispositivo->id)
-                ->update(
-                    [
-                        'habilitado' => 0
-                    ]
-                );
-
             return redirect()
                 ->to('/mis-tachos')
                 ->with(
-                    'error',
-                    'El Eco-Tacho fue registrado, pero no se pudo habilitar. Verificá que server.py esté ejecutándose.'
+                    'warning',
+                    'El Eco-Tacho fue registrado, pero no se pudo habilitar el dispositivo en el servidor.'
                 );
         }
-
-
-        // ========================================================
-        // TODO CORRECTO
-        // ========================================================
-
-        session()->set(
-            'dispositivo_actual',
-            (int) $dispositivo->id
-        );
-
 
         return redirect()
             ->to('/mis-tachos')
             ->with(
-                'mensaje',
-                'Eco-Tacho registrado y habilitado correctamente. La ESP32 ya puede activar la cámara, sensores y servos.'
+                'success',
+                'Eco-Tacho registrado y habilitado correctamente.'
             );
     }
 
-
-    // ============================================================
-    // SELECCIONAR
-    // ============================================================
+    /*
+    |--------------------------------------------------------------------------
+    | SELECCIONAR ECO-TACHO
+    |--------------------------------------------------------------------------
+    */
 
     public function seleccionar($id)
     {
@@ -407,19 +379,12 @@ return view(
         if (!$usuarioId) {
             return redirect()
                 ->to('/usuario/login')
-                ->with(
-                    'error',
-                    'Debes iniciar sesión primero.'
-                );
+                ->with('error', 'Debes iniciar sesión primero.');
         }
 
         $id = (int) $id;
 
-        if (
-            !$id ||
-            !$this->acceso($id, $usuarioId)
-        ) {
-
+        if (!$this->acceso($id, $usuarioId)) {
             return redirect()
                 ->to('/mis-tachos')
                 ->with(
@@ -428,19 +393,16 @@ return view(
                 );
         }
 
-        session()->set(
-            'dispositivo_actual',
-            $id
-        );
+        session()->set('dispositivo_actual', $id);
 
-        return redirect()
-            ->to('/usuario/principal');
+        return redirect()->to('/usuario/principal');
     }
 
-
-    // ============================================================
-    // UNIRSE
-    // ============================================================
+    /*
+    |--------------------------------------------------------------------------
+    | UNIRSE A ECO-TACHO
+    |--------------------------------------------------------------------------
+    */
 
     public function unirse()
     {
@@ -449,19 +411,17 @@ return view(
         if (!$usuarioId) {
             return redirect()
                 ->to('/usuario/login')
-                ->with(
-                    'error',
-                    'Debes iniciar sesión primero.'
-                );
+                ->with('error', 'Debes iniciar sesión primero.');
         }
 
         return view('tachos/unirse');
     }
 
-
-    // ============================================================
-    // PROCESAR UNION
-    // ============================================================
+    /*
+    |--------------------------------------------------------------------------
+    | PROCESAR UNIÓN
+    |--------------------------------------------------------------------------
+    */
 
     public function procesarUnion()
     {
@@ -470,194 +430,142 @@ return view(
         if (!$usuarioId) {
             return redirect()
                 ->to('/usuario/login')
-                ->with(
-                    'error',
-                    'Debes iniciar sesión primero.'
-                );
+                ->with('error', 'Debes iniciar sesión primero.');
         }
 
-        $codigo = strtoupper(
-            trim(
-                (string) $this->request->getPost('codigo')
-            )
+        $codigo = trim(
+            (string) $this->request->getPost('codigo_activacion')
         );
 
-
         if ($codigo === '') {
-
             return redirect()
                 ->back()
+                ->withInput()
                 ->with(
                     'error',
-                    'Ingresá un código.'
+                    'Debes ingresar el código de activación.'
                 );
         }
-
 
         $db = \Config\Database::connect();
 
-        $dispositivo = $db->table('dispositivos')
-            ->where(
-                'codigo_activacion',
-                $codigo
-            )
+        $tacho = $db->table('dispositivos')
+            ->where('codigo_activacion', $codigo)
             ->get()
             ->getFirstRow();
 
-
-        if (!$dispositivo) {
-
+        if (!$tacho) {
             return redirect()
                 ->back()
+                ->withInput()
                 ->with(
                     'error',
-                    'Código inválido.'
+                    'No se encontró un Eco-Tacho con ese código.'
                 );
         }
 
+        $existente = $db->table('usuario_dispositivo')
+            ->where('usuario_id', $usuarioId)
+            ->where('dispositivo_id', $tacho->id)
+            ->get()
+            ->getFirstRow();
 
-        $existe = $this->acceso(
-            (int) $dispositivo->id,
-            $usuarioId
-        );
-
-
-        if ($existe) {
-
+        if ($existente) {
             return redirect()
-                ->back()
+                ->to('/mis-tachos')
                 ->with(
                     'error',
-                    'Ya estás vinculado a este Eco-Tacho.'
+                    'Ya tenés este Eco-Tacho agregado.'
                 );
         }
 
+        $rol = 'lector';
+
+        if (
+            !empty($tacho->propietario_id)
+            && (int) $tacho->propietario_id === $usuarioId
+        ) {
+            $rol = 'propietario';
+        }
 
         $db->table('usuario_dispositivo')
-            ->insert(
-                [
-                    'usuario_id' =>
-                        $usuarioId,
+            ->insert([
+                'usuario_id' => $usuarioId,
+                'dispositivo_id' => $tacho->id,
+                'rol' => $rol
+            ]);
 
-                    'dispositivo_id' =>
-                        $dispositivo->id,
-
-                    'rol' =>
-                        (
-                            (int) $dispositivo->propietario_id ===
-                            $usuarioId
-                        )
-                        ? 'propietario'
-                        : 'lector'
-                ]
-            );
-
+        session()->set(
+            'dispositivo_actual',
+            (int) $tacho->id
+        );
 
         return redirect()
             ->to('/mis-tachos')
             ->with(
-                'mensaje',
-                'Ahora podés ver las estadísticas de este Eco-Tacho.'
+                'success',
+                'Te uniste al Eco-Tacho correctamente.'
             );
     }
 
-
-    // ============================================================
-    // MOSTRAR REGISTRO
-    // ============================================================
-
-    public function registrar()
-    {
-        $usuarioId = $this->requireUser();
-
-        if (!$usuarioId) {
-            return redirect()
-                ->to('/usuario/login')
-                ->with(
-                    'error',
-                    'Debes iniciar sesión primero.'
-                );
-        }
-
-        return view('tachos/registrar');
-    }
-
-
-    // ============================================================
-    // BUSCAR POR CÓDIGO
-    // ============================================================
+    /*
+    |--------------------------------------------------------------------------
+    | BUSCAR TACHO POR CÓDIGO
+    |--------------------------------------------------------------------------
+    */
 
     public function buscarPorCodigo()
     {
         $usuarioId = $this->requireUser();
 
         if (!$usuarioId) {
-            return redirect()
-                ->to('/usuario/login')
-                ->with(
-                    'error',
-                    'Debes iniciar sesión primero.'
-                );
+            return $this->response
+                ->setStatusCode(401)
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'Debes iniciar sesión.'
+                ]);
         }
 
-        $codigo = strtoupper(
-            trim(
-                (string) $this->request->getPost('codigo')
-            )
+        $codigo = trim(
+            (string) $this->request->getPost('codigo_activacion')
         );
 
-
         if ($codigo === '') {
-
-            return redirect()
-                ->back()
-                ->with(
-                    'error',
-                    'Ingresá un código.'
-                );
+            return $this->response
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'Debes ingresar un código.'
+                ]);
         }
-
 
         $db = \Config\Database::connect();
 
-        $dispositivo = $db->table('dispositivos')
-            ->where(
-                'codigo_activacion',
-                $codigo
-            )
-            ->where(
-                'propietario_id IS NULL',
-                null,
-                false
-            )
+        $tacho = $db->table('dispositivos')
+            ->where('codigo_activacion', $codigo)
             ->get()
             ->getFirstRow();
 
-
-        if (!$dispositivo) {
-
-            return redirect()
-                ->back()
-                ->with(
-                    'error',
-                    'Código inválido o este tacho ya tiene propietario.'
-                );
+        if (!$tacho) {
+            return $this->response
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'No se encontró el Eco-Tacho.'
+                ]);
         }
 
-
-        return view(
-            'tachos/registrar',
-            [
-                'dispositivo' =>
-                    $dispositivo
-            ]
-        );
+        return $this->response
+            ->setJSON([
+                'success' => true,
+                'tacho' => $tacho
+            ]);
     }
 
-
-    // ============================================================
-    // ASIGNAR PROPIETARIO
-    // ============================================================
+    /*
+    |--------------------------------------------------------------------------
+    | ASIGNAR PROPIETARIO
+    |--------------------------------------------------------------------------
+    */
 
     public function asignarPropietario()
     {
@@ -666,384 +574,943 @@ return view(
         if (!$usuarioId) {
             return redirect()
                 ->to('/usuario/login')
-                ->with(
-                    'error',
-                    'Debes iniciar sesión primero.'
-                );
+                ->with('error', 'Debes iniciar sesión primero.');
         }
 
-
-        $dispositivoId = (int)
-            $this->request->getPost(
-                'dispositivo_id'
-            );
-
-        $tipo = trim(
-            (string) $this->request->getPost(
-                'tipo'
-            )
+        $codigo = trim(
+            (string) $this->request->getPost('codigo_activacion')
         );
 
-        $ubicacion = trim(
-            (string) $this->request->getPost(
-                'ubicacion'
-            )
-        );
-
-
-        if (
-            !in_array(
-                $tipo,
-                [
-                    'residencial',
-                    'institucional',
-                    'empresarial',
-                    'municipal'
-                ],
-                true
-            )
-        ) {
-
+        if ($codigo === '') {
             return redirect()
-                ->to('/mis-tachos')
+                ->back()
                 ->with(
                     'error',
-                    'Tipo de Eco-Tacho inválido.'
+                    'Debes ingresar el código de activación.'
                 );
         }
-
 
         $db = \Config\Database::connect();
 
-
-        // ========================================================
-        // BUSCAR DISPOSITIVO
-        // ========================================================
-
-        $dispositivo = $db->table('dispositivos')
-            ->where(
-                'id',
-                $dispositivoId
-            )
-            ->where(
-                'propietario_id IS NULL',
-                null,
-                false
-            )
+        $tacho = $db->table('dispositivos')
+            ->where('codigo_activacion', $codigo)
             ->get()
             ->getFirstRow();
 
-
-        if (!$dispositivo) {
-
+        if (!$tacho) {
             return redirect()
-                ->to('/mis-tachos')
+                ->back()
                 ->with(
                     'error',
-                    'Este tacho ya fue registrado por otro usuario.'
+                    'No se encontró el Eco-Tacho.'
                 );
         }
 
-
-        // ========================================================
-        // OBTENER CÓDIGO
-        // ========================================================
-
-        $codigo = strtoupper(
-            trim(
-                (string) $dispositivo->codigo_activacion
-            )
-        );
-
-
-        // ========================================================
-        // ASIGNAR PROPIETARIO
-        // ========================================================
+        if (
+            !empty($tacho->propietario_id)
+            && (int) $tacho->propietario_id !== $usuarioId
+        ) {
+            return redirect()
+                ->back()
+                ->with(
+                    'error',
+                    'Este Eco-Tacho ya tiene propietario.'
+                );
+        }
 
         $db->transStart();
 
         $db->table('dispositivos')
-            ->where(
-                'id',
-                $dispositivoId
-            )
-            ->update(
-                [
-                    'propietario_id' =>
-                        $usuarioId,
+            ->where('id', $tacho->id)
+            ->update([
+                'propietario_id' => $usuarioId
+            ]);
 
-                    'tipo' =>
-                        $tipo,
+        $relacion = $db->table('usuario_dispositivo')
+            ->where('usuario_id', $usuarioId)
+            ->where('dispositivo_id', $tacho->id)
+            ->get()
+            ->getFirstRow();
 
-                    'ubicacion' =>
-                        $ubicacion !== ''
-                            ? $ubicacion
-                            : null
-                ]
-            );
+        if ($relacion) {
 
+            $db->table('usuario_dispositivo')
+                ->where('id', $relacion->id)
+                ->update([
+                    'rol' => 'propietario'
+                ]);
 
-        $db->table('usuario_dispositivo')
-            ->insert(
-                [
-                    'usuario_id' =>
-                        $usuarioId,
+        } else {
 
-                    'dispositivo_id' =>
-                        $dispositivoId,
-
-                    'rol' =>
-                        'propietario'
-                ]
-            );
-
+            $db->table('usuario_dispositivo')
+                ->insert([
+                    'usuario_id' => $usuarioId,
+                    'dispositivo_id' => $tacho->id,
+                    'rol' => 'propietario'
+                ]);
+        }
 
         $db->transComplete();
 
-
         if (!$db->transStatus()) {
-
             return redirect()
-                ->to('/mis-tachos')
+                ->back()
                 ->with(
                     'error',
                     'No se pudo asignar el propietario.'
                 );
         }
 
+        $habilitado = $this->habilitarDispositivo($codigo);
 
-        // ========================================================
-        // HABILITAR EN FASTAPI
-        // ========================================================
-
-        $habilitado = $this->habilitarDispositivo(
-            $codigo
-        );
-
-
-        if (!$habilitado) {
-
-            $db->table('dispositivos')
-                ->where(
-                    'id',
-                    $dispositivoId
-                )
-                ->update(
-                    [
-                        'habilitado' => 0
-                    ]
-                );
-
-            return redirect()
-                ->to('/mis-tachos')
-                ->with(
-                    'error',
-                    'El Eco-Tacho fue registrado, pero no se pudo habilitar. Verificá que server.py esté ejecutándose.'
-                );
-        }
-
-
-        // ========================================================
-        // GUARDAR COMO DISPOSITIVO ACTUAL
-        // ========================================================
-
-        session()->set(
-            'dispositivo_actual',
-            $dispositivoId
-        );
-
+        $db->table('dispositivos')
+            ->where('id', $tacho->id)
+            ->update([
+                'habilitado' => $habilitado ? 1 : 0
+            ]);
 
         return redirect()
             ->to('/mis-tachos')
             ->with(
-                'mensaje',
-                'Eco-Tacho registrado y habilitado correctamente. La ESP32 ya puede activar la cámara, sensores y servos.'
+                $habilitado ? 'success' : 'warning',
+                $habilitado
+                    ? 'Eco-Tacho habilitado correctamente.'
+                    : 'El Eco-Tacho fue asignado, pero no se pudo habilitar en el servidor.'
             );
     }
 
-
-    // ============================================================
-    // ELIMINAR
-    // ============================================================
+    /*
+    |--------------------------------------------------------------------------
+    | ELIMINAR ECO-TACHO DE LA LISTA
+    |--------------------------------------------------------------------------
+    */
 
     public function eliminar($id)
     {
         $usuarioId = $this->requireUser();
 
         if (!$usuarioId) {
-
             return $this->response
                 ->setStatusCode(401)
-                ->setJSON(
-                    [
-                        'success' => false,
-                        'message' => 'No autenticado'
-                    ]
-                );
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'Debes iniciar sesión.'
+                ]);
         }
-
 
         $id = (int) $id;
 
-        $db = \Config\Database::connect();
+        $acceso = $this->acceso($id, $usuarioId);
 
-        $relacion = $this->acceso(
-            $id,
-            $usuarioId
-        );
-
-
-        if (!$relacion) {
-
+        if (!$acceso) {
             return $this->response
                 ->setStatusCode(403)
-                ->setJSON(
-                    [
-                        'success' => false,
-                        'message' =>
-                            'No tenés acceso a este tacho'
-                    ]
-                );
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'No tenés acceso a este Eco-Tacho.'
+                ]);
         }
 
+        $db = \Config\Database::connect();
 
-        $db->transStart();
-
-
-        if (
-            $relacion->rol ===
-            'propietario'
-        ) {
-
-            /*
-             * Al quitar al propietario,
-             * también deshabilitamos el dispositivo.
-             */
-
-            $db->table('dispositivos')
-                ->where(
-                    'id',
-                    $id
-                )
-                ->update(
-                    [
-                        'propietario_id' => null,
-                        'habilitado' => 0
-                    ]
-                );
-        }
-
-
-        $db->table('usuario_dispositivo')
-            ->where(
-                'usuario_id',
-                $usuarioId
-            )
-            ->where(
-                'dispositivo_id',
-                $id
-            )
-            ->delete();
-
-
-        $db->transComplete();
-
-
-        if (
-            (int) session()->get(
-                'dispositivo_actual'
-            ) === $id
-        ) {
-
-            session()->remove(
-                'dispositivo_actual'
-            );
-        }
-
-
-        if (!$db->transStatus()) {
-
-            return $this->response
-                ->setStatusCode(500)
-                ->setJSON(
-                    [
-                        'success' => false,
-                        'message' =>
-                            'No se pudo eliminar el acceso'
-                    ]
-                );
-        }
-
-
-        // ========================================================
-        // DESHABILITAR EN FASTAPI
-        // ========================================================
-
-        $dispositivoEliminado = $db->table('dispositivos')
+        $tacho = $db->table('dispositivos')
             ->where('id', $id)
             ->get()
             ->getFirstRow();
 
-        /*
-         * Si todavía existe el dispositivo y tenemos código,
-         * avisamos al servidor.
-         */
+        if (!$tacho) {
+            return $this->response
+                ->setStatusCode(404)
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'Eco-Tacho no encontrado.'
+                ]);
+        }
 
-        if ($dispositivoEliminado) {
+        $rol = $this->obtenerRol(
+            $id,
+            $usuarioId,
+            $acceso
+        );
 
-            $codigo = strtoupper(
-                trim(
-                    (string)
-                    $dispositivoEliminado->codigo_activacion
-                )
-            );
+        $db->transStart();
 
-            if ($codigo !== '') {
+        if ($rol === 'propietario') {
 
-                try {
+            $db->table('dispositivos')
+                ->where('id', $id)
+                ->update([
+                    'propietario_id' => null,
+                    'habilitado' => 0
+                ]);
+        }
 
-                    $client = \Config\Services::curlrequest(
-                        [
-                            'timeout' => 5,
-                            'connect_timeout' => 3,
-                            'http_errors' => false
+        $db->table('usuario_dispositivo')
+            ->where('usuario_id', $usuarioId)
+            ->where('dispositivo_id', $id)
+            ->delete();
+
+        $db->transComplete();
+
+        if (!$db->transStatus()) {
+            return $this->response
+                ->setStatusCode(500)
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'No se pudo eliminar el Eco-Tacho.'
+                ]);
+        }
+
+        if (
+            $rol === 'propietario'
+            && !empty($tacho->codigo_activacion)
+        ) {
+            try {
+                $client = \Config\Services::curlrequest([
+                    'timeout' => 5,
+                    'http_errors' => false
+                ]);
+
+                $client->post(
+                    self::SERVER_URL . '/deshabilitar-dispositivo',
+                    [
+                        'json' => [
+                            'codigo' => $tacho->codigo_activacion
                         ]
-                    );
-
-                    $client->post(
-                        self::SERVER_URL .
-                        '/deshabilitar-dispositivo',
-                        [
-                            'headers' => [
-                                'Content-Type' =>
-                                    'application/json'
-                            ],
-                            'json' => [
-                                'codigo' =>
-                                    $codigo
-                            ]
-                        ]
-                    );
-
-                } catch (\Throwable $e) {
-
-                    log_message(
-                        'error',
-                        'Error deshabilitando dispositivo: ' .
-                        $e->getMessage()
-                    );
-                }
+                    ]
+                );
+            } catch (\Throwable $e) {
+                log_message(
+                    'error',
+                    'Error deshabilitando dispositivo: ' . $e->getMessage()
+                );
             }
         }
 
+        if (
+            (int) session()->get('dispositivo_actual') === $id
+        ) {
+            session()->remove('dispositivo_actual');
+        }
 
         return $this->response
-            ->setJSON(
+            ->setJSON([
+                'success' => true,
+                'message' => 'Eco-Tacho eliminado correctamente.'
+            ]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | PÁGINA DE GESTIÓN
+    |--------------------------------------------------------------------------
+    |
+    | Propietario y administrador.
+    |
+    */
+
+    public function gestionar($id)
+    {
+        $usuarioId = $this->requireUser();
+
+        if (!$usuarioId) {
+            return redirect()
+                ->to('/usuario/login')
+                ->with('error', 'Debes iniciar sesión primero.');
+        }
+
+        $id = (int) $id;
+
+        $acceso = $this->acceso($id, $usuarioId);
+
+        if (!$acceso) {
+            return redirect()
+                ->to('/mis-tachos')
+                ->with(
+                    'error',
+                    'No tenés acceso a este Eco-Tacho.'
+                );
+        }
+
+        $rol = $this->obtenerRol(
+            $id,
+            $usuarioId,
+            $acceso
+        );
+
+        if (!in_array(
+            $rol,
+            ['propietario', 'administrador'],
+            true
+        )) {
+            return redirect()
+                ->to('/mis-tachos')
+                ->with(
+                    'error',
+                    'No tenés permiso para gestionar este Eco-Tacho.'
+                );
+        }
+
+        $db = \Config\Database::connect();
+
+        $tacho = $db->table('dispositivos')
+            ->where('id', $id)
+            ->get()
+            ->getFirstRow();
+
+        if (!$tacho) {
+            return redirect()
+                ->to('/mis-tachos')
+                ->with(
+                    'error',
+                    'Eco-Tacho no encontrado.'
+                );
+        }
+
+        session()->set(
+            'dispositivo_actual',
+            $id
+        );
+
+        return view(
+            'tachos/gestionar',
+            [
+                'tacho' => $tacho,
+                'rol' => $rol
+            ]
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CONTROL MANUAL DE APERTURA / CIERRE
+    |--------------------------------------------------------------------------
+    */
+
+    public function control()
+    {
+        $usuarioId = $this->requireUser();
+
+        if (!$usuarioId) {
+            return $this->response
+                ->setStatusCode(401)
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'Debes iniciar sesión.'
+                ]);
+        }
+
+        $dispositivoId = (int) $this->request->getPost('dispositivo_id');
+        $accion = strtolower(
+            trim((string) $this->request->getPost('accion'))
+        );
+        $categoria = strtolower(
+            trim((string) $this->request->getPost('categoria'))
+        );
+
+        if ($dispositivoId <= 0) {
+            return $this->respuestaControl(
+                false,
+                'Eco-Tacho inválido.',
+                $dispositivoId
+            );
+        }
+
+        if (!$this->puedeGestionar(
+            $dispositivoId,
+            $usuarioId
+        )) {
+            return $this->respuestaControl(
+                false,
+                'No tenés permiso para controlar este Eco-Tacho.',
+                $dispositivoId
+            );
+        }
+
+        if (!in_array(
+            $accion,
+            ['abrir', 'cerrar'],
+            true
+        )) {
+            return $this->respuestaControl(
+                false,
+                'Acción no válida.',
+                $dispositivoId
+            );
+        }
+
+        $categoriasPermitidas = [
+            'plastico_vidrio',
+            'plastico',
+            'vidrio',
+            'organico',
+            'papel'
+        ];
+
+        if (!in_array(
+            $categoria,
+            $categoriasPermitidas,
+            true
+        )) {
+            return $this->respuestaControl(
+                false,
+                'Categoría no válida.',
+                $dispositivoId
+            );
+        }
+
+        if (
+            $categoria === 'plastico'
+            || $categoria === 'vidrio'
+        ) {
+            $categoria = 'plastico_vidrio';
+        }
+
+        $db = \Config\Database::connect();
+
+        $tacho = $db->table('dispositivos')
+            ->where('id', $dispositivoId)
+            ->get()
+            ->getFirstRow();
+
+        if (!$tacho) {
+            return $this->respuestaControl(
+                false,
+                'Eco-Tacho no encontrado.',
+                $dispositivoId
+            );
+        }
+
+        if (empty($tacho->codigo_activacion)) {
+            return $this->respuestaControl(
+                false,
+                'El Eco-Tacho no tiene código de activación.',
+                $dispositivoId
+            );
+        }
+
+        if (empty($tacho->habilitado)) {
+            return $this->respuestaControl(
+                false,
+                'El Eco-Tacho no está habilitado.',
+                $dispositivoId
+            );
+        }
+
+        try {
+
+            $client = \Config\Services::curlrequest([
+                'timeout' => 5,
+                'http_errors' => false
+            ]);
+
+            $response = $client->post(
+                self::SERVER_URL . '/control-tacho',
                 [
-                    'success' => true,
-                    'message' =>
-                        'Acceso al tacho eliminado'
+                    'json' => [
+                        'codigo' => $tacho->codigo_activacion,
+                        'accion' => $accion,
+                        'categoria' => $categoria
+                    ]
                 ]
+            );
+
+            $status = $response->getStatusCode();
+
+            $body = json_decode(
+                (string) $response->getBody(),
+                true
+            );
+
+            if ($status >= 200 && $status < 300) {
+
+                return $this->respuestaControl(
+                    true,
+                    $accion === 'abrir'
+                        ? 'Se envió la orden para abrir el tacho.'
+                        : 'Se envió la orden para cerrar el tacho.',
+                    $dispositivoId
+                );
+            }
+
+            $mensaje = $body['detail']
+                ?? $body['message']
+                ?? 'El servidor no aceptó la orden.';
+
+            return $this->respuestaControl(
+                false,
+                $mensaje,
+                $dispositivoId
+            );
+
+        } catch (\Throwable $e) {
+
+            log_message(
+                'error',
+                'Error en control manual: ' . $e->getMessage()
+            );
+
+            return $this->respuestaControl(
+                false,
+                'No se pudo conectar con el servidor.',
+                $dispositivoId
+            );
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | RESPUESTA DEL CONTROL
+    |--------------------------------------------------------------------------
+    */
+
+    private function respuestaControl(
+        bool $success,
+        string $message,
+        int $dispositivoId
+    ) {
+        if ($this->request->isAJAX()) {
+            return $this->response
+                ->setJSON([
+                    'success' => $success,
+                    'message' => $message
+                ]);
+        }
+
+        return redirect()
+            ->to('/gestionar-tacho/' . $dispositivoId)
+            ->with(
+                $success ? 'success' : 'error',
+                $message
+            );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | ESTADO DEL TACHO
+    |--------------------------------------------------------------------------
+    */
+
+    public function estado()
+    {
+        $usuarioId = $this->requireUser();
+
+        if (!$usuarioId) {
+            return $this->response
+                ->setStatusCode(401)
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'Debes iniciar sesión.'
+                ]);
+        }
+
+        $dispositivoId = (int) $this->request->getGet(
+            'dispositivo_id'
+        );
+
+        if ($dispositivoId <= 0) {
+            $dispositivoId = (int) session()->get(
+                'dispositivo_actual'
+            );
+        }
+
+        if ($dispositivoId <= 0) {
+            return $this->response
+                ->setStatusCode(400)
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'No hay Eco-Tacho seleccionado.'
+                ]);
+        }
+
+        if (!$this->acceso(
+            $dispositivoId,
+            $usuarioId
+        )) {
+            return $this->response
+                ->setStatusCode(403)
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'No tenés acceso a este Eco-Tacho.'
+                ]);
+        }
+
+        $db = \Config\Database::connect();
+
+        $tacho = $db->table('dispositivos')
+            ->select('alerta_papel, distancia_papel')
+            ->where('id', $dispositivoId)
+            ->get()
+            ->getFirstRow();
+
+        if (!$tacho) {
+            return $this->response
+                ->setStatusCode(404)
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'Eco-Tacho no encontrado.'
+                ]);
+        }
+
+        return $this->response
+            ->setJSON([
+                'success' => true,
+                'alerta' => (int) ($tacho->alerta_papel ?? 0),
+                'distancia' => $tacho->distancia_papel !== null
+                    ? (float) $tacho->distancia_papel
+                    : null
+            ]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CAMBIAR BOLSA
+    |--------------------------------------------------------------------------
+    */
+
+    public function cambiarBolsa()
+    {
+        $usuarioId = $this->requireUser();
+
+        if (!$usuarioId) {
+            return $this->response
+                ->setStatusCode(401)
+                ->setJSON([
+                    'success' => false,
+                    'message' => 'Debes iniciar sesión.'
+                ]);
+        }
+
+        $dispositivoId = (int) $this->request->getPost(
+            'dispositivo_id'
+        );
+
+        if ($dispositivoId <= 0) {
+            $dispositivoId = (int) session()->get(
+                'dispositivo_actual'
+            );
+        }
+
+        if ($dispositivoId <= 0) {
+            return $this->respuestaBolsa(
+                false,
+                'No hay Eco-Tacho seleccionado.',
+                $dispositivoId
+            );
+        }
+
+        if (!$this->puedeGestionar(
+            $dispositivoId,
+            $usuarioId
+        )) {
+            return $this->respuestaBolsa(
+                false,
+                'No tenés permiso para confirmar el cambio de bolsa.',
+                $dispositivoId
+            );
+        }
+
+        $db = \Config\Database::connect();
+
+        $tacho = $db->table('dispositivos')
+            ->where('id', $dispositivoId)
+            ->get()
+            ->getFirstRow();
+
+        if (!$tacho) {
+            return $this->respuestaBolsa(
+                false,
+                'Eco-Tacho no encontrado.',
+                $dispositivoId
+            );
+        }
+
+        /*
+         * Primero se limpia el aviso en la base local.
+         */
+
+        $db->table('dispositivos')
+            ->where('id', $dispositivoId)
+            ->update([
+                'alerta_papel' => 0,
+                'distancia_papel' => null
+            ]);
+
+        /*
+         * También se informa al servidor.
+         */
+
+        if (!empty($tacho->codigo_activacion)) {
+
+            try {
+
+                $client = \Config\Services::curlrequest([
+                    'timeout' => 5,
+                    'http_errors' => false
+                ]);
+
+                $client->get(
+                    self::SERVER_URL
+                    . '/limpiar-alerta-llenado'
+                    . '?codigo='
+                    . urlencode($tacho->codigo_activacion)
+                );
+
+            } catch (\Throwable $e) {
+
+                log_message(
+                    'error',
+                    'Error limpiando alerta de llenado: '
+                    . $e->getMessage()
+                );
+            }
+        }
+
+        return $this->respuestaBolsa(
+            true,
+            'Se confirmó el cambio de bolsa correctamente.',
+            $dispositivoId
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | RESPUESTA CAMBIO DE BOLSA
+    |--------------------------------------------------------------------------
+    */
+
+    private function respuestaBolsa(
+        bool $success,
+        string $message,
+        int $dispositivoId
+    ) {
+        if ($this->request->isAJAX()) {
+            return $this->response
+                ->setJSON([
+                    'success' => $success,
+                    'message' => $message
+                ]);
+        }
+
+        return redirect()
+            ->to('/gestionar-tacho/' . $dispositivoId)
+            ->with(
+                $success ? 'success' : 'error',
+                $message
+            );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | USUARIOS DEL ECO-TACHO
+    |--------------------------------------------------------------------------
+    |
+    | SOLO PROPIETARIO.
+    |
+    */
+
+    public function usuarios($id)
+    {
+        $usuarioId = $this->requireUser();
+
+        if (!$usuarioId) {
+            return redirect()
+                ->to('/usuario/login')
+                ->with('error', 'Debes iniciar sesión primero.');
+        }
+
+        $id = (int) $id;
+
+        if (!$this->esPropietario(
+            $id,
+            $usuarioId
+        )) {
+            return redirect()
+                ->to('/mis-tachos')
+                ->with(
+                    'error',
+                    'Solamente el propietario puede administrar los usuarios.'
+                );
+        }
+
+        $db = \Config\Database::connect();
+
+        $tacho = $db->table('dispositivos')
+            ->where('id', $id)
+            ->get()
+            ->getFirstRow();
+
+        if (!$tacho) {
+            return redirect()
+                ->to('/mis-tachos')
+                ->with(
+                    'error',
+                    'Eco-Tacho no encontrado.'
+                );
+        }
+
+        $usuarios = $db->table('usuario_dispositivo ud')
+            ->select(
+                'ud.id AS relacion_id,
+                 ud.usuario_id,
+                 ud.rol,
+                 u.nombre,
+                 u.apellido,
+                 u.email'
+            )
+            ->join(
+                'usuario u',
+                'u.id = ud.usuario_id',
+                'left'
+            )
+            ->where(
+                'ud.dispositivo_id',
+                $id
+            )
+            ->orderBy(
+                'ud.id',
+                'ASC'
+            )
+            ->get()
+            ->getResult();
+
+        return view(
+            'tachos/usuarios',
+            [
+                'tacho' => $tacho,
+                'usuarios' => $usuarios
+            ]
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CAMBIAR ROL
+    |--------------------------------------------------------------------------
+    |
+    | SOLO PROPIETARIO.
+    |
+    | lector -> administrador
+    | administrador -> lector
+    |
+    */
+
+    public function cambiarRol()
+    {
+        $usuarioId = $this->requireUser();
+
+        if (!$usuarioId) {
+            return redirect()
+                ->to('/usuario/login')
+                ->with(
+                    'error',
+                    'Debes iniciar sesión primero.'
+                );
+        }
+
+        $dispositivoId = (int) $this->request->getPost(
+            'dispositivo_id'
+        );
+
+        $usuarioObjetivo = (int) $this->request->getPost(
+            'usuario_id'
+        );
+
+        $nuevoRol = strtolower(
+            trim((string) $this->request->getPost('rol'))
+        );
+
+        if ($dispositivoId <= 0 || $usuarioObjetivo <= 0) {
+            return redirect()
+                ->back()
+                ->with(
+                    'error',
+                    'Datos inválidos.'
+                );
+        }
+
+        if (!$this->esPropietario(
+            $dispositivoId,
+            $usuarioId
+        )) {
+            return redirect()
+                ->to('/mis-tachos')
+                ->with(
+                    'error',
+                    'Solamente el propietario puede administrar los usuarios.'
+                );
+        }
+
+        if (!in_array(
+            $nuevoRol,
+            ['administrador', 'lector'],
+            true
+        )) {
+            return redirect()
+                ->back()
+                ->with(
+                    'error',
+                    'Rol no válido.'
+                );
+        }
+
+        if ($usuarioObjetivo === $usuarioId) {
+            return redirect()
+                ->back()
+                ->with(
+                    'error',
+                    'No podés modificar el rol del propietario.'
+                );
+        }
+
+        $db = \Config\Database::connect();
+
+        $relacion = $db->table('usuario_dispositivo')
+            ->where(
+                'usuario_id',
+                $usuarioObjetivo
+            )
+            ->where(
+                'dispositivo_id',
+                $dispositivoId
+            )
+            ->get()
+            ->getFirstRow();
+
+        if (!$relacion) {
+            return redirect()
+                ->back()
+                ->with(
+                    'error',
+                    'Ese usuario no pertenece al Eco-Tacho.'
+                );
+        }
+
+        if (
+            strtolower((string) $relacion->rol)
+            === 'propietario'
+        ) {
+            return redirect()
+                ->back()
+                ->with(
+                    'error',
+                    'No se puede modificar al propietario desde esta sección.'
+                );
+        }
+
+        $db->table('usuario_dispositivo')
+            ->where('id', $relacion->id)
+            ->update([
+                'rol' => $nuevoRol
+            ]);
+
+        return redirect()
+            ->to('/usuarios-tacho/' . $dispositivoId)
+            ->with(
+                'success',
+                $nuevoRol === 'administrador'
+                    ? 'El usuario ahora es administrador.'
+                    : 'El usuario volvió a tener rol de lector.'
             );
     }
 }

@@ -19,7 +19,17 @@
 <section class="welcome-block"><div class="welcome-text"><h1>¡Bienvenid@, <span class="user-name"><?= esc($usuario['nombre']) ?></span>!</h1><p>Gestioná tus residuos, revisá estadísticas y ayudá al medio ambiente desde tu panel principal.</p></div><div class="hero-badge">🌱 Sistema activo</div></section>
 <section class="cards-grid">
 <div class="card"><h3>♻ Residuos reciclados</h3><p><?= $residuosHoy ?> residuos reciclados hoy.</p></div>
-<div class="card"><h3>🌍 Impacto ambiental</h3><p>Reducción estimada de CO₂: <?= $impactoAmbiental ?>%</p></div>
+<div class="card">
+<h3>⚠️ Revisar tacho</h3>
+<?php if (!empty($alertaTacho) && !empty($alertaTacho['alerta_papel'])): ?>
+<p>🗑️ <?= esc($alertaTacho['nombre']) ?></p>
+<p>♻️ Plástico/Vidrio</p>
+<p>Revisar y cambiar la bolsa.</p>
+<button class="btn-modal" type="button" onclick="cambiarBolsa()">🗑️ Cambiar bolsa</button>
+<?php else: ?>
+<p>✅ No hay tachos que revisar.</p>
+<?php endif; ?>
+</div>
 <div class="card"><h3>🏆 Nivel ecológico</h3><p><?= esc($nivelEco) ?></p></div>
 </section>
 <div class="card card-tacho"><div class="tacho-info"><div><?php if($tachoSeleccionado): ?><h3>🗑 <?= esc($tachoSeleccionado['nombre']) ?></h3><p>Mostrando estadísticas de este Eco-Tacho.</p><p>Estado: <?= !empty($tachoSeleccionado['habilitado']) ? '🟢 Habilitado' : '🔴 No habilitado' ?></p><?php else: ?><h3>Ningún Eco-Tacho seleccionado</h3><p>Registrá o uníte mediante código.</p><?php endif; ?></div><?php if(count($tachos) > 1): ?><button class="btn-cambiar" onclick="abrirModal()">📊 Cambiar estadísticas</button><?php endif; ?></div></div>
@@ -33,6 +43,11 @@
 <script>
 function descargarTarjeta(){const t=document.getElementById('tarjeta-logro');if(!t)return;html2canvas(t,{scale:2,useCORS:true,backgroundColor:null}).then(c=>{const a=document.createElement('a');a.download='ecoscam-logro.png';a.href=c.toDataURL('image/png');a.click();}).catch(console.error)}
 function copiarTexto(){navigator.clipboard.writeText("Hoy reciclé <?= $residuosHoy ?> residuos usando EcoS-cam ♻. Mi impacto ambiental estimado es de <?= $impactoAmbiental ?>% y actualmente soy <?= esc($nivelEco) ?>.").then(()=>alert('Texto copiado')).catch(()=>alert('No se pudo copiar el texto.'))}
+function cambiarBolsa(){
+ fetch("<?= site_url('tacho/cambiar-bolsa') ?>",{method:"POST",headers:{"X-Requested-With":"XMLHttpRequest"}})
+ .then(r=>r.json()).then(data=>{if(data.success){alert(data.message||"Alerta limpiada.");location.reload();}else{alert(data.message||"No se pudo limpiar la alerta.");}})
+ .catch(()=>alert("No se pudo conectar con el servidor."));
+}
 const canvas=document.getElementById('graficoResiduos');if(canvas){new Chart(canvas,{type:'bar',data:{labels:<?= $labels ?>,datasets:[{label:'Residuos',data:<?= $datos ?>}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}})}
 </script>
 <div id="modalTachos" class="modal"><div class="modal-contenido"><span class="cerrar" onclick="cerrarModal()">×</span><h2>Elegí un Eco-Tacho</h2><?php if(empty($tachos)): ?><p>No tenés Eco-Tachos registrados.</p><?php else: ?><div class="lista-tachos"><?php foreach($tachos as $t): ?><div class="tarjeta-tacho"><h3>🗑 <?= esc($t['nombre']) ?></h3><p><?= esc($t['ubicacion'] ?? '') ?></p><small><?= esc($t['tipo']) ?></small><div class="estado"><?= !empty($t['habilitado']) ? '🟢 Habilitado' : '🔴 No habilitado' ?></div><br><a class="btn-modal" href="<?= site_url('seleccionar-tacho/'.$t['id']) ?>">Ver estadísticas</a></div><?php endforeach; ?></div><?php endif; ?></div></div>
