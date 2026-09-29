@@ -282,6 +282,11 @@
                 </p>
 
                 <p>
+                    <strong>Codigo:</strong>
+                    <?= esc($tacho->codigo_activacion) ?>
+                </p>
+
+                <p>
                     <strong>Tu rol:</strong>
                     <span class="role">
                         <?= esc(ucfirst($rol)) ?>

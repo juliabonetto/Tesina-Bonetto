@@ -25,7 +25,7 @@
 <p>🗑️ <?= esc($alertaTacho['nombre']) ?></p>
 <p>♻️ Plástico/Vidrio</p>
 <p>Revisar y cambiar la bolsa.</p>
-<button class="btn-modal" type="button" onclick="cambiarBolsa()">🗑️ Cambiar bolsa</button>
+
 <?php else: ?>
 <p>✅ No hay tachos que revisar.</p>
 <?php endif; ?>

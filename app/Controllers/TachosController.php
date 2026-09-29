@@ -7,8 +7,8 @@ use App\Models\UsuarioDispositivoModel;
 
 class TachosController extends BaseController
 {
-    private const SERVER_URL = 'http://192.168.1.150:8000';
-    private const SIMULACION_URL = 'http://192.168.1.150:8080';
+    private const SERVER_URL = 'http://192.168.2.139:8000';
+    private const SIMULACION_URL = 'http://192.168.2.139:8080';
 
     /*
     |--------------------------------------------------------------------------
@@ -727,28 +727,25 @@ class TachosController extends BaseController
                 ]);
         }
 
-        $rol = $this->obtenerRol(
-            $id,
-            $usuarioId,
-            $acceso
-        );
 
-        $db->transStart();
 
-        if ($rol === 'propietario') {
+$db->transStart();
 
-            $db->table('dispositivos')
-                ->where('id', $id)
-                ->update([
-                    'propietario_id' => null,
-                    'habilitado' => 0
-                ]);
-        }
-
-        $db->table('usuario_dispositivo')
+// Quitamos el bloque que ponía 'propietario_id' en null.
+// Solo modificamos la tabla dispositivos para deshabilitar el hardware en el servidor si así lo deseas,
+// pero manteniendo intacto al dueño real.
+       $db->table('usuario_dispositivo')
             ->where('usuario_id', $usuarioId)
             ->where('dispositivo_id', $id)
             ->delete();
+
+
+// Borramos EXCLUSIVAMENTE la relación del usuario con el tacho
+$db->table('usuario_dispositivo')
+    ->where('usuario_id', $usuarioId)
+    ->where('dispositivo_id', $id)
+    ->delete();
+
 
         $db->transComplete();
 
