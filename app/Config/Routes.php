@@ -247,22 +247,14 @@ $routes->post(
 |--------------------------------------------------------------------------
 */
 
-$routes->get(
-    '/pagos/exito',
-    'PagosController::exito'
-);
 
-$routes->get(
-    '/pagos/error',
-    'PagosController::error'
-);
+$routes->group('pagos', function ($routes) {
+    $routes->get('checkout', 'Pagos::checkout');
+    $routes->get('crear-preferencia', 'Pagos::crearPreferencia');
+    $routes->get('exito', 'Pagos::exito');
+    $routes->get('error', 'Pagos::error');
+    $routes->get('pendiente', 'Pagos::pendiente');
+    $routes->post('webhook', 'Pagos::webhook');
+});
 
-$routes->get(
-    '/pagos/pendiente',
-    'PagosController::pendiente'
-);
-
-$routes->get(
-    '/pagos/checkout',
-    'PagosController::checkout'
-);
+$routes->get('seleccionar-tacho/(:num)', 'UsuarioController::seleccionarTacho/$1');

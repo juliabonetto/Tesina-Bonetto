@@ -1,0 +1,159 @@
+DEBUG - 2026-10-01 01:15:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 01:15:29 --> Error connecting to the database: mysqli_sql_exception: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión in C:\xampp\htdocs\Tesina-Bonetto\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\Tesina-Bonetto\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'tesinabonetto', 3306, '', 0)
+#1 C:\xampp\htdocs\Tesina-Bonetto\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\Tesina-Bonetto\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\Tesina-Bonetto\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\Tesina-Bonetto\system\Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Tesina-Bonetto\system\BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 C:\xampp\htdocs\Tesina-Bonetto\app\Controllers\UsuarioController.php(129): CodeIgniter\BaseModel->first()
+#7 C:\xampp\htdocs\Tesina-Bonetto\system\CodeIgniter.php(951): App\Controllers\UsuarioController->iniciarSesion()
+#8 C:\xampp\htdocs\Tesina-Bonetto\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+#9 C:\xampp\htdocs\Tesina-Bonetto\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\Tesina-Bonetto\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\Tesina-Bonetto\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\Tesina-Bonetto\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión in C:\xampp\htdocs\Tesina-Bonetto\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\xampp\htdocs\Tesina-Bonetto\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\Tesina-Bonetto\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\Tesina-Bonetto\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\Tesina-Bonetto\system\Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\Tesina-Bonetto\system\BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 C:\xampp\htdocs\Tesina-Bonetto\app\Controllers\UsuarioController.php(129): CodeIgniter\BaseModel->first()
+#6 C:\xampp\htdocs\Tesina-Bonetto\system\CodeIgniter.php(951): App\Controllers\UsuarioController->iniciarSesion()
+#7 C:\xampp\htdocs\Tesina-Bonetto\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+#8 C:\xampp\htdocs\Tesina-Bonetto\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\Tesina-Bonetto\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\Tesina-Bonetto\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\Tesina-Bonetto\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2026-10-01 01:15:29 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+[Method: POST, Route: usuario/iniciarSesion]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `usuario`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Controllers\UsuarioController.php(129): CodeIgniter\BaseModel->first()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\UsuarioController->iniciarSesion()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-10-01 01:15:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:15:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:15:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:16:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-10-01 01:16:06 --> ErrorException: Undefined variable $rol
+[Method: POST, Route: eliminar-tacho/16]
+in APPPATH\Controllers\TachosController.php on line 762.
+ 1 APPPATH\Controllers\TachosController.php(762): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $rol', 'C:\\xampp\\htdocs\\Tesina-Bonetto\\app\\Controllers\\TachosController.php', 762)
+ 2 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\TachosController->eliminar(16)
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TachosController))
+ 4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-10-01 01:19:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:19:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:19:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:19:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:19:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:19:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:21:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:22:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:32:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:33:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:36:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:36:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:39:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:39:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:40:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:40:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:40:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:40:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:40:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:40:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:40:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:40:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:40:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:40:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:46:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:50:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:51:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:51:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:51:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:51:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:51:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:51:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:55:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:55:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:55:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:56:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:56:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:56:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:56:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:56:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:57:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:57:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:59:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:59:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:59:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:59:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:59:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 01:59:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 02:04:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 02:05:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 02:05:22 --> ECOSCAM DEBUG - dispositivo_id=38 | fecha=2026-10-01 | residuosHoy=0
+ERROR - 2026-10-01 02:05:22 --> ECOSCAM DEBUG - dispositivo_id=38 | fecha=2026-10-01 | residuosHoy=0
+DEBUG - 2026-10-01 02:06:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 02:06:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 02:06:32 --> ECOSCAM DEBUG - dispositivo_id=16 | fecha=2026-10-01 | residuosHoy=0
+ERROR - 2026-10-01 02:06:32 --> ECOSCAM DEBUG - dispositivo_id=16 | fecha=2026-10-01 | residuosHoy=0
+DEBUG - 2026-10-01 02:06:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 02:06:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 02:06:39 --> ECOSCAM DEBUG - dispositivo_id=38 | fecha=2026-10-01 | residuosHoy=0
+ERROR - 2026-10-01 02:06:39 --> ECOSCAM DEBUG - dispositivo_id=38 | fecha=2026-10-01 | residuosHoy=0
+DEBUG - 2026-10-01 02:08:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 02:08:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 02:08:04 --> ECOSCAM DEBUG - dispositivo_id=38 | fecha=2026-10-01 | TOTAL TACHO=22 | TOTAL HOY=0
+ERROR - 2026-10-01 02:08:04 --> ECOSCAM DEBUG - dispositivo_id=38 | fecha=2026-10-01 | TOTAL TACHO=22 | TOTAL HOY=0
+DEBUG - 2026-10-01 02:08:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 02:08:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 02:08:23 --> ECOSCAM DEBUG - dispositivo_id=16 | fecha=2026-10-01 | TOTAL TACHO=0 | TOTAL HOY=0
+ERROR - 2026-10-01 02:08:23 --> ECOSCAM DEBUG - dispositivo_id=16 | fecha=2026-10-01 | TOTAL TACHO=0 | TOTAL HOY=0
+DEBUG - 2026-10-01 02:08:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 02:08:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 02:08:28 --> ECOSCAM DEBUG - dispositivo_id=38 | fecha=2026-10-01 | TOTAL TACHO=22 | TOTAL HOY=0
+ERROR - 2026-10-01 02:08:28 --> ECOSCAM DEBUG - dispositivo_id=38 | fecha=2026-10-01 | TOTAL TACHO=22 | TOTAL HOY=0
+DEBUG - 2026-10-01 02:09:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 02:09:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 02:09:54 --> ECOSCAM DEBUG - dispositivo_id=16 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[]
+ERROR - 2026-10-01 02:09:54 --> ECOSCAM DEBUG - dispositivo_id=16 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[]
+DEBUG - 2026-10-01 02:09:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 02:09:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 02:09:59 --> ECOSCAM DEBUG - dispositivo_id=38 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[{"id":"307","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:29","residuo":"vidrio","clasificacion":"manual","categoria_final":"organico"},{"id":"306","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:21","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"305","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:07","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"304","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:40","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"303","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:33","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"302","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:16","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"301","dispositivo_id":"38","fecha_hora":"2026-09-30 22:33:35","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"300","dispositivo_id":"38","fecha_hora":"2026-09-30 22:32:53","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"299","dispositivo_id":"38","fecha_hora":"2026-09-30 22:32:19","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"298","dispositivo_id":"38","fecha_hora":"2026-09-30 22:29:47","residuo":"papel","clasificacion":"automatica","categoria_final":null}]
+ERROR - 2026-10-01 02:09:59 --> ECOSCAM DEBUG - dispositivo_id=38 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[{"id":"307","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:29","residuo":"vidrio","clasificacion":"manual","categoria_final":"organico"},{"id":"306","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:21","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"305","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:07","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"304","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:40","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"303","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:33","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"302","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:16","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"301","dispositivo_id":"38","fecha_hora":"2026-09-30 22:33:35","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"300","dispositivo_id":"38","fecha_hora":"2026-09-30 22:32:53","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"299","dispositivo_id":"38","fecha_hora":"2026-09-30 22:32:19","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"298","dispositivo_id":"38","fecha_hora":"2026-09-30 22:29:47","residuo":"papel","clasificacion":"automatica","categoria_final":null}]
+DEBUG - 2026-10-01 00:03:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

@@ -34,7 +34,19 @@
 </section>
 <div class="card card-tacho"><div class="tacho-info"><div><?php if($tachoSeleccionado): ?><h3>🗑 <?= esc($tachoSeleccionado['nombre']) ?></h3><p>Mostrando estadísticas de este Eco-Tacho.</p><p>Estado: <?= !empty($tachoSeleccionado['habilitado']) ? '🟢 Habilitado' : '🔴 No habilitado' ?></p><?php else: ?><h3>Ningún Eco-Tacho seleccionado</h3><p>Registrá o uníte mediante código.</p><?php endif; ?></div><?php if(count($tachos) > 1): ?><button class="btn-cambiar" onclick="abrirModal()">📊 Cambiar estadísticas</button><?php endif; ?></div></div>
 <section class="dashboard-extra">
-<div class="tarjeta-contenedor"><h2 class="titulo-impacto">🌱 Compartí tu impacto ecológico</h2><div id="tarjeta-logro" class="tarjeta-logro"><div class="impact-header"><div class="brand"><img src="<?= base_url('img/Captura_de_pantalla_2026-04-24_090557-removebg-preview.png') ?>" alt="Logo" class="brand-logo"><span>EcoS-cam</span></div><div class="fecha"><?= date('d M Y') ?></div></div><p class="impact-label">Mi impacto</p><h2 class="impact-name"><?= esc($usuario['nombre']) ?></h2><div class="impact-number"><div class="big-number"><?= $residuosHoy ?></div><div class="number-text">residuos<br>reciclados</div></div><div class="impact-info"><div class="info-box"><span>Nivel</span><strong>🏆 <?= esc($nivelEco) ?></strong></div></div><div class="impact-footer"><span>Reciclá con inteligencia</span></div></div><div class="acciones-logro"><button onclick="descargarTarjeta()">📥 Descargar</button><button onclick="copiarTexto()">📋 Copiar</button></div></div>
+<div class="tarjeta-contenedor"><h2 class="titulo-impacto">🌱 Compartí tu impacto ecológico</h2><div id="tarjeta-logro" class="tarjeta-logro"><div class="impact-header"><div class="brand"><img src="<?= base_url('img/Captura_de_pantalla_2026-04-24_090557-removebg-preview.png') ?>" alt="Logo" class="brand-logo"><span>EcoS-cam</span></div><div class="fecha"><?= date('d M Y') ?></div></div><p class="impact-label">Mi impacto</p><h2 class="impact-name"><?= esc($usuario['nombre']) ?></h2><div class="impact-number"><div class="big-number"><?= $residuosHoy ?></div><div class="number-text">residuos<br>reciclados</div></div><div class="impact-info"><div class="info-box"><span>Nivel</span><strong>🏆 <?= esc($nivelEco) ?></strong></div></div>
+
+<div class="impact-footer">
+    <span>Reciclá con inteligencia</span>
+
+    <?php if ($tachoSeleccionado): ?>
+        <span>
+            🗑️ <?= esc($tachoSeleccionado['nombre']) ?>
+        </span>
+    <?php endif; ?>
+</div>
+
+</div><div class="acciones-logro"><button onclick="descargarTarjeta()">📥 Descargar</button><button onclick="copiarTexto()">📋 Copiar</button></div></div>
 <div class="panel"><h2>📊 Estadísticas</h2><canvas id="graficoResiduos"></canvas></div>
 </section>
 <footer class="footer">EcoS-cam © 2026 - Todos los derechos reservados</footer>

@@ -7,8 +7,8 @@ use App\Models\UsuarioDispositivoModel;
 
 class TachosController extends BaseController
 {
-    private const SERVER_URL = 'http://192.168.2.139:8000';
-    private const SIMULACION_URL = 'http://192.168.2.139:8080';
+    private const SERVER_URL = 'http://192.168.1.150:8000';
+    private const SIMULACION_URL = 'http://192.168.1.150:8080';
 
     /*
     |--------------------------------------------------------------------------
@@ -679,123 +679,134 @@ class TachosController extends BaseController
             );
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | ELIMINAR ECO-TACHO DE LA LISTA
-    |--------------------------------------------------------------------------
-    */
+/**
+ * --------------------------------------------------------------------------
+ * ELIMINAR ECO-TACHO DE LA LISTA
+ * --------------------------------------------------------------------------
+ 
+ */
+public function eliminar($id)
+{
+    $usuarioId = $this->requireUser();
 
-    public function eliminar($id)
-    {
-        $usuarioId = $this->requireUser();
-
-        if (!$usuarioId) {
-            return $this->response
-                ->setStatusCode(401)
-                ->setJSON([
-                    'success' => false,
-                    'message' => 'Debes iniciar sesión.'
-                ]);
-        }
-
-        $id = (int) $id;
-
-        $acceso = $this->acceso($id, $usuarioId);
-
-        if (!$acceso) {
-            return $this->response
-                ->setStatusCode(403)
-                ->setJSON([
-                    'success' => false,
-                    'message' => 'No tenés acceso a este Eco-Tacho.'
-                ]);
-        }
-
-        $db = \Config\Database::connect();
-
-        $tacho = $db->table('dispositivos')
-            ->where('id', $id)
-            ->get()
-            ->getFirstRow();
-
-        if (!$tacho) {
-            return $this->response
-                ->setStatusCode(404)
-                ->setJSON([
-                    'success' => false,
-                    'message' => 'Eco-Tacho no encontrado.'
-                ]);
-        }
-
-
-
-$db->transStart();
-
-// Quitamos el bloque que ponía 'propietario_id' en null.
-// Solo modificamos la tabla dispositivos para deshabilitar el hardware en el servidor si así lo deseas,
-// pero manteniendo intacto al dueño real.
-       $db->table('usuario_dispositivo')
-            ->where('usuario_id', $usuarioId)
-            ->where('dispositivo_id', $id)
-            ->delete();
-
-
-// Borramos EXCLUSIVAMENTE la relación del usuario con el tacho
-$db->table('usuario_dispositivo')
-    ->where('usuario_id', $usuarioId)
-    ->where('dispositivo_id', $id)
-    ->delete();
-
-
-        $db->transComplete();
-
-        if (!$db->transStatus()) {
-            return $this->response
-                ->setStatusCode(500)
-                ->setJSON([
-                    'success' => false,
-                    'message' => 'No se pudo eliminar el Eco-Tacho.'
-                ]);
-        }
-
-        if (
-            $rol === 'propietario'
-            && !empty($tacho->codigo_activacion)
-        ) {
-            try {
-                $client = \Config\Services::curlrequest([
-                    'timeout' => 5,
-                    'http_errors' => false
-                ]);
-
-                $client->post(
-                    self::SERVER_URL . '/deshabilitar-dispositivo',
-                    [
-                        'json' => [
-                            'codigo' => $tacho->codigo_activacion
-                        ]
-                    ]
-                );
-            } catch (\Throwable $e) {
-                log_message(
-                    'error',
-                    'Error deshabilitando dispositivo: ' . $e->getMessage()
-                );
-            }
-        }
-
-        if (
-            (int) session()->get('dispositivo_actual') === $id
-        ) {
-            session()->remove('dispositivo_actual');
-        }
-
+    if (!$usuarioId) {
         return $this->response
+            ->setStatusCode(401)
             ->setJSON([
-                'success' => true,
-                'message' => 'Eco-Tacho eliminado correctamente.'
+                'success' => false,
+                'message' => 'Debes iniciar sesión.'
             ]);
     }
+
+    $id = (int) $id;
+
+    // ------------------------------------------------------------
+    // Verificar que el usuario tenga relación con el Eco-Tacho
+    // ------------------------------------------------------------
+
+    $acceso = $this->acceso($id, $usuarioId);
+
+    if (!$acceso) {
+        return $this->response
+            ->setStatusCode(403)
+            ->setJSON([
+                'success' => false,
+                'message' => 'No tenés acceso a este Eco-Tacho.'
+            ]);
+    }
+
+    $db = \Config\Database::connect();
+
+    // ------------------------------------------------------------
+    // Verificar que el Eco-Tacho exista
+    // ------------------------------------------------------------
+
+    $tacho = $db->table('dispositivos')
+        ->where('id', $id)
+        ->get()
+        ->getFirstRow();
+
+    if (!$tacho) {
+        return $this->response
+            ->setStatusCode(404)
+            ->setJSON([
+                'success' => false,
+                'message' => 'Eco-Tacho no encontrado.'
+            ]);
+    }
+
+    // ------------------------------------------------------------
+    // Obtener el rol real del usuario
+    // ------------------------------------------------------------
+
+    $rol = $this->obtenerRol(
+        $id,
+        $usuarioId,
+        $acceso
+    );
+
+    // ------------------------------------------------------------
+    // ELIMINAR SOLAMENTE LA RELACIÓN
+    // ------------------------------------------------------------
+    //
+    // NO hacemos:
+    //
+    // propietario_id = NULL
+    //
+    // NO hacemos:
+    //
+    // habilitado = 0
+    //
+    // NO llamamos a:
+    //
+    // /deshabilitar-dispositivo
+    //
+    // El Eco-Tacho permanece funcionando.
+    //
+
+    $db->transStart();
+
+    $db->table('usuario_dispositivo')
+        ->where('usuario_id', $usuarioId)
+        ->where('dispositivo_id', $id)
+        ->delete();
+
+    $db->transComplete();
+
+    // ------------------------------------------------------------
+    // Verificar transacción
+    // ------------------------------------------------------------
+
+    if (!$db->transStatus()) {
+        return $this->response
+            ->setStatusCode(500)
+            ->setJSON([
+                'success' => false,
+                'message' => 'No se pudo eliminar el Eco-Tacho.'
+            ]);
+    }
+
+    // ------------------------------------------------------------
+    // Si era el dispositivo seleccionado actualmente,
+    // quitarlo de la sesión.
+    // ------------------------------------------------------------
+
+    if (
+        (int) session()->get('dispositivo_actual') === $id
+    ) {
+        session()->remove('dispositivo_actual');
+    }
+
+    // ------------------------------------------------------------
+    // RESPUESTA
+    // ------------------------------------------------------------
+
+    return $this->response
+        ->setJSON([
+            'success' => true,
+            'message' => 'Eco-Tacho eliminado de tu lista correctamente.'
+        ]);
+}
 
     /*
     |--------------------------------------------------------------------------

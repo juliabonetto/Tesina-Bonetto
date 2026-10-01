@@ -277,6 +277,25 @@ class UsuarioController extends BaseController
         return $this->response->setJSON(['success' => true]);
     }
 
+public function seleccionarTacho(int $dispositivoId)
+{
+    if ($redirect = $this->verificarSesion()) {
+        return $redirect;
+    }
+
+    // Verificar que el usuario realmente tenga acceso al tacho
+    if (!$this->tieneAccesoDispositivo($dispositivoId)) {
+        return redirect()->to('/principal')
+            ->with('error', 'No tenés acceso a este Eco-Tacho.');
+    }
+
+    // Guardar el tacho seleccionado en la sesión
+    session()->set('dispositivo_actual', $dispositivoId);
+
+    // Volver al dashboard
+    return redirect()->to('/principal');
+}
+
     public function cerrarSesion()
     {
         session()->destroy();
