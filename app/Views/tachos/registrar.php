@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+>
+
 <title>Registrar Eco-Tacho | EcoS-cam</title>
 
 <style>
+
 body{
     margin:0;
     background:#f7faf7;
@@ -37,18 +44,34 @@ body{
     margin-top:20px
 }
 
+h1{
+    margin-top:0;
+}
+
+h2{
+    margin-top:25px;
+}
+
 label{
     display:block;
     font-weight:700;
     margin:15px 0 7px
 }
 
-input,select{
+input,
+select{
     width:100%;
     padding:13px;
     border:1px solid #dfe8e1;
     border-radius:10px;
-    box-sizing:border-box
+    box-sizing:border-box;
+    font-family:inherit;
+    font-size:15px;
+}
+
+input:disabled{
+    background:#f1f3f1;
+    color:#555;
 }
 
 button{
@@ -60,7 +83,12 @@ button{
     background:#2f7a3f;
     color:#fff;
     font-weight:700;
-    cursor:pointer
+    cursor:pointer;
+    font-size:15px;
+}
+
+button:hover{
+    background:#256333;
 }
 
 .error{
@@ -68,7 +96,7 @@ button{
     color:#a32121;
     padding:12px;
     border-radius:10px;
-    margin-bottom:15px
+    margin-bottom:15px;
 }
 
 .info{
@@ -76,8 +104,29 @@ button{
     color:#1f4d2b;
     padding:12px;
     border-radius:10px;
-    margin-bottom:15px
+    margin-bottom:15px;
 }
+
+.success-box{
+    background:#e8f4ea;
+    color:#1f4d2b;
+    padding:16px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.ayuda{
+    color:#66736a;
+    font-size:14px;
+    margin-top:6px;
+}
+
+.separador{
+    height:1px;
+    background:#e1e8e2;
+    margin:25px 0;
+}
+
 </style>
 
 </head>
@@ -86,7 +135,10 @@ button{
 
 <div class="container">
 
-<a class="btn" href="<?= site_url('mis-tachos') ?>">
+<a
+    class="btn"
+    href="<?= site_url('mis-tachos') ?>"
+>
     ← Volver
 </a>
 
@@ -94,75 +146,169 @@ button{
 
 <h1>Registrar Eco-Tacho</h1>
 
-<p>Ingresá el código que te mostró la ESP32.</p>
 
 <?php if (session()->getFlashdata('error')): ?>
 
-```
 <div class="error">
     <?= esc(session()->getFlashdata('error')) ?>
 </div>
-```
 
 <?php endif; ?>
+
 
 <?php if (session()->getFlashdata('warning')): ?>
 
-```
 <div class="error">
     <?= esc(session()->getFlashdata('warning')) ?>
 </div>
-```
 
 <?php endif; ?>
+
 
 <?php if (session()->getFlashdata('success')): ?>
 
-```
 <div class="info">
     <?= esc(session()->getFlashdata('success')) ?>
 </div>
-```
 
 <?php endif; ?>
 
-<form action="<?= base_url('guardar-tacho') ?>" method="post">
+
+<?php if (!isset($dispositivo)): ?>
+
+
+<!-- ====================================================== -->
+<!-- PASO 1: INGRESAR CÓDIGO                                -->
+<!-- ====================================================== -->
+
+<h2>Buscar Eco-Tacho</h2>
+
+<p>
+    Ingresá el código de activación que te mostró la ESP32.
+</p>
+
+<form
+    action="<?= base_url('buscar-tacho-por-codigo') ?>"
+    method="post"
+>
 
 <?= csrf_field() ?>
 
-<label for="codigo_activacion">
+<label for="codigo">
     Código de activación
 </label>
 
 <input
-id="codigo_activacion"
-name="codigo_activacion"
-maxlength="6"
-minlength="6"
-style="text-transform:uppercase"
-required
-
+    id="codigo"
+    name="codigo"
+    maxlength="6"
+    minlength="6"
+    placeholder="Ej. ABC123"
+    style="text-transform:uppercase"
+    value="<?= old('codigo') ?>"
+    required
 >
+
+<div class="ayuda">
+    Ingresá los 6 caracteres del código que aparece en la
+    configuración de tu Eco-Tacho.
+</div>
+
+<button type="submit">
+    🔍 Buscar Eco-Tacho
+</button>
+
+</form>
+
+
+<?php else: ?>
+
+
+<!-- ====================================================== -->
+<!-- PASO 2: CONFIGURAR EL TACHO                            -->
+<!-- ====================================================== -->
+
+<h2>Eco-Tacho encontrado</h2>
+
+<div class="success-box">
+
+<strong>✅ Eco-Tacho encontrado correctamente</strong>
+
+<p>
+    El código ingresado corresponde a este Eco-Tacho.
+</p>
+
+</div>
+
+
+<form
+    action="<?= base_url('asignar-tacho') ?>"
+    method="post"
+>
+
+<?= csrf_field() ?>
+
+
+<input
+    type="hidden"
+    name="dispositivo_id"
+    value="<?= esc($dispositivo->id) ?>"
+>
+
+
+<!-- ------------------------------------------------------ -->
+<!-- CÓDIGO                                                 -->
+<!-- ------------------------------------------------------ -->
+
+<label for="codigo_mostrado">
+    Código de activación
+</label>
+
+<input
+    id="codigo_mostrado"
+    value="<?= esc($dispositivo->codigo_activacion) ?>"
+    disabled
+>
+
+
+<!-- ------------------------------------------------------ -->
+<!-- NOMBRE                                                 -->
+<!-- ------------------------------------------------------ -->
 
 <label for="nombre">
     Nombre del Eco-Tacho
 </label>
 
 <input
-id="nombre"
-name="nombre"
-placeholder="Ej. Eco-Tacho 1"
-required
-
+    id="nombre"
+    name="nombre"
+    value="<?= esc($dispositivo->nombre) ?>"
+    required
 >
+
+<div class="ayuda">
+    Este es el nombre que configuraste desde el celular.
+    Podés editarlo si lo escribiste incorrectamente.
+</div>
+
+
+<div class="separador"></div>
+
+
+<!-- ------------------------------------------------------ -->
+<!-- TIPO                                                   -->
+<!-- ------------------------------------------------------ -->
 
 <label for="tipo">
     Tipo
 </label>
 
-<select name="tipo" id="tipo" required>
+<select
+    name="tipo"
+    id="tipo"
+    required
+>
 
-```
 <option value="">
     Seleccioná un tipo
 </option>
@@ -182,30 +328,44 @@ required
 <option value="municipal">
     Municipal
 </option>
-```
 
 </select>
+
+
+<!-- ------------------------------------------------------ -->
+<!-- UBICACIÓN                                              -->
+<!-- ------------------------------------------------------ -->
 
 <label for="ubicacion">
     Ubicación
 </label>
 
 <input
-name="ubicacion"
-id="ubicacion"
-placeholder="Ej. Cocina, oficina"
-
+    name="ubicacion"
+    id="ubicacion"
+    placeholder="Ej. Cocina, oficina"
+    value="<?= esc($dispositivo->ubicacion ?? '') ?>"
+    required
 >
 
+
+<!-- ------------------------------------------------------ -->
+<!-- CONFIRMAR                                              -->
+<!-- ------------------------------------------------------ -->
+
 <button type="submit">
-    ♻️ Registrar Eco-Tacho
+    ✅ Asignar como propietario
 </button>
 
 </form>
+
+
+<?php endif; ?>
 
 </div>
 
 </div>
 
 </body>
+
 </html>

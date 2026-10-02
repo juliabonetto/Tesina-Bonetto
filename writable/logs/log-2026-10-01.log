@@ -157,3 +157,568 @@ DEBUG - 2026-10-01 02:09:59 --> Session: Class initialized using 'CodeIgniter\Se
 ERROR - 2026-10-01 02:09:59 --> ECOSCAM DEBUG - dispositivo_id=38 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[{"id":"307","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:29","residuo":"vidrio","clasificacion":"manual","categoria_final":"organico"},{"id":"306","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:21","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"305","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:07","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"304","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:40","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"303","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:33","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"302","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:16","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"301","dispositivo_id":"38","fecha_hora":"2026-09-30 22:33:35","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"300","dispositivo_id":"38","fecha_hora":"2026-09-30 22:32:53","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"299","dispositivo_id":"38","fecha_hora":"2026-09-30 22:32:19","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"298","dispositivo_id":"38","fecha_hora":"2026-09-30 22:29:47","residuo":"papel","clasificacion":"automatica","categoria_final":null}]
 ERROR - 2026-10-01 02:09:59 --> ECOSCAM DEBUG - dispositivo_id=38 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[{"id":"307","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:29","residuo":"vidrio","clasificacion":"manual","categoria_final":"organico"},{"id":"306","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:21","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"305","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:07","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"304","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:40","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"303","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:33","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"302","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:16","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"301","dispositivo_id":"38","fecha_hora":"2026-09-30 22:33:35","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"300","dispositivo_id":"38","fecha_hora":"2026-09-30 22:32:53","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"299","dispositivo_id":"38","fecha_hora":"2026-09-30 22:32:19","residuo":"vidrio","clasificacion":"manual","categoria_final":null},{"id":"298","dispositivo_id":"38","fecha_hora":"2026-09-30 22:29:47","residuo":"papel","clasificacion":"automatica","categoria_final":null}]
 DEBUG - 2026-10-01 00:03:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 08:27:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 08:32:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 08:32:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 08:32:30 --> ECOSCAM DEBUG - dispositivo_id=19 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[]
+ERROR - 2026-10-01 08:32:30 --> ECOSCAM DEBUG - dispositivo_id=19 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[]
+DEBUG - 2026-10-01 08:32:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 08:32:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 08:32:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 09:36:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 09:43:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 09:43:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 09:43:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 09:43:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 09:43:20 --> ECOSCAM DEBUG - dispositivo_id=38 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[{"id":"312","dispositivo_id":"38","fecha_hora":"2026-10-01 09:41:52","residuo":"vidrio","clasificacion":"manual","categoria_final":"organico"},{"id":"311","dispositivo_id":"38","fecha_hora":"2026-10-01 09:41:29","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"310","dispositivo_id":"38","fecha_hora":"2026-10-01 09:38:26","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"309","dispositivo_id":"38","fecha_hora":"2026-10-01 09:38:13","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"308","dispositivo_id":"38","fecha_hora":"2026-09-30 23:13:12","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"307","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:29","residuo":"vidrio","clasificacion":"manual","categoria_final":"organico"},{"id":"306","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:21","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"305","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:07","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"304","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:40","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"303","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:33","residuo":"vidrio","clasificacion":"manual","categoria_final":null}]
+ERROR - 2026-10-01 09:43:20 --> ECOSCAM DEBUG - dispositivo_id=38 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[{"id":"312","dispositivo_id":"38","fecha_hora":"2026-10-01 09:41:52","residuo":"vidrio","clasificacion":"manual","categoria_final":"organico"},{"id":"311","dispositivo_id":"38","fecha_hora":"2026-10-01 09:41:29","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"310","dispositivo_id":"38","fecha_hora":"2026-10-01 09:38:26","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"309","dispositivo_id":"38","fecha_hora":"2026-10-01 09:38:13","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"308","dispositivo_id":"38","fecha_hora":"2026-09-30 23:13:12","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"307","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:29","residuo":"vidrio","clasificacion":"manual","categoria_final":"organico"},{"id":"306","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:21","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"305","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:07","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"304","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:40","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"303","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:33","residuo":"vidrio","clasificacion":"manual","categoria_final":null}]
+DEBUG - 2026-10-01 09:47:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 09:47:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 09:47:14 --> ECOSCAM DEBUG - dispositivo_id=38 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[{"id":"312","dispositivo_id":"38","fecha_hora":"2026-10-01 09:41:52","residuo":"vidrio","clasificacion":"manual","categoria_final":"organico"},{"id":"311","dispositivo_id":"38","fecha_hora":"2026-10-01 09:41:29","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"310","dispositivo_id":"38","fecha_hora":"2026-10-01 09:38:26","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"309","dispositivo_id":"38","fecha_hora":"2026-10-01 09:38:13","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"308","dispositivo_id":"38","fecha_hora":"2026-09-30 23:13:12","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"307","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:29","residuo":"vidrio","clasificacion":"manual","categoria_final":"organico"},{"id":"306","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:21","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"305","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:07","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"304","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:40","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"303","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:33","residuo":"vidrio","clasificacion":"manual","categoria_final":null}]
+ERROR - 2026-10-01 09:47:14 --> ECOSCAM DEBUG - dispositivo_id=38 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[{"id":"312","dispositivo_id":"38","fecha_hora":"2026-10-01 09:41:52","residuo":"vidrio","clasificacion":"manual","categoria_final":"organico"},{"id":"311","dispositivo_id":"38","fecha_hora":"2026-10-01 09:41:29","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"310","dispositivo_id":"38","fecha_hora":"2026-10-01 09:38:26","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"309","dispositivo_id":"38","fecha_hora":"2026-10-01 09:38:13","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"308","dispositivo_id":"38","fecha_hora":"2026-09-30 23:13:12","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"307","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:29","residuo":"vidrio","clasificacion":"manual","categoria_final":"organico"},{"id":"306","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:21","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"305","dispositivo_id":"38","fecha_hora":"2026-09-30 22:39:07","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"304","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:40","residuo":"papel","clasificacion":"automatica","categoria_final":null},{"id":"303","dispositivo_id":"38","fecha_hora":"2026-09-30 22:34:33","residuo":"vidrio","clasificacion":"manual","categoria_final":null}]
+DEBUG - 2026-10-01 09:47:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 09:47:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 09:48:23 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 09:48:23 --> 220 smtp.gmail.com ESMTP ada2fe7eead31-7bfa44169cfsm2746402137.2 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [201.231.231.152]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [201.231.231.152]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired ada2fe7eead31-7bfa44169cfsm2746402137.2 - gsmtp
+
+DEBUG - 2026-10-01 09:48:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 09:48:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 09:57:26 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 09:57:26 --> 220 smtp.gmail.com ESMTP a1e0cc1a2514c-98a8701066bsm3176296241.5 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [201.231.231.152]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [201.231.231.152]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired a1e0cc1a2514c-98a8701066bsm3176296241.5 - gsmtp
+
+ERROR - 2026-10-01 09:57:26 --> 220 smtp.gmail.com ESMTP a1e0cc1a2514c-98a8701066bsm3176296241.5 - gsmtp
+<br><pre>hello: 250-smtp.gmail.com at your service, [201.231.231.152]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+</pre><pre>starttls: 220 2.0.0 Ready to start TLS
+</pre><pre>hello: 250-smtp.gmail.com at your service, [201.231.231.152]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+</pre>Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired a1e0cc1a2514c-98a8701066bsm3176296241.5 - gsmtp
+<br>Unable to send email using SMTP. Your server might not be configured to send mail using this method.<br><pre>Date: Thu, 1 Oct 2026 09:57:20 -0300
+To: juliabonetto@alumnos.itr3.edu.ar
+Subject: =?UTF-8?Q?Recuperaci=C3=B3n=20de=20contrase=C3=B1a=20|=20EcoScam?=
+From: &quot;EcoScam&quot; &lt;ecoscam2026@gmail.com&gt;
+Return-Path: &lt;ecoscam2026@gmail.com&gt;
+Reply-To: &lt;ecoscam2026@gmail.com&gt;
+User-Agent: CodeIgniter
+X-Sender: ecoscam2026@gmail.com
+X-Mailer: CodeIgniter
+X-Priority: 3 (Normal)
+Message-ID: &lt;6abe58b0f23bc3.40506623@gmail.com&gt;
+Mime-Version: 1.0
+
+</pre>
+DEBUG - 2026-10-01 09:57:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 09:57:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 09:58:21 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 09:58:21 --> 220 smtp.gmail.com ESMTP 71dfb90a1353d-5d7fb8e0b61sm3078821e0c.9 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [201.231.231.152]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [201.231.231.152]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired 71dfb90a1353d-5d7fb8e0b61sm3078821e0c.9 - gsmtp
+
+DEBUG - 2026-10-01 18:02:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 18:02:15 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:02:15 --> 220 smtp.gmail.com ESMTP ada2fe7eead31-7c100a5c965sm544976137.12 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired ada2fe7eead31-7c100a5c965sm544976137.12 - gsmtp
+
+ERROR - 2026-10-01 18:02:15 --> 220 smtp.gmail.com ESMTP ada2fe7eead31-7c100a5c965sm544976137.12 - gsmtp
+<br><pre>hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+</pre><pre>starttls: 220 2.0.0 Ready to start TLS
+</pre><pre>hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+</pre>Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired ada2fe7eead31-7c100a5c965sm544976137.12 - gsmtp
+<br>Unable to send email using SMTP. Your server might not be configured to send mail using this method.<br><pre>Date: Thu, 1 Oct 2026 18:02:10 -0300
+To: juliabonetto@alumnos.itr3.edu.ar
+Subject: =?UTF-8?Q?Recuperaci=C3=B3n=20de=20contrase=C3=B1a=20|=20EcoScam?=
+From: &quot;EcoScam&quot; &lt;ecoscam2026@gmail.com&gt;
+Return-Path: &lt;ecoscam2026@gmail.com&gt;
+Reply-To: &lt;ecoscam2026@gmail.com&gt;
+User-Agent: CodeIgniter
+X-Sender: ecoscam2026@gmail.com
+X-Mailer: CodeIgniter
+X-Priority: 3 (Normal)
+Message-ID: &lt;6abeca52a72045.72809054@gmail.com&gt;
+Mime-Version: 1.0
+
+</pre>
+DEBUG - 2026-10-01 18:02:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 18:02:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 18:16:16 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:16:16 --> 220 smtp.gmail.com ESMTP 71dfb90a1353d-5da568a76f6sm1273673e0c.0 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired 71dfb90a1353d-5da568a76f6sm1273673e0c.0 - gsmtp
+
+ERROR - 2026-10-01 18:18:06 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:18:06 --> 220 smtp.gmail.com ESMTP 71dfb90a1353d-5da568a76f6sm1278760e0c.0 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired 71dfb90a1353d-5da568a76f6sm1278760e0c.0 - gsmtp
+
+ERROR - 2026-10-01 18:19:08 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:19:08 --> 220 smtp.gmail.com ESMTP 71dfb90a1353d-5da641687a9sm1259416e0c.17 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired 71dfb90a1353d-5da641687a9sm1259416e0c.17 - gsmtp
+
+ERROR - 2026-10-01 18:26:52 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:26:52 --> 220 smtp.gmail.com ESMTP a1e0cc1a2514c-98b19af6040sm1149562241.2 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired a1e0cc1a2514c-98b19af6040sm1149562241.2 - gsmtp
+
+ERROR - 2026-10-01 18:26:58 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:26:58 --> 220 smtp.gmail.com ESMTP ada2fe7eead31-7c0ffaeedf5sm640776137.7 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired ada2fe7eead31-7c0ffaeedf5sm640776137.7 - gsmtp
+
+ERROR - 2026-10-01 18:27:06 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:27:06 --> 220 smtp.gmail.com ESMTP ada2fe7eead31-7c100026109sm611228137.9 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired ada2fe7eead31-7c100026109sm611228137.9 - gsmtp
+
+ERROR - 2026-10-01 18:30:47 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:30:47 --> 220 smtp.gmail.com ESMTP 71dfb90a1353d-5da6120ca33sm1340983e0c.3 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired 71dfb90a1353d-5da6120ca33sm1340983e0c.3 - gsmtp
+
+ERROR - 2026-10-01 18:35:44 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:35:44 --> 220 smtp.gmail.com ESMTP a1e0cc1a2514c-98b2efc2ec4sm1146323241.7 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired a1e0cc1a2514c-98b2efc2ec4sm1146323241.7 - gsmtp
+
+ERROR - 2026-10-01 18:39:05 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:39:05 --> 220 smtp.gmail.com ESMTP 71dfb90a1353d-5da63f7438dsm1209956e0c.16 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired 71dfb90a1353d-5da63f7438dsm1209956e0c.16 - gsmtp
+
+ERROR - 2026-10-01 18:39:39 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:39:39 --> 220 smtp.gmail.com ESMTP ada2fe7eead31-7c0ffe0d521sm661073137.8 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired ada2fe7eead31-7c0ffe0d521sm661073137.8 - gsmtp
+
+ERROR - 2026-10-01 18:42:20 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:42:20 --> 220 smtp.gmail.com ESMTP ada2fe7eead31-7c100026109sm643482137.9 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired ada2fe7eead31-7c100026109sm643482137.9 - gsmtp
+
+ERROR - 2026-10-01 18:42:43 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:42:43 --> 220 smtp.gmail.com ESMTP 71dfb90a1353d-5da61112dfesm1371750e0c.4 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired 71dfb90a1353d-5da61112dfesm1371750e0c.4 - gsmtp
+
+ERROR - 2026-10-01 18:43:49 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2026-10-01 18:43:49 --> 220 smtp.gmail.com ESMTP 71dfb90a1353d-5da62a2c99fsm1335356e0c.12 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [190.122.38.29]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 534-5.7.9 Please log in with your web browser and then try again. For more
+534-5.7.9 information, go to
+534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired 71dfb90a1353d-5da62a2c99fsm1335356e0c.12 - gsmtp
+
+DEBUG - 2026-10-01 18:52:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 18:52:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 19:12:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 19:12:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-10-01 19:12:11 --> ECOSCAM DEBUG - dispositivo_id=19 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[]
+ERROR - 2026-10-01 19:12:11 --> ECOSCAM DEBUG - dispositivo_id=19 | FECHA PHP=2026-10-01 | ULTIMOS REGISTROS=[]
+DEBUG - 2026-10-01 19:12:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-10-01 19:12:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

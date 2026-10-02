@@ -7,8 +7,8 @@ use App\Models\UsuarioDispositivoModel;
 
 class TachosController extends BaseController
 {
-    private const SERVER_URL = 'http://192.168.1.150:8000';
-    private const SIMULACION_URL = 'http://192.168.1.150:8080';
+    private const SERVER_URL = 'http://192.168.2.14:8000';
+    private const SIMULACION_URL = 'http://192.168.2.114:8080';
 
     /*
     |--------------------------------------------------------------------------
@@ -513,53 +513,94 @@ class TachosController extends BaseController
     | BUSCAR TACHO POR CÓDIGO
     |--------------------------------------------------------------------------
     */
+public function buscarPorCodigo()
+{
+    $usuarioId = $this->requireUser();
 
-    public function buscarPorCodigo()
-    {
-        $usuarioId = $this->requireUser();
-
-        if (!$usuarioId) {
-            return $this->response
-                ->setStatusCode(401)
-                ->setJSON([
-                    'success' => false,
-                    'message' => 'Debes iniciar sesión.'
-                ]);
-        }
-
-        $codigo = trim(
-            (string) $this->request->getPost('codigo_activacion')
-        );
-
-        if ($codigo === '') {
-            return $this->response
-                ->setJSON([
-                    'success' => false,
-                    'message' => 'Debes ingresar un código.'
-                ]);
-        }
-
-        $db = \Config\Database::connect();
-
-        $tacho = $db->table('dispositivos')
-            ->where('codigo_activacion', $codigo)
-            ->get()
-            ->getFirstRow();
-
-        if (!$tacho) {
-            return $this->response
-                ->setJSON([
-                    'success' => false,
-                    'message' => 'No se encontró el Eco-Tacho.'
-                ]);
-        }
-
-        return $this->response
-            ->setJSON([
-                'success' => true,
-                'tacho' => $tacho
-            ]);
+    if (!$usuarioId) {
+        return redirect()
+            ->to('/usuario/login')
+            ->with('error', 'Debes iniciar sesión primero.');
     }
+
+    $codigo = strtoupper(trim(
+        (string) $this->request->getPost('codigo')
+    ));
+
+    if ($codigo === '') {
+        return redirect()
+            ->to('/registrar-tacho')
+            ->withInput()
+            ->with(
+                'error',
+                'Debes ingresar el código de activación.'
+            );
+    }
+
+    if (strlen($codigo) !== 6) {
+        return redirect()
+            ->to('/registrar-tacho')
+            ->withInput()
+            ->with(
+                'error',
+                'El código de activación debe tener 6 caracteres.'
+            );
+    }
+
+    $db = \Config\Database::connect();
+
+    $tacho = $db->table('dispositivos')
+        ->where('codigo_activacion', $codigo)
+        ->get()
+        ->getFirstRow();
+
+    if (!$tacho) {
+        return redirect()
+            ->to('/registrar-tacho')
+            ->withInput()
+            ->with(
+                'error',
+                'No se encontró ningún Eco-Tacho con ese código.'
+            );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | VERIFICAR SI YA TIENE OTRO PROPIETARIO
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        !empty($tacho->propietario_id)
+        && (int) $tacho->propietario_id !== $usuarioId
+    ) {
+        return redirect()
+            ->to('/registrar-tacho')
+            ->withInput()
+            ->with(
+                'error',
+                'Este Eco-Tacho ya tiene un propietario.'
+            );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | MOSTRAR EL ECO-TACHO ENCONTRADO
+    |--------------------------------------------------------------------------
+    |
+    | Volvemos a la misma vista, pero ahora enviamos
+    | el dispositivo encontrado.
+    |
+    */
+
+    return view(
+        'tachos/registrar',
+        [
+            'dispositivo' => $tacho
+        ]
+    );
+}
+
 
     /*
     |--------------------------------------------------------------------------
@@ -567,117 +608,249 @@ class TachosController extends BaseController
     |--------------------------------------------------------------------------
     */
 
-    public function asignarPropietario()
-    {
-        $usuarioId = $this->requireUser();
+public function asignarPropietario()
+{
+    $usuarioId = $this->requireUser();
 
-        if (!$usuarioId) {
-            return redirect()
-                ->to('/usuario/login')
-                ->with('error', 'Debes iniciar sesión primero.');
-        }
+    if (!$usuarioId) {
+        return redirect()
+            ->to('/usuario/login')
+            ->with(
+                'error',
+                'Debes iniciar sesión primero.'
+            );
+    }
 
-        $codigo = trim(
-            (string) $this->request->getPost('codigo_activacion')
+    /*
+    |--------------------------------------------------------------------------
+    | DATOS RECIBIDOS DEL FORMULARIO
+    |--------------------------------------------------------------------------
+    */
+
+    $dispositivoId = (int) $this->request->getPost(
+        'dispositivo_id'
+    );
+
+    $nombre = trim(
+        (string) $this->request->getPost('nombre')
+    );
+
+    $tipo = trim(
+        (string) $this->request->getPost('tipo')
+    );
+
+    $ubicacion = trim(
+        (string) $this->request->getPost('ubicacion')
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | VALIDACIONES
+    |--------------------------------------------------------------------------
+    */
+
+    if ($dispositivoId <= 0) {
+        return redirect()
+            ->to('/registrar-tacho')
+            ->with(
+                'error',
+                'Eco-Tacho inválido.'
+            );
+    }
+
+    if ($nombre === '') {
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with(
+                'error',
+                'Debes ingresar un nombre para el Eco-Tacho.'
+            );
+    }
+
+    $tiposPermitidos = [
+        'residencial',
+        'institucional',
+        'empresarial',
+        'municipal'
+    ];
+
+    if (!in_array($tipo, $tiposPermitidos, true)) {
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with(
+                'error',
+                'Debes seleccionar un tipo válido.'
+            );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | BUSCAR DISPOSITIVO
+    |--------------------------------------------------------------------------
+    */
+
+    $db = \Config\Database::connect();
+
+    $tacho = $db->table('dispositivos')
+        ->where('id', $dispositivoId)
+        ->get()
+        ->getFirstRow();
+
+    if (!$tacho) {
+        return redirect()
+            ->to('/registrar-tacho')
+            ->with(
+                'error',
+                'No se encontró el Eco-Tacho.'
+            );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | VERIFICAR PROPIETARIO
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        !empty($tacho->propietario_id)
+        && (int) $tacho->propietario_id !== $usuarioId
+    ) {
+        return redirect()
+            ->to('/registrar-tacho')
+            ->with(
+                'error',
+                'Este Eco-Tacho ya tiene un propietario.'
+            );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | GUARDAR PROPIETARIO + DATOS DEL TACHO
+    |--------------------------------------------------------------------------
+    */
+
+    $db->transStart();
+
+    $db->table('dispositivos')
+        ->where('id', $dispositivoId)
+        ->update([
+            'nombre' => $nombre,
+            'tipo' => $tipo,
+            'ubicacion' => $ubicacion,
+            'propietario_id' => $usuarioId
+        ]);
+
+    /*
+    |--------------------------------------------------------------------------
+    | CREAR O ACTUALIZAR RELACIÓN USUARIO-DISPOSITIVO
+    |--------------------------------------------------------------------------
+    */
+
+    $relacion = $db->table('usuario_dispositivo')
+        ->where('usuario_id', $usuarioId)
+        ->where('dispositivo_id', $dispositivoId)
+        ->get()
+        ->getFirstRow();
+
+    if ($relacion) {
+
+        $db->table('usuario_dispositivo')
+            ->where('id', $relacion->id)
+            ->update([
+                'rol' => 'propietario'
+            ]);
+
+    } else {
+
+        $db->table('usuario_dispositivo')
+            ->insert([
+                'usuario_id' => $usuarioId,
+                'dispositivo_id' => $dispositivoId,
+                'rol' => 'propietario'
+            ]);
+    }
+
+    $db->transComplete();
+
+    /*
+    |--------------------------------------------------------------------------
+    | VERIFICAR TRANSACCIÓN
+    |--------------------------------------------------------------------------
+    */
+
+    if (!$db->transStatus()) {
+
+        return redirect()
+            ->to('/registrar-tacho')
+            ->with(
+                'error',
+                'No se pudo registrar el Eco-Tacho.'
+            );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | HABILITAR DISPOSITIVO
+    |--------------------------------------------------------------------------
+    */
+
+    $habilitado = false;
+
+    if (!empty($tacho->codigo_activacion)) {
+
+        $habilitado = $this->habilitarDispositivo(
+            $tacho->codigo_activacion
         );
+    }
 
-        if ($codigo === '') {
-            return redirect()
-                ->back()
-                ->with(
-                    'error',
-                    'Debes ingresar el código de activación.'
-                );
-        }
+    /*
+    |--------------------------------------------------------------------------
+    | GUARDAR ESTADO DE HABILITACIÓN
+    |--------------------------------------------------------------------------
+    */
 
-        $db = \Config\Database::connect();
+    $db->table('dispositivos')
+        ->where('id', $dispositivoId)
+        ->update([
+            'habilitado' => $habilitado ? 1 : 0
+        ]);
 
-        $tacho = $db->table('dispositivos')
-            ->where('codigo_activacion', $codigo)
-            ->get()
-            ->getFirstRow();
+    /*
+    |--------------------------------------------------------------------------
+    | SELECCIONAR ESTE ECO-TACHO
+    |--------------------------------------------------------------------------
+    */
 
-        if (!$tacho) {
-            return redirect()
-                ->back()
-                ->with(
-                    'error',
-                    'No se encontró el Eco-Tacho.'
-                );
-        }
+    session()->set(
+        'dispositivo_actual',
+        $dispositivoId
+    );
 
-        if (
-            !empty($tacho->propietario_id)
-            && (int) $tacho->propietario_id !== $usuarioId
-        ) {
-            return redirect()
-                ->back()
-                ->with(
-                    'error',
-                    'Este Eco-Tacho ya tiene propietario.'
-                );
-        }
+    /*
+    |--------------------------------------------------------------------------
+    | RESULTADO
+    |--------------------------------------------------------------------------
+    */
 
-        $db->transStart();
-
-        $db->table('dispositivos')
-            ->where('id', $tacho->id)
-            ->update([
-                'propietario_id' => $usuarioId
-            ]);
-
-        $relacion = $db->table('usuario_dispositivo')
-            ->where('usuario_id', $usuarioId)
-            ->where('dispositivo_id', $tacho->id)
-            ->get()
-            ->getFirstRow();
-
-        if ($relacion) {
-
-            $db->table('usuario_dispositivo')
-                ->where('id', $relacion->id)
-                ->update([
-                    'rol' => 'propietario'
-                ]);
-
-        } else {
-
-            $db->table('usuario_dispositivo')
-                ->insert([
-                    'usuario_id' => $usuarioId,
-                    'dispositivo_id' => $tacho->id,
-                    'rol' => 'propietario'
-                ]);
-        }
-
-        $db->transComplete();
-
-        if (!$db->transStatus()) {
-            return redirect()
-                ->back()
-                ->with(
-                    'error',
-                    'No se pudo asignar el propietario.'
-                );
-        }
-
-        $habilitado = $this->habilitarDispositivo($codigo);
-
-        $db->table('dispositivos')
-            ->where('id', $tacho->id)
-            ->update([
-                'habilitado' => $habilitado ? 1 : 0
-            ]);
+    if (!$habilitado) {
 
         return redirect()
             ->to('/mis-tachos')
             ->with(
-                $habilitado ? 'success' : 'warning',
-                $habilitado
-                    ? 'Eco-Tacho habilitado correctamente.'
-                    : 'El Eco-Tacho fue asignado, pero no se pudo habilitar en el servidor.'
+                'warning',
+                'El Eco-Tacho fue registrado, pero no se pudo habilitar el dispositivo en el servidor.'
             );
     }
+
+    return redirect()
+        ->to('/mis-tachos')
+        ->with(
+            'success',
+            'Eco-Tacho registrado y habilitado correctamente.'
+        );
+}
 
 /**
  * --------------------------------------------------------------------------

@@ -313,7 +313,7 @@
                     <!-- SIMULACIÓN: TODOS -->
                     <a
                         class="btn"
-                        href="<?= rtrim($simulacionUrl ?? 'http://192.168.1.150:8080', '/') ?>/tacho/<?= (int) $tacho->id ?>"
+                        href="<?= rtrim($simulacionUrl ?? 'http://192.168.2.114:8080', '/') ?>/tacho/<?= (int) $tacho->id ?>"
                         target="_blank"
                     >
                         🖥️ Abrir simulación
